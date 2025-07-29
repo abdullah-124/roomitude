@@ -5,8 +5,8 @@ import { CiUser,CiHeart,CiShoppingCart, CiSearch  } from "react-icons/ci";
 
 function Navbar() {
     return (
-        <nav className='bg-gray-200 padding py-2'>
-            <div className='grid grid-cols-5 items-center text-lg'>
+        <nav className='bg-gray-200  py-2'>
+            <div className='container grid grid-cols-5 items-center text-lg'>
                 <div className="flex gap-2 items-center">
                     <img src={logo} alt="" />
                     <h1 className='text-lg font-medium'>COMFORTY</h1>
