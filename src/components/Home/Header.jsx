@@ -7,7 +7,7 @@ import { RiSecurePaymentLine } from 'react-icons/ri'
 function Header() {
     return (
         <div className='container'>
-            <div className="padding bg-gray-200 pb-10">
+            <div className="padding bg-gray-200 pb-10 rounded-lg">
                 <section className='grid md:grid-cols-2 grid-cols-1 md:gap-2 gap-5 items-center'>
                     <div className='md:order-1 order-2 md:text-start text-center'>
                         <p className='uppercase'>Wellcome to roomitude</p>
@@ -26,8 +26,8 @@ function Header() {
                 </section>
             </div>
             {/* feature */}
-            <section className='padding -translate-y-[20px]'>
-                <div className='bg-white shadow p-5 rounded-2xl grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 items-center'>
+            <section className='padding -translate-y-[30px]'>
+                <div className='bg-white shadow p-5 rounded-lg grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 items-center'>
                     <div className='flex gap-3 items-center'>
                         <SlSocialDropbox className='text-7xl' />
                         <div>

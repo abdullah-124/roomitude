@@ -1,14 +1,36 @@
 @import "tailwindcss";
 
-body{
-    @apply text-blue-950 ;
+:root {
+    --hlcolor: #465C88;
+    --text: #000000;
+    --sbg: #FF7A30;
+    --bg: #E9E3DF;
 }
-.container{
+
+body {
+    @apply text-[var(--text)];
+}
+.text_s{
+    color: var(--hlcolor);
+}
+.text_hl{
+    color: var(--sbg);
+}
+.container {
     @apply max-w-[1400px] mx-auto lg:px-15 md:px-10 sm:px-8 px-5;
 }
-.padding{
+
+.padding {
     @apply lg:px-15 md:px-10 sm:px-5 px-3;
 }
-.btn{
-    @apply p-1 px-3 bg-cyan-500 text-center font-medium rounded-lg text-white
+
+.btn {
+    @apply p-1 px-3 bg-[var(--sbg)] text-center font-medium rounded-lg text-[var(--bg)]
+}
+.input{
+    @apply w-full outline-none  px-2 p-1;
+}
+.hover:hover{
+    transition: .3s;
+    color: var(--sbg);
 }
