@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
-.navLink{
-    @apply px-3 py-2  transition-all hover:text-[var(--sbg)];
+.navLink {
+    @apply px-3 py-2 transition-all hover:text-[var(--sbg)];
+}
+
+.active {
+    @apply px-3 py-2 transition-all text-[var(--sbg)];
+}
+
+@keyframes expand {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.expand {
+    animation: expand 0.5s forwards;
 }

@@ -25,7 +25,7 @@ function Products({ limit = 0 }) {
     <section className='container'>
       <div>
         <h2 className='text-xl text-center font-medium'>Our Products</h2>
-        <ul className='flex justify-center flex-wrap my-3'>
+        <ul className='flex justify-center flex-wrap my-3 text-sm'>
           <li><a className='navLink' href="">All</a></li>
           <li><a className='navLink' href="">Newest</a></li>
           <li><a className='navLink' href="">Trending</a></li>

@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '/logo.png'
 import { GiRockingChair } from "react-icons/gi";
-import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci";
-import { NavLink } from 'react-router';
+import { CiUser, CiHeart, CiShoppingCart, CiSearch, CiMenuBurger } from "react-icons/ci";
+import { Link, NavLink } from 'react-router';
+import { MdClose } from 'react-icons/md';
 
 function Navbar() {
+    const [show, setShow] = useState(false)
+    const [user, setUser] = useState(null)
     return (
         <>
             <nav className='bg-gray-200  py-2'>
@@ -20,7 +23,7 @@ function Navbar() {
                             <input placeholder='Search here...' className='input' type="text" />
                             <button className='pe-2'><CiSearch /></button>
                         </form>
-                        
+
                     </div>
                     {/* user info */}
                     <div className='md:order-3 order-2'>
@@ -29,26 +32,48 @@ function Navbar() {
                                 <CiShoppingCart />
                                 <p className='text-sm'>29</p>
                             </div>
-                            <div className='bg-white p-1 rounded hover'><CiHeart /></div>
-                            <div className='bg-white p-1 rounded hover'><CiUser /></div>
+                            {
+                                user ? <>
+                                    <div className='bg-white p-1 rounded hover'><CiHeart /></div>
+                                    <div className='bg-white p-1 rounded hover'><CiUser /></div>
+                                </>:
+                                <>
+                                <Link to={'/account'} className='btn'>Login</Link>
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
             </nav>
             {/* navlink */}
-            <div className='py-3 container flex justify-between items-center'>
-                <div className='md:hidden block'>
-                    menu
+            <div className='py-3 container flex justify-between items-center relative'>
+                <div onClick={() => setShow(!show)} className='md:hidden block text-2xl'>
+                    {
+                        show ? <MdClose /> : <CiMenuBurger />
+                    }
                 </div>
+                {/* large device  */}
                 <ul className='md:flex hidden'>
                     <li><NavLink to='' className='navLink'>All Categories</NavLink></li>
                     <li><NavLink to='' className='navLink'>Home</NavLink></li>
-                    <li><NavLink to='' className='navLink'>Shop</NavLink></li>
-                    <li><NavLink to='/products/' className='navLink'>Products</NavLink></li>
-                    <li><NavLink to='' className='navLink'>About</NavLink></li>
+                    <li><NavLink to='/products/' className={({ isActive }) => isActive ? "active" : "navLink"
+                    }>Products</NavLink></li>
+                    <li><NavLink to='/about/' className={({ isActive }) => isActive ? "active" : "navLink"
+                    }>About</NavLink></li>
                 </ul>
+                {
+                    // mobile nav 
+                    show && <ul className='expand backdrop-blur-2xl absolute z-100 top-[100%] left-0 p-2 py-5 w-full  flex flex-col md:hidden'>
+                        <li className='navLink'>All Categories</li>
+                        <li><NavLink to='' className='navLink'>Home</NavLink></li>
+                        <li><NavLink to='/products/' className={({ isActive }) => isActive ? "active" : "navLink"
+                        }>Products</NavLink></li>
+                        <li><NavLink to='/about/' className={({ isActive }) => isActive ? "active" : "navLink"
+                        }>About</NavLink></li>
+                    </ul>
+                }
                 <div>
-                    <p>Contact: (808) 555-0111</p>
+                    <p className='text-xs md:text-sm'>Contact: (808) 555-0111</p>
                 </div>
             </div>
         </>

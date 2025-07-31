@@ -1,66 +1,58 @@
-import React from 'react'
-import chair from '/images/banner_chair.png'
-import { IoIosArrowRoundForward } from 'react-icons/io'
-import { SlSocialDropbox } from 'react-icons/sl'
-import { CiDeliveryTruck, CiTimer } from 'react-icons/ci'
-import { RiSecurePaymentLine } from 'react-icons/ri'
-function Header() {
-    return (
-        <div className='container'>
-            <div className="padding bg-gray-200 pb-10 rounded-lg">
-                <section className='grid md:grid-cols-2 grid-cols-1 md:gap-2 gap-5 items-center'>
-                    <div className='md:order-1 order-2 md:text-start text-center'>
-                        <p className='uppercase'>Wellcome to roomitude</p>
-                        <h1 className='lg:text-6xl text-4xl font-bold'>
-                            Best Furniture
-                            Collection for your
-                            interior.
-                        </h1>
-                        <button className='btn mt-3 inline-flex items-center gap-2'>Shop now
-                            <IoIosArrowRoundForward className='text-4xl' />
-                        </button>
-                    </div>
-                    <div className='md:order-2 order-1'>
-                        <img src={chair} alt="" />
-                    </div>
-                </section>
-            </div>
-            {/* feature */}
-            <section className='padding -translate-y-[30px]'>
-                <div className='bg-white shadow p-5 rounded-lg grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 items-center'>
-                    <div className='flex gap-3 items-center'>
-                        <SlSocialDropbox className='text-7xl' />
-                        <div>
-                            <h5 className='text-2xl font-medium'>Discount</h5>
-                            <p className='text-sm'>Every Week New Sales</p>
-                        </div>
-                    </div>
-                    <div className='flex gap-3 items-center'>
-                        <CiDeliveryTruck className='text-7xl' />
-                        <div>
-                            <h5 className='text-2xl font-medium'>Free Delivery</h5>
-                            <p className='text-sm'>100% Free for all orders</p>
-                        </div>
-                    </div>
-                    <div className='flex gap-3 items-center'>
-                        <CiTimer className='text-7xl' />
-                        <div>
-                            <h5 className='text-2xl font-medium'>Great Support 24/7</h5>
-                            <p className='text-sm'>We care your experiences</p>
-                        </div>
-                    </div>
-                    <div className='flex gap-3 items-center'>
-                        <RiSecurePaymentLine className='text-7xl' />
-                        <div>
-                            <h5 className='text-2xl font-medium'>Secure Payment
-                            </h5>
-                            <p className='text-sm'>100% Secure Payment Method</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    )
-}
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { IoIosArrowRoundForward } from "react-icons/io";
+import { Link } from "react-router";
 
-export default Header
+const items = [
+    { id: 1, title: "Best Furniture Collection for your interior.",description: "wellcome to roomitude", image: 'images/banner_chair1.png' },
+    { id: 2, title: "Crafted Comfort That Complements Every Modern Room",description: "Explore our top-rated chairs for every room.", image: 'images/banner_chair2.png'  },
+    { id: 3, title: "Style Your Space with Signature Seating Solutions", description: "Premium chairs built to last.", image: 'images/banner_chair3.png' },
+];
+
+export default function HeroSlider() {
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false, // hide arrows if you only want dots
+        appendDots: dots => (
+            <div>
+                <ul className=" flex justify-center gap-2">{dots}</ul>
+            </div>
+        ),
+        customPaging: i => (
+            <div className="w-3 h-3 bg-gray-400 rounded-full hover:bg-gray-600 transition"></div>
+        ),
+    };
+
+    return (
+        <section className=" container">
+            <div className="w-full rounded-lg bg-gray-200  pb-20">
+                <Slider {...settings}>
+                    {items.map(item => (
+                        <div className="padding">
+                            <section className='grid md:grid-cols-2 grid-cols-1 md:gap-2 gap-5 items-center'>
+                                <div className='md:order-1 order-2 md:text-start text-center'>
+                                    <p className='uppercase'>{item.description}</p>
+                                    <h1 className='lg:text-6xl text-4xl font-bold'>
+                                        {item.title}
+                                    </h1>
+                                    <Link to={'/products/'} className='btn mt-3 inline-flex items-center gap-2'>Shop now
+                                        <IoIosArrowRoundForward className='text-4xl' />
+                                    </Link>
+                                </div>
+                                <div className='md:order-2 order-1'>
+                                    <img src={item.image} alt="" />
+                                </div>
+                            </section>
+                        </div>
+                    ))}
+                </Slider>
+            </div>
+            {/* <Features /> */}
+        </section>
+    );
+}

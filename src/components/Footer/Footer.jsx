@@ -3,7 +3,7 @@ import paymentImg from '/images/payment.png'
 import { GiRockingChair } from "react-icons/gi";
 function Footer() {
   return (
-    <footer className='container mt-30'>
+    <footer className='bg-[var(--bg)] container mt-30'>
       <section className='py-5 grid md:grid-cols-3 grid-cols-1 gap-2'>
         <article>
           <div className='flex items-center gap-2 text-3xl font-bold'>

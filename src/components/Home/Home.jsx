@@ -5,11 +5,13 @@ import TopCategories from './TopCategories'
 import FeaturedProducts from './FeaturedProducts'
 import Products from '../Products/Products'
 import { Link } from 'react-router'
+import Features from './Features'
 
 function Home() {
   return (
     <div>
         <Header />
+        <Features />
         <Sponsors />
         <FeaturedProducts />
         <TopCategories />
