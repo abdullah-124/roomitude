@@ -33,7 +33,7 @@ function Footer() {
         <div className='text_s'>
           <p className="text_s">Newslatter</p>
           <form className='flex items-center gap-2' action="">
-            <input className='border rounded input' type="email" placeholder='your email' />
+            <input className='border border-[var(--sbg)] rounded input' type="email" placeholder='your email' />
             <button className='btn'>Subscribe</button>
           </form>
           <div>

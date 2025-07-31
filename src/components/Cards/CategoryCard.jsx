@@ -9,7 +9,7 @@ function CategoryCard({category}) {
                     alt={category.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                 />
-                <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-3">
+                <div className="absolute bottom-0 left-0 w-full bg-black/70 bg-opacity-50 text-white p-3">
                     <h3 className="text-sm font-medium">{category.title}</h3>
                     <p className="text-xs">{category.count}</p>
                 </div>

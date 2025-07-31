@@ -4,6 +4,7 @@ import Sponsors from './Sponsors'
 import TopCategories from './TopCategories'
 import FeaturedProducts from './FeaturedProducts'
 import Products from '../Products/Products'
+import { Link } from 'react-router'
 
 function Home() {
   return (
@@ -12,7 +13,12 @@ function Home() {
         <Sponsors />
         <FeaturedProducts />
         <TopCategories />
-        <Products />
+        <section>
+          <Products limit={6} />
+          <div className='text-center my-5'>
+            <Link to='/products/' className='btn'>View more</Link>
+          </div>
+        </section>
     </div>
   )
 }

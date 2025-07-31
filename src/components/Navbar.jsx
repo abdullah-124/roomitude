@@ -2,6 +2,7 @@ import React from 'react'
 import logo from '/logo.png'
 import { GiRockingChair } from "react-icons/gi";
 import { CiUser, CiHeart, CiShoppingCart, CiSearch } from "react-icons/ci";
+import { NavLink } from 'react-router';
 
 function Navbar() {
     return (
@@ -40,11 +41,11 @@ function Navbar() {
                     menu
                 </div>
                 <ul className='md:flex hidden'>
-                    <li><a href='' className='navLink'>All Categories</a></li>
-                    <li><a href='' className='navLink'>Home</a></li>
-                    <li><a href='' className='navLink'>Shop</a></li>
-                    <li><a href='' className='navLink'>Products</a></li>
-                    <li><a href='' className='navLink'>About</a></li>
+                    <li><NavLink to='' className='navLink'>All Categories</NavLink></li>
+                    <li><NavLink to='' className='navLink'>Home</NavLink></li>
+                    <li><NavLink to='' className='navLink'>Shop</NavLink></li>
+                    <li><NavLink to='/products/' className='navLink'>Products</NavLink></li>
+                    <li><NavLink to='' className='navLink'>About</NavLink></li>
                 </ul>
                 <div>
                     <p>Contact: (808) 555-0111</p>
