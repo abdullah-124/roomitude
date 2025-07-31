@@ -7,11 +7,11 @@ import ProductCard from "../Cards/ProductCard";
 
 
 const products = [
-  { id: 1, name: "Chair 1", price: "$20", image: "/images/chair1.png", status:'New'},
-  { id: 2, name: "Chair 2", price: "$25", image: "/images/chair2.png" },
-  { id: 3, name: "Chair 3", price: "$30", image: "/images/chair3.png", status: 'Sales'},
-  { id: 4, name: "Chair 4", price: "$35", image: "/images/chair4.png" },
-  { id: 5, name: "Chair 5", price: "$40", image: "/images/chair5.png" },
+  { id: 1, name: "Chair 1", price: "$20", image: "/images/chair4.png", status:'New'},
+  { id: 2, name: "Chair 2", price: "$25", image: "/images/chair1.png" },
+  { id: 3, name: "Chair 3", price: "$30", image: "/images/chair6.png", status: 'Sales'},
+  { id: 4, name: "Chair 4", price: "$35", image: "/images/chair7.png" },
+  { id: 5, name: "Chair 5", price: "$40", image: "/images/chair8.png" },
 ];
 
 const CustomPrevArrow = ({ onClick }) => (

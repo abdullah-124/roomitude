@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name": "Wing Chair",
+    "price": "$45",
+    "image": "/images/chair1.png",
+    "tag": "Top Rated"
+  },
+  {
+    "id": 2,
+    "name": "Wooden Chair",
+    "price": "$38",
+    "image": "/images/chair2.png",
+    "tag": "Best Seller"
+  },
+  {
+    "id": 3,
+    "name": "Cushion Chair",
+    "price": "$42",
+    "image": "/images/chair3.png",
+    "tag": "Comfort"
+  },
+  {
+    "id": 4,
+    "name": "Simple Chair",
+    "price": "$25",
+    "image": "/images/chair4.png",
+    "tag": "Minimal"
+  },
+  {
+    "id": 5,
+    "name": "Library Chair",
+    "price": "$30",
+    "image": "/images/chair5.png",
+    "tag": "New"
+  },
+  {
+    "id": 6,
+    "name": "Pink Armchair",
+    "price": "$55",
+    "image": "/images/chair6.png",
+    "tag": "Sale"
+  },
+  {
+    "id": 7,
+    "name": "Modern Chair",
+    "price": "$50",
+    "image": "/images/chair7.png",
+    "tag": "Trending"
+  },
+  {
+    "id": 8,
+    "name": "Luxury Chair",
+    "price": "$60",
+    "image": "/images/chair8.png",
+    "tag": "Premium"
+  }
+]
