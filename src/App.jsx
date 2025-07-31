@@ -11,7 +11,7 @@ import Signup from './components/Account/Signup';
 
 function App() {
   return (
-    <main className=''>
+    <main className='min-h-[100vh] relative'>
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />

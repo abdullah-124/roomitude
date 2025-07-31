@@ -13,7 +13,9 @@ function ProductCard({ item }) {
             <h5 className='text_hl font-medium'>{item.name}</h5>
             <h3 className='text-xl font-bold'>{item.price} </h3>
           </div>
-          <CiShoppingCart className='text-4xl p-1 bg-[var(--sbg)] text-white rounded'/>
+          <button className='btn text-2xl'>
+            <CiShoppingCart/>
+          </button>
         </div>
       </div>
     </article>

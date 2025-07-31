@@ -1,12 +1,6 @@
 @import "tailwindcss";
 
-.navLink {
-    @apply px-3 py-2 transition-all hover:text-[var(--sbg)];
-}
 
-.active {
-    @apply px-3 py-2 transition-all text-[var(--sbg)];
-}
 
 @keyframes expand {
     from {

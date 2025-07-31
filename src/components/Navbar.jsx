@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import logo from '/logo.png'
 import { GiRockingChair } from "react-icons/gi";
 import { CiUser, CiHeart, CiShoppingCart, CiSearch, CiMenuBurger } from "react-icons/ci";
 import { Link, NavLink } from 'react-router';
@@ -53,8 +52,8 @@ function Navbar() {
                     }
                 </div>
                 {/* large device  */}
-                <ul className='md:flex hidden'>
-                    <li><NavLink to='' className='navLink'>All Categories</NavLink></li>
+                <ul className='md:flex items-center hidden'>
+                   <li className='navLink'>All Categories</li>
                     <li><NavLink to='' className='navLink'>Home</NavLink></li>
                     <li><NavLink to='/products/' className={({ isActive }) => isActive ? "active" : "navLink"
                     }>Products</NavLink></li>
