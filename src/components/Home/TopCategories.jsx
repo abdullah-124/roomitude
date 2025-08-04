@@ -1,46 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import CategoryCard from "../Cards/CategoryCard";
 
-const categories = [
-  {
-    id: 1,
-    title: "Wing Chair",
-    count: "5,043 Products",
-    image: "/images/category1.png",
-  },
-  {
-    id: 2,
-    title: "Wooden Chair",
-    count: "670 Products",
-    image: "/images/category2.png",
-  },
-  {
-    id: 3,
-    title: "Desk Chair",
-    count: "54 Products",
-    image: "/images/category3.png",
-  },
-  {
-    id: 4,
-    title: "Park Bench",
-    count: "203 Products",
-    image: "/images/category4.png",
-  },
-  {
-    id: 5,
-    title: "Recliner Chair",
-    count: "137 Products",
-    image: "/images/category5.png",
-  },
-  {
-    id: 6,
-    title: "Dining Chair",
-    count: "890 Products",
-    image: "/images/category6.png",
-  },
-];
 
 const CustomPrevArrow = ({ onClick }) => (
   <div
@@ -89,6 +51,17 @@ const TopCategories = () => {
       },
     ],
   };
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/api/categories/')
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        setCategories(data)
+      })
+      .catch(err => console.error("Failed to load categories", err));
+  }, []);
 
   return (
     <div className="container relative mx-auto px-4 py-10">
