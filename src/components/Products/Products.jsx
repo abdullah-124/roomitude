@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import ProductCard from '../Cards/ProductCard';
 
-function getRandomItems(array, count) {
-  const shuffled = [...array].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
-}
 function Products({ limit = 0 }) {
   const [chairs, setChairs] = useState([]);
   useEffect(() => {
-    fetch('/chairs.json')
-      .then(res => res.json())
-      .then(data => {
-        if (limit) {
-          const randomItem = getRandomItems(data, limit);
-          setChairs(randomItem)
-        }
-        else {
-          setChairs(data);
-        }
-      })
-      .catch(err => console.error("Error fetching chairs:", err));
-  }, []);
+  fetch('http://127.0.0.1:8000/api/products/')
+    .then(res => res.json())
+    .then(data => {
+      // console.log(data)
+      if(limit)
+        setChairs(data.slice(0,limit))
+      else
+        setChairs(data)
+    })
+    .catch(err => console.error("Error fetching chairs:", err));
+}, [limit]); // <-- include `limit` if it's a prop or state
+
   return (
     <section className='container'>
       <div>
@@ -36,7 +31,7 @@ function Products({ limit = 0 }) {
       <main>
         <div className="grid lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3">
           {
-            chairs.map(item => <ProductCard key={item.name} item={item} />)
+            chairs.map((item,idx) => <ProductCard key={idx} item={item} />)
           }
         </div>
       </main>
