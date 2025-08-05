@@ -3,6 +3,7 @@ import { GiRockingChair } from "react-icons/gi";
 import { CiUser, CiHeart, CiShoppingCart, CiSearch, CiMenuBurger } from "react-icons/ci";
 import { Link, NavLink } from 'react-router';
 import { MdClose } from 'react-icons/md';
+import AllCategories from './Categories/AllCategories';
 
 function Navbar() {
     const [show, setShow] = useState(false)
@@ -53,7 +54,7 @@ function Navbar() {
                 </div>
                 {/* large device  */}
                 <ul className='md:flex items-center hidden'>
-                   <li className='navLink'>All Categories</li>
+                   <AllCategories />
                     <li><NavLink to='' className='navLink'>Home</NavLink></li>
                     <li><NavLink to='/products/' className={({ isActive }) => isActive ? "active" : "navLink"
                     }>Products</NavLink></li>
@@ -63,7 +64,7 @@ function Navbar() {
                 {
                     // mobile nav 
                     show && <ul className='expand backdrop-blur-2xl absolute z-100 top-[100%] left-0 p-2 py-5 w-full  flex flex-col md:hidden'>
-                        <li className='navLink'>All Categories</li>
+                        <AllCategories />
                         <li><NavLink to='' className='navLink'>Home</NavLink></li>
                         <li><NavLink to='/products/' className={({ isActive }) => isActive ? "active" : "navLink"
                         }>Products</NavLink></li>

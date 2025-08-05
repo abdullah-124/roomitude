@@ -15,3 +15,6 @@
 .expand {
     animation: expand 0.5s forwards;
 }
+.categories_ul:hover ul{
+    display: block;
+}
