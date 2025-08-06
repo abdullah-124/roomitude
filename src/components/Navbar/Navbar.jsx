@@ -1,17 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GiRockingChair } from "react-icons/gi";
-import { CiUser, CiHeart, CiShoppingCart, CiSearch, CiMenuBurger } from "react-icons/ci";
+import { CiSearch, CiMenuBurger } from "react-icons/ci";
 import { Link, NavLink } from 'react-router';
 import { MdClose } from 'react-icons/md';
-import AllCategories from './Categories/AllCategories';
+import AllCategories from '../Categories/AllCategories';
+import UserInfo from './UserInfo';
+import { getUser } from '../../utils/getUser';
+import Message from './Message';
 
 function Navbar() {
     const [show, setShow] = useState(false)
     const [user, setUser] = useState(null)
+    useEffect(() => {
+        const loadUser = async () => {
+            const storedUser = await getUser();
+            setUser(storedUser);
+        }
+        loadUser()
+    }, []);
     return (
         <>
+            <Message user={user} />
             <nav className='bg-gray-200  py-2'>
-                <div className='container grid md:grid-cols-4 grid-cols-2 items-center text-lg md:gap-y-0 gap-y-3'>
+                <div className='container  grid md:grid-cols-4 grid-cols-2 items-center text-lg md:gap-y-0 gap-y-3'>
                     {/* logo */}
                     <div className="order-1 flex gap-2 items-center ">
                         <GiRockingChair className='text-orange-500 font-bold text-2xl' />
@@ -27,21 +38,7 @@ function Navbar() {
                     </div>
                     {/* user info */}
                     <div className='md:order-3 order-2'>
-                        <div className='flex justify-end items-center gap-2'>
-                            <div className='flex items-center gap-2 bg-white px-2 p-1 rounded hover'>
-                                <CiShoppingCart />
-                                <p className='text-sm'>29</p>
-                            </div>
-                            {
-                                user ? <>
-                                    <div className='bg-white p-1 rounded hover'><CiHeart /></div>
-                                    <div className='bg-white p-1 rounded hover'><CiUser /></div>
-                                </>:
-                                <>
-                                <Link to={'/account'} className='btn'>Login</Link>
-                                </>
-                            }
-                        </div>
+                        <UserInfo user={user}/>
                     </div>
                 </div>
             </nav>
@@ -54,7 +51,7 @@ function Navbar() {
                 </div>
                 {/* large device  */}
                 <ul className='md:flex items-center hidden'>
-                   <AllCategories />
+                    <AllCategories />
                     <li><NavLink to='' className='navLink'>Home</NavLink></li>
                     <li><NavLink to='/products/' className={({ isActive }) => isActive ? "active" : "navLink"
                     }>Products</NavLink></li>

@@ -57,7 +57,7 @@ const TopCategories = () => {
     fetch('http://127.0.0.1:8000/api/categories/')
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setCategories(data)
       })
       .catch(err => console.error("Failed to load categories", err));

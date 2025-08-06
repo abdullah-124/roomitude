@@ -37,7 +37,11 @@ body {
 .input{
     @apply w-full outline-none  px-2 p-1;
 }
+.form_input{
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-[var(--sbg)] my-1
+}
 .hover:hover{
     transition: .3s;
     color: var(--sbg);
+    cursor: default;
 }
