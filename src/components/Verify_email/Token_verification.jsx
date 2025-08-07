@@ -11,14 +11,16 @@ const VerifyEmail = () => {
     const verifyEmail = async () => {
       const queryParams = new URLSearchParams(location.search);
       const token = queryParams.get('token');
+      const uid = queryParams.get('uid');
 
-      if (!token) {
-        setStatus("no token found.");
+      if (!token || !uid) {
+        setStatus("Something missing !!!");
         return;
       }
 
       try {
-        const res = await fetch(`http://127.0.0.1:8000/api/account/verify-email/?token=${token}`);
+        // this will make an request to my backend 
+        const res = await fetch(`http://127.0.0.1:8000/api/account/verify-email/?uid=${uid}&token=${token}`);
         const data = await res.json();
 
         if (res.ok) {
@@ -27,7 +29,7 @@ const VerifyEmail = () => {
           localStorage.setItem('refreshToken', data.refresh);
           localStorage.setItem('user', JSON.stringify(data.user));
 
-          setStatus("Email verified! Redirecting...");
+          setStatus("Email is verified! Redirecting...");
           setTimeout(() => {
             navigate('/profile');
           }, 1500);
@@ -45,7 +47,7 @@ const VerifyEmail = () => {
 
   return (
     <div className='text-center p-10'>
-      <h2>{status}</h2>
+      <h2 className="font-medium text_hl animate-pulse">{status}</h2>
     </div>
   );
 };

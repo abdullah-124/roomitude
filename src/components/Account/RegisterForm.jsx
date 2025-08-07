@@ -27,10 +27,6 @@ const Register = ({ setMode }) => {
             const result = await res.json();
 
             if (res.ok) {
-                // Save tokens and user info in localStorage
-                localStorage.setItem("accessToken", result.access);
-                localStorage.setItem("refreshToken", result.refresh);
-                localStorage.setItem("user", JSON.stringify(result.user));
                 navigate('/verify_email')
             } else {
                 alert(result.detail || 'Registration failed.');
