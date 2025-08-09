@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 
-function Message({user}) {
-    console.log
-    return (
-        <div>
-            {user && !user?.is_active && <h3 className='text-center bg-orange-500 text-white text-sm'>We have sent an email to {user?.email} , please verify the mail to activate your account</h3> }
-        </div>
-    )
+function Message() {
+    const {message} = useContext(AppContext)
+    if (!message) return null;
+
+    // Map types to classes
+    const classMap = {
+        success: "bg-green-500",
+        error: "bg-red-500",
+        default: "bg-[var(--sbg)]",
+    };
+
+    const className = classMap[message.status] || classMap.default;
+
+    return <div className={`${className} text-sm text-center text-white font-medium`}>{message.text}</div>;
 }
 
-export default Message
+export default Message;

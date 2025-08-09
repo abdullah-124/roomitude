@@ -13,9 +13,9 @@ function AllCategories() {
         fetchCategories();
     }, []);
     return (
-        <div className='relative pe-4 md:ps-0 ps-3 categories_ul'>
-            <li onClick={() => setShow(!show)} className='cursor-pointer'>All Categories</li>
-            <ul className='hidden z-50 backdrop-blur-2xl md:absolute shadow rounded w-full left-0 top-[100%]'>
+        <div tabIndex={0} className='relative pe-4 md:ps-0 ps-3 categories_ul'>
+            <li className='cursor-pointer'>All Categories</li>
+            <ul  className={`hidden z-50 backdrop-blur-2xl md:absolute shadow rounded w-full left-0 top-[100%]`}>
                 {categories.map((category) => (
                     <li key={category.id} className="text-sm border border-transparent hover:border-[var(--sbg)] cursor-default px-2 p-1 rounded">
                         {category.name}

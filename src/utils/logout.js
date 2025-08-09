@@ -1,4 +1,7 @@
-export default async function logout() {
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+
+export default async function logout(updateUser, updateMessage) {
     console.log('logout btn')
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
@@ -12,10 +15,11 @@ export default async function logout() {
         body: JSON.stringify({ refresh: refreshToken }),
     });
 
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    updateUser()
+    updateMessage()
     if (response.ok) {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("user");
         console.log("Logout successful");
     } else {
         const error = await response.json();

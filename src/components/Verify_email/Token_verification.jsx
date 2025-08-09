@@ -1,8 +1,10 @@
 // src/pages/VerifyEmail.js
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
+import { AppContext } from '../../context/AppContext';
 
 const VerifyEmail = () => {
+  const {updateUser, updateMessage} = useContext(AppContext)
   const location = useLocation();
   const navigate = useNavigate();
   const [status, setStatus] = useState('Verifying your email...');
@@ -27,8 +29,8 @@ const VerifyEmail = () => {
           // Save JWT tokens and user data to localStorage (or cookie)
           localStorage.setItem('accessToken', data.access);
           localStorage.setItem('refreshToken', data.refresh);
-          localStorage.setItem('user', JSON.stringify(data.user));
-
+          updateUser(data.user);
+          updateMessage(null)
           setStatus("Email is verified! Redirecting...");
           setTimeout(() => {
             navigate('/profile');

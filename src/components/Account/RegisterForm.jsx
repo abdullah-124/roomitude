@@ -1,9 +1,11 @@
 // src/pages/Register.js
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { AppContext } from '../../context/AppContext';
 
 const Register = ({ setMode }) => {
+    const {updateMessage} = useContext(AppContext)
     const navigate = useNavigate();
     const {
         register,
@@ -27,6 +29,8 @@ const Register = ({ setMode }) => {
             const result = await res.json();
 
             if (res.ok) {
+                console.log(result)
+                updateMessage(result)
                 navigate('/verify_email')
             } else {
                 alert(result.detail || 'Registration failed.');

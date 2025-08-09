@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { GiRockingChair } from "react-icons/gi";
 import { CiSearch, CiMenuBurger } from "react-icons/ci";
 import { Link, NavLink } from 'react-router';
@@ -7,20 +7,14 @@ import AllCategories from '../Categories/AllCategories';
 import UserInfo from './UserInfo';
 import { getUser } from '../../utils/getUser';
 import Message from './Message';
+import { AppContext } from '../../context/AppContext';
 
 function Navbar() {
     const [show, setShow] = useState(false)
-    const [user, setUser] = useState(null)
-    useEffect(() => {
-        const loadUser = async () => {
-            const storedUser = await getUser();
-            setUser(storedUser);
-        }
-        loadUser()
-    }, []);
+    const {user} = useContext(AppContext)
     return (
-        <>
-            {/* <Message user={user} /> */}
+        <main>
+            <Message/>
             <nav className='bg-gray-200  py-2'>
                 <div className='container  grid md:grid-cols-4 grid-cols-2 items-center text-lg md:gap-y-0 gap-y-3'>
                     {/* logo */}
@@ -73,7 +67,7 @@ function Navbar() {
                     <p className='text-xs md:text-sm'>Contact: (808) 555-0111</p>
                 </div>
             </div>
-        </>
+        </main>
     )
 }
 

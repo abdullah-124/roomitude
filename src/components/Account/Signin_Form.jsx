@@ -1,6 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { AppContext } from '../../context/AppContext';
+import { useLocation, useNavigate } from 'react-router';
 
 export default function Signin_Form({ setMode }) {
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/";
+    const { updateUser, updateMessage } = useContext(AppContext)
     const [error, setError] = useState('')
     const [formData, setFormData] = useState({ username: "", password: "" });
     const handleChange = (e) => {
@@ -27,16 +33,23 @@ export default function Signin_Form({ setMode }) {
             if (!res.ok) {
                 const errorData = await res.json();
                 setError(errorData.detail || "Login failed");
+                updateMessage({ 'text': error, 'status': 'error' })
                 return;
             }
-
+            //  AFTER SUCCESFUL LOGIN
             const data = await res.json();
-            console.log(data)
+            // console.log(data)
             // Save tokens in localStorage
             localStorage.setItem("accessToken", data.access);
             localStorage.setItem("refreshToken", data.refresh);
-            localStorage.setItem("user", JSON.stringify(data.user));
-
+            updateUser(data.user)
+            // Redirect to original page or home
+            navigate(from, { replace: true });
+            // show message
+            updateMessage({ 'text': 'Login successful', 'status': 'success' })
+            setInterval(() => {
+                updateMessage(null)
+            }, 2000);
             // Clear input fields
             setFormData({ username: "", password: "" })
         } catch (err) {
@@ -47,7 +60,7 @@ export default function Signin_Form({ setMode }) {
         <form onSubmit={handleLogin}>
             <h2 className='text-xl pb-5 font-bold text-center'>Sign In</h2>
             <input onChange={(e) => handleChange(e)} className='form_input' type="text" name="username" placeholder='Username' required />
-            <input onChange={(e)=>handleChange(e)} className='form_input' type="password" name="password" placeholder='password' required />
+            <input onChange={(e) => handleChange(e)} className='form_input' type="password" name="password" placeholder='password' required />
             {
                 <button className='block mt-5 w-full btn' type="submit">Login</button>
             }

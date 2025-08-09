@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Routes, Route } from "react-router";
 import './app.css'
 import Home from './components/Home/Home'
@@ -10,17 +10,32 @@ import Signup from './components/Account/Signup';
 import Verify_email from './components/Verify_email/Verify_email';
 import Profile from './components/Profile/Profile';
 import Navbar from './components/Navbar/Navbar';
+import { tokenRefresh } from './utils/tokenRefresh';
+import ProtectedRoute from './utils/ProtectedRoute/ProtectedRoute';
+import MyOrder from './components/Profile/MyOrder';
+import Cart from './components/Profile/Cart';
+import Wishlist from './components/Profile/Wishlist';
+import UpdatePassword from './components/Profile/UpdatePassword';
 
 function App() {
+  useEffect(() => {
+    tokenRefresh()
+  }, [])
   return (
-    <main className='min-h-[100vh] relative'>
+    <main className='min-h-[100vh] relative flex justify-between flex-col'>
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/products' element={<Products />} />
         <Route path='/about' element={<About />} />
         <Route path='/account' element={<Signup />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path='profile/' element={<Profile />} />
+          <Route path='cart/' element={<Cart />} />
+          <Route path='wishlist/' element={<Wishlist />} />
+          <Route path='my_order/' element={<MyOrder />} />
+          <Route path='update/password/' element={<UpdatePassword />} />
+        </Route>
         <Route path='/verify_email' element={<Verify_email />} />
         <Route path='/*' element={<NotFound />} />
       </Routes>
