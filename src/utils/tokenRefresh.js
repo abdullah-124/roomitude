@@ -22,6 +22,7 @@ export async function tokenRefresh() {
         if (res.ok) {
             const data = await res.json();
             accessToken = data.access;
+            // console.log('new token', accessToken)
             localStorage.setItem("accessToken", accessToken);
             return
         }

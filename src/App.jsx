@@ -16,6 +16,7 @@ import MyOrder from './components/Profile/MyOrder';
 import Cart from './components/Profile/Cart';
 import Wishlist from './components/Profile/Wishlist';
 import UpdatePassword from './components/Profile/UpdatePassword';
+import Account from './components/Profile/Account';
 
 function App() {
   useEffect(() => {
@@ -30,11 +31,13 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/account' element={<Signup />} />
         <Route element={<ProtectedRoute />}>
-          <Route path='profile/' element={<Profile />} />
-          <Route path='cart/' element={<Cart />} />
-          <Route path='wishlist/' element={<Wishlist />} />
-          <Route path='my_order/' element={<MyOrder />} />
-          <Route path='update/password/' element={<UpdatePassword />} />
+          <Route path="/profile" element={<Profile />}>
+            <Route path="account" element={<Account />} />
+            <Route path="orders" element={<MyOrder />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="wishlist" element={<Wishlist />} />
+            <Route path="update_password" element={<UpdatePassword />} />
+          </Route>
         </Route>
         <Route path='/verify_email' element={<Verify_email />} />
         <Route path='/*' element={<NotFound />} />

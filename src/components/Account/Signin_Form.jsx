@@ -47,9 +47,9 @@ export default function Signin_Form({ setMode }) {
             navigate(from, { replace: true });
             // show message
             updateMessage({ 'text': 'Login successful', 'status': 'success' })
-            setInterval(() => {
+            setTimeout(()=>{
                 updateMessage(null)
-            }, 2000);
+            }, 2000)
             // Clear input fields
             setFormData({ username: "", password: "" })
         } catch (err) {

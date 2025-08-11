@@ -10,7 +10,7 @@ function ProtectedRoute() {
         return <div>loading...</div>
     // If user is not logged in, redirect to login page
     if (!user) {
-        return <Navigate to="/login" replace />;
+        return <Navigate to="/account" replace />;
     }
 
     // Otherwise render the child routes/components

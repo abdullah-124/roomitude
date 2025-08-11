@@ -23,9 +23,20 @@ body {
 .navLink {
     @apply px-3 py-2 transition-all hover:text-[var(--sbg)] cursor-default;
 }
-
+.profile_navlink{
+    @apply px-2 py-2 transition-all rounded-r font-medium text-sm flex gap-2 items-center 
+}
+.profile_navlink svg{
+    @apply sm:text-xl text-3xl
+}
+.profile_navlink span{
+    @apply hidden sm:inline-block md:text-base sm:text-xs
+}
 .active {
     @apply px-3 py-2 transition-all text-[var(--sbg)];
+}
+.active_bg{
+    @apply md:ps-4 transition-all text-[var(--sbg)] bg-[var(--sbg)]/30
 }
 .padding {
     @apply lg:px-15 md:px-10 sm:px-5 px-3;
@@ -34,8 +45,17 @@ body {
 .btn {
     @apply p-1 px-3 bg-[var(--sbg)] border border-[var(--sbg)] text-center font-medium rounded-lg text-[var(--bg)] transition-all duration-500 hover:bg-transparent hover:text-[var(--sbg)]
 }
+.btn_disable {
+    @apply p-1 px-3 bg-[var(--sbg)]/70 border border-[var(--sbg)]/70 text-center font-medium rounded-lg text-[var(--bg)] 
+}
 .input{
     @apply w-full outline-none  px-2 p-1;
+}
+.input_bg{
+    @apply w-full bg-gray-200 p-2 px-3 rounded outline-[var(--sbg)] outline-0 focus:outline-1
+}
+.input_label {
+    @apply text-[var(--sbg)] block font-medium
 }
 .form_input{
     @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-[var(--sbg)] my-1

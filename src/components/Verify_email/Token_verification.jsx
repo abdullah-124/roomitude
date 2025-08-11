@@ -34,7 +34,7 @@ const VerifyEmail = () => {
           setStatus("Email is verified! Redirecting...");
           setTimeout(() => {
             navigate('/profile');
-          }, 1500);
+          }, 2000);
         } else {
           setStatus(data.detail || "Verification failed.");
         }

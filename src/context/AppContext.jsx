@@ -32,6 +32,7 @@ export function AppProvider({ children }) {
     };
 
     const updateMessage = (newMessage) => {
+        console.log('message has updated')
         if (newMessage) {
             localStorage.setItem("message", JSON.stringify(newMessage));
             setMessage(newMessage);

@@ -1,9 +1,16 @@
-import React from 'react'
+// pages/Profile.jsx
+import { NavLink, Outlet } from "react-router";
+import Sidebar from "./Sidebar";
 
-function Profile() {
+export default function Profile() {
   return (
-    <div>Profile</div>
-  )
+    <div className="flex md:flex-row flex-col min-h-screen">
+      {/* Sidebar */}
+      <Sidebar />
+      {/* Content */}
+      <main className="flex-1 padding ">
+        <Outlet />
+      </main>
+    </div>
+  );
 }
-
-export default Profile

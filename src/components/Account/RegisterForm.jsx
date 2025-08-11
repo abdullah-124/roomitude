@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import { AppContext } from '../../context/AppContext';
 
 const Register = ({ setMode }) => {
-    const {updateMessage} = useContext(AppContext)
+    const { updateMessage } = useContext(AppContext)
     const navigate = useNavigate();
     const {
         register,
@@ -47,26 +47,30 @@ const Register = ({ setMode }) => {
 
     return (
         <div className="rounded-lg">
-            <h2 className="text-2xl font-bold mb-6 text-center">Create an Account</h2>
+            <h2 className='text-xl pb-5 font-bold text-center'>Create an account</h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space">
                 {/* First Name */}
                 <div className='flex gap-2'>
-                    <input
-                        type="text"
-                        placeholder="First Name"
-                        className='form_input'
-                        {...register('first_name', { required: 'First name is required' })}
-                    />
-                    {errors.first_name && <p className="text-red-500 text-sm">{errors.first_name.message}</p>}
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="First Name"
+                            className='form_input'
+                            {...register('first_name', { required: 'First name is required' })}
+                        />
+                        {errors.first_name && <p className="text-red-500 text-xs pb-2">{errors.first_name.message}</p>}
+                    </div>
                     {/* Last Name */}
-                    <input
+                    <div>
+                        <input
                         type="text"
                         placeholder="Last Name"
                         className='form_input'
                         {...register('last_name', { required: 'Last name is required' })}
                     />
-                    {errors.last_name && <p className="text-red-500 text-sm">{errors.last_name.message}</p>}
+                    {errors.last_name && <p className="text-red-500 text-xs pb-2">{errors.last_name.message}</p>}
+                    </div>
                 </div>
 
 
@@ -79,7 +83,7 @@ const Register = ({ setMode }) => {
                         className='form_input'
                         {...register('username', { required: 'Username is required' })}
                     />
-                    {errors.username && <p className="text-red-500 text-sm">{errors.username.message}</p>}
+                    {errors.username && <p className="text-red-500 text-xs pb-2">{errors.username.message}</p>}
                 </div>
 
                 {/* Email */}
@@ -96,7 +100,7 @@ const Register = ({ setMode }) => {
                             },
                         })}
                     />
-                    {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+                    {errors.email && <p className="text-red-500 text-xs pb-2">{errors.email.message}</p>}
                 </div>
 
                 {/* Phone Number */}
@@ -107,7 +111,7 @@ const Register = ({ setMode }) => {
                         className='form_input'
                         {...register('phone_number', { required: 'Phone number is required' })}
                     />
-                    {errors.phone_number && <p className="text-red-500 text-sm">{errors.phone_number.message}</p>}
+                    {errors.phone_number && <p className="text-red-500 text-xs pb-2">{errors.phone_number.message}</p>}
                 </div>
 
                 {/* Password */}
@@ -124,7 +128,7 @@ const Register = ({ setMode }) => {
                             },
                         })}
                     />
-                    {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+                    {errors.password && <p className="text-red-500 text-xs pb-2">{errors.password.message}</p>}
                 </div>
 
                 {/* Confirm Password */}
@@ -138,7 +142,7 @@ const Register = ({ setMode }) => {
                             validate: value => value === password || 'Passwords do not match',
                         })}
                     />
-                    {errors.confirm_password && <p className="text-red-500 text-sm">{errors.confirm_password.message}</p>}
+                    {errors.confirm_password && <p className="text-red-500 text-xs pb-2">{errors.confirm_password.message}</p>}
                 </div>
 
                 {/* Submit */}
