@@ -8,36 +8,47 @@
 }
 
 body {
+    font-family: 'Josefin Sans', sans-serif;
     @apply text-[var(--text)];
 }
-.text_s{
+
+.text_s {
     color: var(--hlcolor);
 }
-.text_hl{
+
+.text_hl {
     color: var(--sbg);
     cursor: pointer;
 }
+
 .container {
     @apply max-w-[1400px] mx-auto lg:px-15 md:px-10 sm:px-8 px-5;
 }
+
 .navLink {
     @apply px-3 py-2 transition-all hover:text-[var(--sbg)] cursor-default;
 }
-.profile_navlink{
-    @apply px-2 py-2 transition-all rounded-r font-medium text-sm flex gap-2 items-center 
+
+.profile_navlink {
+    @apply px-2 py-2 transition-all rounded-r font-medium text-sm flex gap-2 items-center
 }
-.profile_navlink svg{
+
+.profile_navlink svg {
     @apply sm:text-xl text-3xl
 }
-.profile_navlink span{
+
+.profile_navlink span {
     @apply hidden sm:inline-block md:text-base sm:text-xs
 }
+
 .active {
     @apply px-3 py-2 transition-all text-[var(--sbg)];
 }
-.active_bg{
+
+.active_bg {
     @apply md:ps-4 transition-all text-[var(--sbg)] bg-[var(--sbg)]/30
 }
+
 .padding {
     @apply lg:px-15 md:px-10 sm:px-5 px-3;
 }
@@ -45,23 +56,55 @@ body {
 .btn {
     @apply p-1 px-3 bg-[var(--sbg)] border border-[var(--sbg)] text-center font-medium rounded-lg text-[var(--bg)] transition-all duration-500 hover:bg-transparent hover:text-[var(--sbg)]
 }
+
 .btn_disable {
-    @apply p-1 px-3 bg-[var(--sbg)]/70 border border-[var(--sbg)]/70 text-center font-medium rounded-lg text-[var(--bg)] 
+    @apply p-1 px-3 bg-[var(--sbg)]/70 border border-[var(--sbg)]/70 text-center font-medium rounded-lg text-[var(--bg)]
 }
-.input{
-    @apply w-full outline-none  px-2 p-1;
+
+.input {
+    @apply w-full outline-none px-2 p-1;
 }
-.input_bg{
+
+.input_bg {
     @apply w-full bg-gray-200 p-2 px-3 rounded outline-[var(--sbg)] outline-0 focus:outline-1
 }
+
 .input_label {
     @apply text-[var(--sbg)] block font-medium
 }
-.form_input{
+
+.form_input {
     @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-[var(--sbg)] my-1
 }
-.hover:hover{
+
+.hover:hover {
     transition: .3s;
     color: var(--sbg);
     cursor: default;
+}
+
+input{
+    accent-color: var(--sbg);
+}
+/* input range */
+.custom_range {
+  -webkit-appearance: none;
+  width: 100%;
+  /* height: 25px; */
+  background: var(--bg);
+  outline: none;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  accent-color: var(--sbg);
+}
+
+.custom_range::-webkit-custom_range-thumb {
+  -webkit-appearance: none;
+  /* appearance: none; */
+   background: var(--bg);
+  cursor: pointer;
+}
+
+.custom_range::-moz-range-thumb {
+  cursor: pointer;
 }

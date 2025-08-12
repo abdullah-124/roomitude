@@ -15,12 +15,12 @@ function Home() {
         <Sponsors />
         <FeaturedProducts />
         <TopCategories />
-        <section>
-          <Products limit={6} />
-          <div className='text-center my-5'>
+        {/* <section>
+          <Products pagination={false} />
+          <div className='text-center my-5 mb-10'>
             <Link to='/products/' className='btn'>View more</Link>
           </div>
-        </section>
+        </section> */}
     </div>
   )
 }

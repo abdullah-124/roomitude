@@ -24,9 +24,9 @@ function Navbar() {
                     </div>
                     {/* search */}
                     <div className='col-span-2 md:order-2 order-3'>
-                        <form action="" className='flex bg-white rounded-lg'>
+                        <form action="" className='flex bg-white rounded-lg overflow-hidden'>
                             <input placeholder='Search here...' className='input' type="text" />
-                            <button className='pe-2'><CiSearch /></button>
+                            <button className='px-2 hover:bg-[var(--sbg)] hover:text-white transition-all duration-300'><CiSearch /></button>
                         </form>
 
                     </div>

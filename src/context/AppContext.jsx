@@ -9,7 +9,14 @@ export function AppProvider({ children }) {
     const [user, setUser] = useState(null);
     // Message state
     const [message, setMessage] = useState(null);
+    // category loading 
+    const [categories, setCategories] = useState([]);
 
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/api/categories/")
+            .then((res) => res.json())
+            .then((data) => setCategories(data));
+    }, []);
     // Load from localStorage on mount
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
@@ -44,7 +51,7 @@ export function AppProvider({ children }) {
 
     return (
         <AppContext.Provider
-            value={{ user, updateUser, message, updateMessage, loading,setLoading }}
+            value={{ user, updateUser, message, updateMessage, loading, setLoading,categories }}
         >
             {children}
         </AppContext.Provider>

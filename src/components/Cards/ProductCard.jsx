@@ -4,13 +4,13 @@ import { CiShoppingCart } from "react-icons/ci";
 
 function ProductCard({ item }) {
   return (
-    <article className='p-2'>
+    <article className=''>
       <div className='flex flex-col justify-between h-full '>
-        <div className='relative rounded-lg overflow-hidden shadow'>
-          {
-            item.image ? <img src={item.image} alt="" />
-            : <img src={blank_image} alt='blank image' />
-          }
+        <div className='relative rounded-lg overflow-hidden shadow border border-gray-200'>
+          <img 
+          className='object-cover w-full h-full hover:scale-110 transition-all duration-500' 
+          src={item?.image ? item.image : blank_image} 
+          alt="Product" />
         </div>
         <div>
           <h2 className='text-sm font-medium pt-1'>{item.name}</h2>
