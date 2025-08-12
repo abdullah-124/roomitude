@@ -26,7 +26,7 @@ body {
 }
 
 .navLink {
-    @apply px-3 py-2 transition-all hover:text-[var(--sbg)] cursor-default;
+    @apply px-3 py-2 transition-all hover:text-[var(--sbg)] cursor-default capitalize;
 }
 
 .profile_navlink {

@@ -5,9 +5,9 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import { Link } from "react-router";
 
 const items = [
-    { id: 1, title: "Best Furniture Collection for your interior.",description: "wellcome to roomitude", image: 'images/banner_chair1.png' },
+    { id: 1, title: "Best Furniture Collection for your interior.",description: "wellcome to roomitude", image: 'images/banner_chair3.png' },
     { id: 2, title: "Crafted Comfort That Complements Every Modern Room",description: "Explore our top-rated chairs for every room.", image: 'images/banner_chair2.png'  },
-    { id: 3, title: "Style Your Space with Signature Seating Solutions", description: "Premium chairs built to last.", image: 'images/banner_chair3.png' },
+    { id: 3, title: "Style Your Space with Signature Seating Solutions", description: "Premium chairs built to last.", image: 'images/banner_chair1.png' },
 ];
 
 export default function HeroSlider() {
@@ -36,7 +36,7 @@ export default function HeroSlider() {
                         <div className="padding">
                             <section className='grid md:grid-cols-2 grid-cols-1 md:gap-2 gap-5 items-center'>
                                 <div className='md:order-1 order-2 md:text-start text-center'>
-                                    <p className='uppercase'>{item.description}</p>
+                                    <p className='uppercase pb-2'>{item.description}</p>
                                     <h1 className='lg:text-6xl text-4xl font-bold'>
                                         {item.title}
                                     </h1>

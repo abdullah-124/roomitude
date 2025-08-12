@@ -5,7 +5,7 @@ function AllCategories() {
     const [show, setShow] = useState(false)
     const { categories } = useContext(AppContext)
     return (
-        <div tabIndex={0} className='relative pe-4 md:ps-0 categories_ul'>
+        <div tabIndex={0} className='relative pe-4 md:ps-0 ps-3 categories_ul'>
             <li onClick={() => setShow(!show)} className='cursor-pointer'>All Categories</li>
             {
                 show && <ul className={`hidden z-50 bg-white border-gray-200 md:absolute shadow rounded w-full left-0 top-[100%]`}>
