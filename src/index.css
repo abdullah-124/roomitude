@@ -1,20 +1,25 @@
 @import "tailwindcss";
 
 :root {
-    --hlcolor: #465C88;
     --text: #000000;
     --sbg: #FF7A30;
-    --bg: #E9E3DF;
+    --bg: #cccccc;
 }
 
 body {
     font-family: 'Josefin Sans', sans-serif;
-    @apply text-[var(--text)];
+    @apply text-indigo-950;
+}
+/* For Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 1px;
+  height: 1px; 
+}
+/* For Firefox */
+* {
+  scrollbar-width: thin;
 }
 
-.text_s {
-    color: var(--hlcolor);
-}
 
 .text_hl {
     color: var(--sbg);
@@ -107,4 +112,7 @@ input{
 
 .custom_range::-moz-range-thumb {
   cursor: pointer;
+}
+.badge_icon{
+    @apply text-sm flex px-2 items-center font-medium gap-1 rounded-lg border cursor-default
 }

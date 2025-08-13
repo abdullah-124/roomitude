@@ -15,6 +15,81 @@
 .expand {
     animation: expand 0.5s forwards;
 }
-.categories_ul:focus ul{
+
+.categories_ul:focus ul {
     display: block;
+}
+
+/* css for product card section */
+@keyframes slideY {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideX {
+    from {
+        transform: translateX(10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.card .badge {
+    @apply hidden absolute right-0 top-0 p-3 h-full;
+    transition: width 3s;
+}
+.card .title {
+  position: relative;
+  display: inline-block;
+}
+
+.card .title::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--sbg); /* blue color */
+  transition: width 0.3s ease;
+}
+
+.card:hover .title::after {
+  width: 100%;
+}
+.card:hover .badge {
+    @apply flex flex-col gap-2 justify-center items-end;
+    animation: slideY .5s forwards;
+}
+
+.card .badge .icon {
+    @apply p-3 bg-white text-black rounded-full inline-flex items-center justify-end gap-2 cursor-pointer
+}
+
+.card .badge .icon .text {
+    position: absolute;
+    z-index: -100;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 0.5s ease, opacity 0.4s ease;
+}
+
+.card .badge .icon:hover .text {
+    position: static;
+    z-index: 100;
+    max-width: 100%;
+    opacity: 1;
 }

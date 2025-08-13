@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -6,10 +6,10 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ProductCard from "../Cards/ProductCard";
 
 
-const products = [
-  { id: 1, name: "Chair 1", price: "$20", image: "/images/chair4.png", status:'New'},
+const dummy_products = [
+  { id: 1, name: "Chair 1", price: "$20", image: "/images/chair4.png", status: 'New' },
   { id: 2, name: "Chair 2", price: "$25", image: "/images/chair1.png" },
-  { id: 3, name: "Chair 3", price: "$30", image: "/images/chair6.png", status: 'Sales'},
+  { id: 3, name: "Chair 3", price: "$30", image: "/images/chair6.png", status: 'Sales' },
   { id: 4, name: "Chair 4", price: "$35", image: "/images/chair7.png" },
   { id: 5, name: "Chair 5", price: "$40", image: "/images/chair8.png" },
 ];
@@ -57,13 +57,36 @@ const FeaturedProducts = () => {
       },
     ],
   };
+  // load products featured product form database
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const loadProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('http://127.0.0.1:8000/api/products/?featured=true');
+      const data = await response.json();
+      // console.log(data.results)
+      setProducts(data.results);
+    } catch (error) {
+      console.error('Error loading products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="relative max-w-7xl mx-auto px-4 py-10">
       <h2 className="text-xl font-semibold mb-4">Featured Products</h2>
       <Slider {...settings}>
         {products.map((item) => (
-          <ProductCard key={item.id} item={item} />
+          <div className="p-2" key={item.id} ><ProductCard item={item} /></div>
         ))}
       </Slider>
     </div>

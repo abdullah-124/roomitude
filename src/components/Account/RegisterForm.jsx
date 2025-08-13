@@ -52,7 +52,7 @@ const Register = ({ setMode }) => {
             <form onSubmit={handleSubmit(onSubmit)} className="space">
                 {/* First Name */}
                 <div className='flex gap-2'>
-                    <div>
+                    <div className='w-full'>
                         <input
                             type="text"
                             placeholder="First Name"
@@ -62,7 +62,7 @@ const Register = ({ setMode }) => {
                         {errors.first_name && <p className="text-red-500 text-xs pb-2">{errors.first_name.message}</p>}
                     </div>
                     {/* Last Name */}
-                    <div>
+                    <div className='w-full'>
                         <input
                         type="text"
                         placeholder="Last Name"

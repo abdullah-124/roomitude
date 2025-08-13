@@ -1,6 +1,7 @@
 import React from 'react'
 import { PiShoppingCartSimpleThin } from "react-icons/pi";
-import { CiShoppingCart, CiUser,CiHeart   } from "react-icons/ci";
+import { CiUser, CiHeart } from "react-icons/ci";
+import { RiShoppingBag2Line } from "react-icons/ri";
 import { PiKeyThin } from "react-icons/pi";
 import { NavLink } from 'react-router'
 
@@ -29,16 +30,16 @@ function Sidebar() {
                     className={({ isActive }) =>
                         `profile_navlink ${isActive ? "active_bg" : "hover:bg-[var(--sbg)]/10"}`
                     }
-                ><CiShoppingCart />
-                    <span>Cart</span>
+                ><RiShoppingBag2Line />
+                    <span>My Cart</span>
                 </NavLink>
                 <NavLink
                     to="wishlist"
                     className={({ isActive }) =>
                         `profile_navlink ${isActive ? "active_bg" : "hover:bg-[var(--sbg)]/10"}`
                     } >
-                        <CiHeart />
-                    <span>Wishlist</span>
+                    <CiHeart />
+                    <span>My Wishlist</span>
                 </NavLink>
                 <NavLink
                     to="update_password"

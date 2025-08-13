@@ -11,7 +11,7 @@ import { AppContext } from '../../context/AppContext';
 
 function Navbar() {
     const [show, setShow] = useState(false)
-    const {user} = useContext(AppContext)
+    const {user, cartItems} = useContext(AppContext)
     return (
         <main>
             <Message/>
@@ -32,7 +32,7 @@ function Navbar() {
                     </div>
                     {/* user info */}
                     <div className='md:order-3 order-2'>
-                        <UserInfo user={user}/>
+                        <UserInfo user={user} cartItems={cartItems}/>
                     </div>
                 </div>
             </nav>
