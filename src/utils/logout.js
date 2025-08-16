@@ -18,11 +18,12 @@ export default async function logout(updateUser, updateMessage) {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     updateUser()
-    updateMessage()
     if (response.ok) {
-        console.log("Logout successful");
+        updateMessage({ 'text': 'Logout successfull', 'status': 'success' })
+        setTimeout(() => {
+            updateMessage()
+        }, 3000);
     } else {
         const error = await response.json();
-        console.error("Logout failed:", error.detail);
     }
 }

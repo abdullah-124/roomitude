@@ -17,6 +17,7 @@ import Cart from './components/Profile/Cart';
 import Wishlist from './components/Profile/Wishlist';
 import UpdatePassword from './components/Profile/UpdatePassword';
 import Account from './components/Profile/Account';
+import Message from './components/Navbar/Message';
 
 function App() {
   useEffect(() => {
@@ -24,6 +25,7 @@ function App() {
   }, [])
   return (
     <main className='min-h-[100vh] relative flex justify-between flex-col'>
+      <Message />
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />

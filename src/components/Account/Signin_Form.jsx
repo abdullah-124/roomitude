@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../../context/AppContext';
 import { useLocation, useNavigate } from 'react-router';
+import { useMessage } from '../../context/MessageProvider';
 
 export default function Signin_Form({ setMode }) {
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || "/";
-    const { updateUser, updateMessage } = useContext(AppContext)
+    const { updateUser } = useContext(AppContext)
+    const {updateMessage} = useMessage()
     const [error, setError] = useState('')
     const [formData, setFormData] = useState({ username: "", password: "" });
     const handleChange = (e) => {

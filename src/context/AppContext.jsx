@@ -1,5 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { get_cart_item } from "../utils/Cart/get_cart_item";
+import MessageProvider from "./MessageProvider";
+import { CartProvider } from "./CartProvider";
 
 export const AppContext = createContext();
 
@@ -9,7 +11,7 @@ export function AppProvider({ children }) {
     // User state
     const [user, setUser] = useState(null);
     // Message state
-    const [message, setMessage] = useState(null);
+    // const [message, setMessage] = useState(null);
     // category loading 
     const [categories, setCategories] = useState([]);
     // cart count
@@ -28,7 +30,7 @@ export function AppProvider({ children }) {
         setLoading(false)
     }, []);
     useEffect(() => {
-        get_cart_item().then(data =>{
+        get_cart_item().then(data => {
             setCartItems(data)
         })
 
@@ -44,22 +46,26 @@ export function AppProvider({ children }) {
         }
     };
 
-    const updateMessage = (newMessage) => {
-        console.log('message has updated')
-        if (newMessage) {
-            localStorage.setItem("message", JSON.stringify(newMessage));
-            setMessage(newMessage);
-        } else {
-            localStorage.removeItem("message");
-            setMessage(null);
-        }
-    };
+    // const updateMessage = (newMessage) => {
+    //     console.log('message has updated')
+    //     if (newMessage) {
+    //         localStorage.setItem("message", JSON.stringify(newMessage));
+    //         setMessage(newMessage);
+    //     } else {
+    //         localStorage.removeItem("message");
+    //         setMessage(null);
+    //     }
+    // };
 
     return (
         <AppContext.Provider
-            value={{ user, updateUser, message, updateMessage, loading, setLoading, categories, cartItems, setCartItems }}
+            value={{ user, updateUser, loading, setLoading, categories, cartItems, setCartItems }}
         >
-            {children}
+            <MessageProvider>
+                <CartProvider>
+                    {children}
+                </CartProvider>
+            </MessageProvider>
         </AppContext.Provider>
     );
 }

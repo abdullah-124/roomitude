@@ -3,9 +3,11 @@ import { AppContext } from '../../context/AppContext'
 import { FaUser } from 'react-icons/fa'
 import blank_user from '/images/blank_user.png'
 import { PiNotePencilThin } from "react-icons/pi";
+import { useMessage } from '../../context/MessageProvider';
 
 function Account() {
-  const { user, updateUser, updateMessage } = useContext(AppContext)
+  const { user, updateUser } = useContext(AppContext)
+  const {updateMessage} = useMessage()
   const [formData, setFormData] = useState(user)
   // track if has any change
   const [isChange, setIsChange] = useState(false)

@@ -4,9 +4,11 @@ import { BsCartCheck, BsPencilSquare } from "react-icons/bs";
 import logout from '../../utils/logout';
 import { AppContext } from '../../context/AppContext';
 import { Link } from 'react-router';
+import { useMessage } from '../../context/MessageProvider';
 
 function UserMenuBar({ user }) {
-    const { updateUser, updateMessage } = useContext(AppContext)
+    const { updateUser } = useContext(AppContext)
+    const {updateMessage} = useMessage()
     const style = 'p-1 hover:text-[var(--sbg)] transition-all duration-400 rounded cursor-pointer flex gap-2 justify-end items-center'
     const handleLogout = async () => {
         await logout(updateUser, updateMessage);  // pass updateUser to logout

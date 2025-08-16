@@ -2,10 +2,10 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import { AppContext } from '../../context/AppContext';
+import { useMessage } from '../../context/MessageProvider';
 
 const Register = ({ setMode }) => {
-    const { updateMessage } = useContext(AppContext)
+    const { updateMessage } = useMessage()
     const navigate = useNavigate();
     const {
         register,

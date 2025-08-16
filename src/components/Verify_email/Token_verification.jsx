@@ -2,9 +2,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { AppContext } from '../../context/AppContext';
+import { useMessage } from '../../context/MessageProvider';
 
 const VerifyEmail = () => {
-  const {updateUser, updateMessage} = useContext(AppContext)
+  const {updateUser} = useContext(AppContext)
+  const {updateMessage} = useMessage()
   const location = useLocation();
   const navigate = useNavigate();
   const [status, setStatus] = useState('Verifying your email...');

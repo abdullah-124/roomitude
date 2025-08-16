@@ -3,24 +3,26 @@ import { RiShoppingBag2Line, RiHeartLine } from "react-icons/ri";
 import { Link, useLocation } from 'react-router';
 import UserMenuBar from './UserMenuBar';
 import CartMenu from './CartMenu';
+import { useCart } from '../../context/CartProvider';
 
 
-function UserInfo({ user, cartItems }) {
+function UserInfo({ user }) {
     const [userMenu, setUserMenu] = useState(false)
     const [cartMenu, setCartMenu] = useState(false)
     const location = useLocation()
+    const {cartCount} = useCart()
     useEffect(() => {
         setUserMenu(false)
         setCartMenu(false)
     }, [location])
     return (
         <div className='relative'>
-            {cartMenu && <CartMenu cartItems={cartItems} />}
+            {cartMenu && <CartMenu setCartMenu={setCartMenu}/>}
             <div className='flex justify-end items-center gap-2'>
 
                 <div onClick={() => setCartMenu(!cartMenu)} className={`${cartMenu && 'text_hl'} flex items-center gap-1 bg-white px-2 p-1 rounded hover`}>
                     <RiShoppingBag2Line />
-                    <p className='text-sm'>{cartItems.length}</p>
+                    <p className='text-sm'>{cartCount}</p>
                 </div>
                 {
                     user ? <>

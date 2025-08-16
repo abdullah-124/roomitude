@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../../context/AppContext';
 
-function FilterByCategory({ setParams }) {
+function FilterByCategory({ updateUrl,setParams }) {
     const { categories } = useContext(AppContext)
     // We'll keep selected categories in an array
     const [selected, setSelected] = useState([]);
@@ -17,10 +17,11 @@ function FilterByCategory({ setParams }) {
 
         setSelected(updatedCategories);
 
-        setParams((prev) => ({
-            ...prev,
-            categories: updatedCategories
-        }));
+        // setParams((prev) => ({
+        //     ...prev,
+        //     categories: updatedCategories
+        // }));
+        updateUrl({'categories': updatedCategories})
     };
     return (
         <div className='w-full text-sm border border-gray-200 rounded shadow p-2'>

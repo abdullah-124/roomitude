@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 
-export default function PriceRangeSlider({setParams}) {
+export default function PriceRangeSlider({updateUrl,setParams}) {
     const [maxValue, setMaxValue] = useState(100)
     const [minValue, setMinValue] = useState(0)
     useEffect(()=>{
         if(maxValue==100 && minValue==0)return
-        setParams(prev => ({
-            ...prev, 
-            price_min: minValue,
-            price_max: maxValue,
-        }))
+        // setParams(prev => ({
+        //     ...prev, 
+        //     price_min: minValue,
+        //     price_max: maxValue,
+        // }))
+        updateUrl({
+            'price_min':minValue, 'price_max': maxValue
+        })
     }, [maxValue, minValue])
     return (
         <div className="p-2 w-full shadow rounded border border-gray-200">

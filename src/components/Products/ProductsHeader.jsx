@@ -1,15 +1,8 @@
 import React from 'react'
 import product_header from '/images/product_header.png'
 
-function ProductsHeader({setParams, setFilter}) {
+function ProductsHeader({setQuery}) {
   const options = ['trending', 'best_sellers', 'featured', 'discount']
-  const handaleParams = (option)=>{
-    setParams(prev => ({
-      ...prev ,
-      [option]: true
-    }))
-    setFilter(true)
-  }
   return (
     <div className='relative mb-10 '>
       <img src={product_header} alt="" className='object-cover absolute w-full h-full -z-10' />

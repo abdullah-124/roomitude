@@ -8,7 +8,7 @@
 
 body {
     font-family: 'Josefin Sans', sans-serif;
-    @apply text-indigo-950;
+    @apply text-[#0c0024];
 }
 /* For Webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+import { useMessage } from "../../context/MessageProvider";
 
 function Message() {
-    const {message} = useContext(AppContext)
+    const { message } = useMessage()
     if (!message) return null;
 
     // Map types to classes
@@ -12,9 +12,11 @@ function Message() {
         default: "bg-[var(--sbg)]",
     };
 
-    const className = classMap[message.status] || classMap.default;
+    const className = classMap[message?.status] || classMap.default;
 
-    return <div className={`${className} text-sm text-center text-white font-medium`}>{message.text}</div>;
+    return <main className={`${className} sticky z-[200] top-0 text-sm text-center text-white font-medium`}>
+        <div className=" z-200 top-0 right-0">{message?.text}</div>
+    </main>;
 }
 
 export default Message;

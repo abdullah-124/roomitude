@@ -1,10 +1,11 @@
 import React from 'react'
 import { RiShoppingBag2Line, RiHeartLine, RiEyeLine   } from "react-icons/ri";
-import addToCart from '../../utils/Cart/addToCart';
+import { useCart } from '../../context/CartProvider';
 
 
 // Product card badge 
 function Product_card_badge({ setModal, product }) {
+    const {addToCart } = useCart()
     const {is_featured, discount} = product
     return (
         <div className='absolute border w-full h-full z-10 p-3 text-sm text-white'>
