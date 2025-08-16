@@ -17,14 +17,8 @@ function Products({ pagination = true }) {
 
   useEffect(() => {
     fetch_products()
-  }, [currentPage]); // <-- include `limit` if it's a prop or state
+  }, [currentPage, query]); 
 
-  // after 3 second of filtering
-  useEffect(() => {
-    setTimeout(() => {
-      fetch_products()
-    }, 3000);
-  }, [query])
   // function for fetchig product
   const fetch_products = async () => {
     // add param to the main url
@@ -53,7 +47,7 @@ function Products({ pagination = true }) {
   return (
     <section className='container mb-10'>
       <ProductsHeader setQuery={setQuery} />
-      <div className='grid md:grid-cols-4 grid-cols-1 md:gap-5 gap-y-5'>
+      <div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 md:gap-5 gap-y-5'>
         <ProductFilter_Sidebar setQuery={setQuery} />
         {
           loading ? <h1 className='text-xl text-center pt-10'>Loading...</h1>

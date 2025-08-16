@@ -3,7 +3,7 @@ import ProductCard from '../Cards/ProductCard'
 
 function ProductsGridView({ products }) {
     return (
-        <main className='col-span-3'>
+        <main className='lg:col-span-3 md:col-span-2'>
             {
                 products ? <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-3">
                     {

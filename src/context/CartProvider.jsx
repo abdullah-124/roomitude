@@ -178,10 +178,14 @@ export const CartProvider = ({ children }) => {
         latestQuantities.current.set(itemId, quantity)
         setTimeout(() => {
           const latestQ = latestQuantities.current.get(itemId)
-          debouncedApiUpdate(itemId, latestQ);
+          // check after 5 second this items  stiil present or delted by user
+          const existingItem = state.items.find(item => item.product_id === itemId);
+          if(existingItem){
+            debouncedApiUpdate(itemId, latestQ);
+          }
           hold.current.pop(itemId)
           latestQuantities.current.delete(itemId)
-        }, 5000);
+        }, 3000);
       }
       
     } else {

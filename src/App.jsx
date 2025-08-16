@@ -10,7 +10,6 @@ import Signup from './components/Account/Signup';
 import Verify_email from './components/Verify_email/Verify_email';
 import Profile from './components/Profile/Profile';
 import Navbar from './components/Navbar/Navbar';
-import { tokenRefresh } from './utils/tokenRefresh';
 import ProtectedRoute from './utils/ProtectedRoute/ProtectedRoute';
 import MyOrder from './components/Profile/MyOrder';
 import Cart from './components/Profile/Cart';
@@ -20,9 +19,6 @@ import Account from './components/Profile/Account';
 import Message from './components/Navbar/Message';
 
 function App() {
-  useEffect(() => {
-    tokenRefresh()
-  }, [])
   return (
     <main className='min-h-[100vh] relative flex justify-between flex-col'>
       <Message />

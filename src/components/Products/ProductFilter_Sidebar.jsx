@@ -7,14 +7,19 @@ import FilterByCategory from './FilterByCategory';
 
 function ProductFilter_Sidebar({ setQuery }) {
     const formRef = useRef(null)
-    const resetForm = () => {
+    const [active, setActive] = useState(false)
+    // reset form and url parameters
+    const resetForm = (e) => {
         formRef.current.reset(); // native reset clears input values
+        setQuery(null)
+        setActive(false)
     };
     // Update URL parameter
     const [searchParams, setSearchParams] = useSearchParams();
     const handle_filter = (e) =>{
         e.preventDefault()
         setQuery(searchParams)
+        setActive(false)
     }
     const updateUrl = (updates) => {
         const newParams = new URLSearchParams(searchParams);
@@ -37,9 +42,10 @@ function ProductFilter_Sidebar({ setQuery }) {
 
         if (shouldResetPage) {
             newParams.delete('page');
+            setActive(false)
         }
+        setActive(true)
         setSearchParams(newParams);
-        setQuery(newParams)
     };
     return (
         <main>
@@ -51,8 +57,8 @@ function ProductFilter_Sidebar({ setQuery }) {
                     <SortBy updateUrl={updateUrl} />
                 </div>
                 <div className='flex gap-2 col-span-2'>
-                    <button onClick={(e) => handle_filter(e)} className={`w-full btn `}>Filter</button>
-                    <button onClick={resetForm} className={` w-full`}>Reset</button>
+                <button onClick={(e) => handle_filter(e)} className={`w-full ${active ? 'btn':'btn_disable'}`}>Filter</button>
+                    <button onClick={(e) => resetForm(e)} className={`w-full ${active ? 'btn':'btn_disable'}`}>Reset</button>
                 </div>
             </form>
         </main>

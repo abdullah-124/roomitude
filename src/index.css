@@ -63,7 +63,7 @@ body {
 }
 
 .btn_disable {
-    @apply p-1 px-3 bg-[var(--sbg)]/70 border border-[var(--sbg)]/70 text-center font-medium rounded-lg text-[var(--bg)]
+    @apply pointer-events-none p-1 px-3 bg-[var(--sbg)]/70 border border-[var(--sbg)]/70 text-center font-medium rounded-lg text-[var(--bg)]
 }
 
 .input {
