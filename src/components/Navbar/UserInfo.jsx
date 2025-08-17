@@ -4,11 +4,13 @@ import { Link, useLocation } from 'react-router';
 import UserMenuBar from './UserMenuBar';
 import CartMenu from './CartMenu';
 import { useCart } from '../../context/CartProvider';
+import WishListMenu from './WishlistMenu';
 
 
 function UserInfo({ user }) {
     const [userMenu, setUserMenu] = useState(false)
     const [cartMenu, setCartMenu] = useState(false)
+    const [wishListMenu, setWishlistMemu] = useState(false)
     const location = useLocation()
     const {cartCount} = useCart()
     useEffect(() => {
@@ -28,18 +30,19 @@ function UserInfo({ user }) {
                 </div>
                 {
                     user ? <>
-                        <Link to='/wishlist' className={` flex items-center gap-1 bg-white px-2 p-1 rounded hover`}>
+                        <div onClick={()=> setWishlistMemu(!wishListMenu)} className={`flex items-center gap-1 bg-white px-2 p-1 rounded hover`}>
                             <RiHeartLine />
                             <p className='text-sm'>2</p>
-                        </Link>
-                        <div onClick={() => setUserMenu(!userMenu)} className='bg-[var(--sbg)] border  border-[var(--sbg)] rounded-full w-10 h-10 flex justify-center items-center cursor-pointer text-white'>
+                        </div>
+                        <div onClick={() => setUserMenu(!userMenu)} className='bg-white p-[2px]  border  border-[var(--sbg)] rounded-full w-10 h-10 flex justify-center items-center cursor-pointer text_hl'>
                             {
                                 user.profile_image_url ? <img className='rounded-full' src={user.profile_image_url} />
-                                    : <p className='font-medium text-2xl'>{user.username.slice(0, 2)}</p>
+                                    : <p className='font-medium pt-1 text-2xl'>{user.username.slice(0, 2)}</p>
                             }
                         </div>
                         <>
-                            {userMenu && <UserMenuBar user={user} />}
+                            {userMenu && <UserMenuBar user={user} setUserMenu={setUserMenu} />}
+                            {wishListMenu && <WishListMenu setWishListMenu={setWishlistMemu} />}
                         </>
                     </> :
                         <>

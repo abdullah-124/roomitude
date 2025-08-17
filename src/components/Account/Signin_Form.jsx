@@ -3,13 +3,13 @@ import { AppContext } from '../../context/AppContext';
 import { useLocation, useNavigate } from 'react-router';
 import { useMessage } from '../../context/MessageProvider';
 
-export default function Signin_Form({ setMode }) {
+export default function Signin_Form({ setMode, setError }) {
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || "/";
     const { updateUser } = useContext(AppContext)
     const {updateMessage} = useMessage()
-    const [error, setError] = useState('')
     const [formData, setFormData] = useState({ username: "", password: "" });
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,7 +22,7 @@ export default function Signin_Form({ setMode }) {
         console.log(formData)
         e.preventDefault();
         setError("");
-
+        setLoading(true)
         try {
             const res = await fetch("http://127.0.0.1:8000/api/account/login/", {
                 method: "POST",
@@ -34,8 +34,7 @@ export default function Signin_Form({ setMode }) {
 
             if (!res.ok) {
                 const errorData = await res.json();
-                setError(errorData.detail || "Login failed");
-                updateMessage({ 'text': error, 'status': 'error' })
+                setError(errorData.message || "Login failed");
                 return;
             }
             //  AFTER SUCCESFUL LOGIN
@@ -57,14 +56,19 @@ export default function Signin_Form({ setMode }) {
         } catch (err) {
             setError("Network error");
         }
+        finally{
+            setLoading(false)
+        }
     };
     return (
         <form onSubmit={handleLogin}>
             <h2 className='text-xl pb-5 font-bold text-center'>Sign In</h2>
+            
             <input onChange={(e) => handleChange(e)} className='form_input' type="text" name="username" placeholder='Username' required />
             <input onChange={(e) => handleChange(e)} className='form_input' type="password" name="password" placeholder='password' required />
             {
-                <button className='block mt-5 w-full btn' type="submit">Login</button>
+                loading?<p className='block mt-5 w-full btn_disable' >Submitting...</p>
+                :<button className='block mt-5 w-full btn' type="submit">Login</button>
             }
             <p className='my-4 text-center'>Don't have account? <span onClick={() => setMode('signup')} className='text_hl'>Sign Up</span></p>
         </form>

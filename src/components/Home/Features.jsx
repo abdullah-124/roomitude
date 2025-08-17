@@ -5,9 +5,9 @@ import { SlSocialDropbox } from 'react-icons/sl'
 
 function Features() {
     return (
-        <div className='padding'>
+        <div className='max-w-[1200px] mx-auto'>
             {/* feature */}
-            <section className='padding -translate-y-[30px]'>
+            <section className=' padding -translate-y-[30px]'>
                 <div className='bg-white shadow p-5 rounded-lg grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 items-center'>
                     <div className='flex gap-3 items-center'>
                         <SlSocialDropbox className='text-7xl' />

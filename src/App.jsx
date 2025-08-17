@@ -23,7 +23,8 @@ function App() {
     <main className='min-h-[100vh] relative flex justify-between flex-col'>
       <Message />
       <Navbar />
-      <Routes>
+      <main className='min-h-[80vh]'>
+        <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/products' element={<Products />} />
         <Route path='/about' element={<About />} />
@@ -40,6 +41,7 @@ function App() {
         <Route path='/verify_email' element={<Verify_email />} />
         <Route path='/*' element={<NotFound />} />
       </Routes>
+      </main>
       <Footer />
     </main>
   )

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { useMessage } from '../../context/MessageProvider';
 
-const Register = ({ setMode }) => {
+const Register = ({ setMode, setError }) => {
     const { updateMessage } = useMessage()
     const navigate = useNavigate();
     const {
@@ -33,7 +33,7 @@ const Register = ({ setMode }) => {
                 updateMessage(result)
                 navigate('/verify_email')
             } else {
-                alert(result.detail || 'Registration failed.');
+                setError(result.detail || 'Registration failed.');
             }
         } catch (error) {
             console.error(error);

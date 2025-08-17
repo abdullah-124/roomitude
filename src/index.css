@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-    --text: #000000;
+    --text: #172430;
     --sbg: #FF7A30;
     --bg: #cccccc;
 }
 
 body {
     font-family: 'Josefin Sans', sans-serif;
-    @apply text-[#0c0024];
+    @apply text-[var(--text)];
 }
 /* For Webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {

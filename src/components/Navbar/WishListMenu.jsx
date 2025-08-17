@@ -4,17 +4,17 @@ import { MdClose } from "react-icons/md";
 import { useCart } from '../../context/CartProvider';
 
 
-function CartMenu({ setCartMenu }) {
+function WishListMenu({ setWishListMenu }) {
   const {items, cartCount, cartTotal,removeFromCart, updateQuantity  } = useCart()
   const handle_quantity = (itemId, quantity) =>{
     updateQuantity(itemId, quantity)
   }
   return (
-    <main onClick={()=>setCartMenu(false)} className='fixed w-full right-0 top-0 h-full pt-14 z-100'>
+    <main onClick={()=>setWishListMenu(false)} className='fixed w-full right-0 top-0 h-full pt-14 z-100'>
       <div onClick={(e)=>e.stopPropagation()} className='w-[300px]  bg-white float-right mr-3 border border-[var(--sbg)]/40'>
         {
           items.length ? <div className='text-sm'>
-            <h3 className='text-lg font-medium px-5 py-2 shadow'>Cart List (<span>{cartCount}</span>)</h3>
+            <h3 className='text-lg font-medium px-5 py-2 shadow'>Wishlist (<span>{cartCount}</span>)</h3>
             <div className='px-5 flex flex-col max-h-[300px] overflow-y-scroll shadow'>
               {
                 items.map((item, idx) => (
@@ -55,4 +55,4 @@ function CartMenu({ setCartMenu }) {
   )
 }
 
-export default CartMenu
+export default WishListMenu

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Slider from "react-slick";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import CategoryCard from "../Cards/CategoryCard";
+import { AppContext } from "../../context/AppContext";
 
 
 const CustomPrevArrow = ({ onClick }) => (
@@ -51,17 +52,7 @@ const TopCategories = () => {
       },
     ],
   };
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/categories/')
-      .then(res => res.json())
-      .then(data => {
-        // console.log(data)
-        setCategories(data)
-      })
-      .catch(err => console.error("Failed to load categories", err));
-  }, []);
+  const {categories } = useContext(AppContext)
 
   return (
     <div className="container relative mx-auto px-4 py-10">

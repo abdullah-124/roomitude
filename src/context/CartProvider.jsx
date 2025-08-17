@@ -1,86 +1,39 @@
 import React, { createContext, useContext, useReducer, useEffect, useState, useRef } from 'react';
 import { debounce } from '../utils/debounce';
 import { useMessage } from './MessageProvider';
-
+import cartReducer from './cartReducer';
+import { AppContext } from './AppContext';
 
 const CartContext = createContext();
 
-const cartReducer = (state, action) => {
-  switch (action.type) {
-    case 'SET_CART':
-      return { ...state, items: action.payload };
-    
-    case 'ADD_ITEM':
-      const existingItem = state.items.find(item => item.product_id === action.payload.product_id);
-      if (existingItem) {
-        return {
-          ...state,
-          items: state.items.map(item =>
-            item.product === action.payload.product
-              ? { ...item}
-              : item
-          )
-        };
-      }
-      return { ...state, items: [...state.items, action.payload] };
-    
-    case 'UPDATE_QUANTITY':
-      return {
-        ...state,
-        items: state.items.map(item =>
-          item.id === action.payload.id
-            ? { ...item, quantity: action.payload.quantity }
-            : item
-        )
-      };
-    
-    case 'REMOVE_ITEM':
-      return {
-        ...state,
-        items: state.items.filter(item => item.id !== action.payload)
-      };
-    
-    case 'CLEAR_CART':
-      return { ...state, items: [] };
-    
-    case 'SET_LOADING':
-      return { ...state, loading: action.payload };
-    
-    default:
-      return state;
-  }
-};
 
 export const CartProvider = ({ children }) => {
-  const hold = useRef([])
+  const { setCarts,carts, user } = useContext(AppContext)
   const latestQuantities = useRef(new Map());
-  const {setToast} = useMessage()
-  const [state, dispatch] = useReducer(cartReducer, { 
-    items: [], 
-    loading: false 
+  const { setToast } = useMessage()
+  const [state, dispatch] = useReducer(cartReducer, {
+    items: [],
+    loading: false
   });
-  
-  const isLoggedIn = !!localStorage.getItem('accessToken');
 
+  const isLoggedIn = user || null;
+  // FIXED: Save to localStorage whenever items change (for non-logged users)
+  useEffect(() => {
+    if (!isLoggedIn && state.items.length > 0) {
+      console.log('Saving to localStorage:', state.items);
+      localStorage.setItem('cart', JSON.stringify(state.items));
+    }
+  }, [state.items, isLoggedIn]);
   // Load cart on mount
   useEffect(() => {
+    mergeGuestCart()
     loadCart();
-  }, [isLoggedIn]);
+  }, [isLoggedIn, carts]);
 
   const loadCart = async () => {
     if (isLoggedIn) {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/api/cart/', {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-          }
-        });
-        const data = await response.json();
-        dispatch({ type: 'SET_CART', payload: data });
-      } catch (error) {
-        console.error('Failed to load cart:', error);
-        loadLocalCart();
-      }
+      console.log('this is carts', carts)
+      dispatch({ type: 'SET_CART', payload: carts });
     } else {
       loadLocalCart();
     }
@@ -91,14 +44,10 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: 'SET_CART', payload: localCart });
   };
 
-  const saveToLocal = (items) => {
-    localStorage.setItem('cart', JSON.stringify(items));
-  };
-
   // Debounced API update for logged-in users
-  const debouncedApiUpdate = debounce(async (itemId, quantity) => {
+  const debouncedApiUpdate = async (itemId, quantity) => {
     if (!isLoggedIn) return;
-    if(quantity<=0) return;
+    if (quantity <= 0) return;
     try {
       const res = await fetch(`http://127.0.0.1:8000/api/cart/${itemId}/update_quantity/`, {
         method: 'PATCH',
@@ -113,23 +62,24 @@ export const CartProvider = ({ children }) => {
     } catch (error) {
       console.error('Failed to update cart:', error);
     }
-  }, 3000);
+  };
 
   const addToCart = async (product, quantity = 1) => {
+    console.log('Adding to cart:', product, quantity);
     dispatch({ type: 'SET_LOADING', payload: true });
-    
+
+    // Create new item with guaranteed unique ID
+    const newItem = {
+      id: Date.now() + Math.random(),
+      product_id: product.id,
+      quantity,
+      name: product.name,
+      exact_price: product.exact_price,
+      image: product.image
+    };
+
     // Optimistic update
-    // const product = {id,name,image, exact_price, discount, is_featured}
-    dispatch({ 
-      type: 'ADD_ITEM', 
-      payload: { 
-        product_id: product.id, 
-        quantity, 
-        name: product.name,
-        exact_price: product.exact_price,
-        image: product.image
-      } 
-    });
+    dispatch({ type: 'ADD_ITEM', payload: newItem });
 
     if (isLoggedIn) {
       try {
@@ -144,55 +94,42 @@ export const CartProvider = ({ children }) => {
             quantity
           })
         });
-        const data = await res.json()
-        // console.log(data);
-        const msg = `${data?.name} has added to cart`
-        setToast(msg, 'success', 5000)
-        
-      } 
-      catch (error) {
+        const data = await res.json();
+        const msg = `${data?.name} has been added to cart`;
+        setToast(msg, 'success', 5000);
+      } catch (error) {
         console.error('Failed to add to cart:', error);
-        // Fallback to localStorage
-        const updatedItems = [...state.items];
-        saveToLocal(updatedItems);
+        setToast('Failed to add item to cart', 'error', 3000);
       }
     } else {
-      saveToLocal(state.items);
+      // For guest users, the useEffect will automatically save to localStorage
+      setToast(`${product.name} has been added to cart`, 'success', 3000);
     }
-    
+
     dispatch({ type: 'SET_LOADING', payload: false });
   };
 
+
+  const reset_cart_state = () => {
+    console.log('after logout reset cart state')
+    dispatch({ type: 'RESET_CART_STATE' })
+  }
+  //  UPDATE QUANTITY
   const updateQuantity = (itemId, quantity) => {
-    if(quantity <=0) return 
+    console.log('action fired', itemId, quantity)
+    if (quantity <= 0) return
     // Immediate UI update
     dispatch({ type: 'UPDATE_QUANTITY', payload: { id: itemId, quantity } });
-    
+
     if (isLoggedIn) {
-      if(hold.current.includes(itemId)){
-        latestQuantities.current.set(itemId, quantity)
-        return
-      }
-      else{
-        hold.current.push(itemId)
-        latestQuantities.current.set(itemId, quantity)
-        setTimeout(() => {
-          const latestQ = latestQuantities.current.get(itemId)
-          // check after 5 second this items  stiil present or delted by user
-          const existingItem = state.items.find(item => item.product_id === itemId);
-          if(existingItem){
-            debouncedApiUpdate(itemId, latestQ);
-          }
-          hold.current.pop(itemId)
-          latestQuantities.current.delete(itemId)
-        }, 3000);
-      }
-      
+      debouncedApiUpdate(itemId, quantity)
+
+
     } else {
       const updatedItems = state.items.map(item =>
         item.id === itemId ? { ...item, quantity } : item
       );
-      saveToLocal(updatedItems);
+
     }
   };
 
@@ -209,13 +146,13 @@ export const CartProvider = ({ children }) => {
           }
         });
         console.log(res)
-        setToast('REMOVED FROM CART','error', 2000)
+        setToast('REMOVED FROM CART', 'error', 2000)
       } catch (error) {
         console.error('Failed to remove item:', error);
       }
     } else {
       const updatedItems = state.items.filter(item => item.id !== itemId);
-      saveToLocal(updatedItems);
+
     }
   };
 
@@ -239,33 +176,41 @@ export const CartProvider = ({ children }) => {
   };
 
   const mergeGuestCart = async () => {
-    const guestCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    
-    if (guestCart.length > 0) {
-      try {
-        await fetch('/api/cart/merge/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
-          },
-          body: JSON.stringify({ items: guestCart })
-        });
-        localStorage.removeItem('cart');
-        loadCart(); // Reload cart from server
-      } catch (error) {
-        console.error('Failed to merge cart:', error);
-      }
+    console.log('this is guest cart')
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    if (cart.length <= 0 || !isLoggedIn) return;
+
+    const guest_cart = cart.map(item => ({
+      'product_id': item.product_id,
+      'quantity': item?.quantity || 1
+    }))
+    try {
+      const res = await fetch('http://127.0.0.1:8000/api/cart/merge/', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        },
+        body: JSON.stringify({ items: guest_cart })
+      })
+      const data = await res.json()
+      dispatch({ type: 'SET_CART', payload: data.items });
+      setCarts(data.items)
+      setToast(data.message)
+      localStorage.removeItem('cart')
+    }
+    catch (error) {
+      console.log(error)
     }
   };
 
   const cartCount = state.items.length || 0;
   const cartTotal = Number(
-  state.items.reduce((total, item) => 
-    total + (item.exact_price * item.quantity), 
-    0
-  ).toFixed(2)
-);
+    state.items.reduce((total, item) =>
+      total + (item.exact_price * item.quantity),
+      0
+    ).toFixed(2)
+  );
 
   return (
     <CartContext.Provider value={{
@@ -277,7 +222,8 @@ export const CartProvider = ({ children }) => {
       removeFromCart,
       clearCart,
       mergeGuestCart,
-      loadCart
+      loadCart,
+      reset_cart_state
     }}>
       {children}
     </CartContext.Provider>
