@@ -1,54 +1,41 @@
-import React from 'react'
-import { FaPlus, FaMinus } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { useCart } from '../../context/CartProvider';
+import useWishlist from '../../context/WishlistContext';
+import { Link } from 'react-router';
 
 
 function WishListMenu({ setWishListMenu }) {
-  const {items, cartCount, cartTotal,removeFromCart, updateQuantity  } = useCart()
-  const handle_quantity = (itemId, quantity) =>{
-    updateQuantity(itemId, quantity)
-  }
+  const { items_in_wishlist, items_count_in_wishlist, remove_item_from_wishlist } = useWishlist()
   return (
-    <main onClick={()=>setWishListMenu(false)} className='fixed w-full right-0 top-0 h-full pt-14 z-100'>
-      <div onClick={(e)=>e.stopPropagation()} className='w-[300px]  bg-white float-right mr-3 border border-[var(--sbg)]/40'>
+    <main onClick={() => setWishListMenu(false)} className='fixed w-full right-0 top-0 h-full pt-14 z-100'>
+      <div onClick={(e) => e.stopPropagation()} className='w-[300px]  bg-white float-right mr-3 border border-[var(--sbg)]/40'>
         {
-          items.length ? <div className='text-sm'>
-            <h3 className='text-lg font-medium px-5 py-2 shadow'>Wishlist (<span>{cartCount}</span>)</h3>
+          items_in_wishlist.length ? <div className='text-sm'>
+            <h3 className='text-lg font-medium px-5 py-2 shadow'>Wishlist (<span>{items_count_in_wishlist}</span>)</h3>
             <div className='px-5 flex flex-col max-h-[300px] overflow-y-scroll shadow'>
               {
-                items.map((item, idx) => (
-                  <div key={idx} className='py-2 grid grid-cols-3 border-b border-gray-200 cursor-pointer gap-x-2'>
-                    <img src={item.image} alt="" />
+                items_in_wishlist.map((item, idx) => (
+                  <div key={idx} className='py-2 grid grid-cols-3 border-b border-gray-200 cursor-pointer gap-x-2 items-center'>
+                    <img src={item.product.image} alt="" />
                     <div className='col-span-2 '>
                       <div className='flex justify-between items-center'>
-                        <h3 className='font-bold text-base text_hl'>{item.exact_price}$</h3>
-                        {/* delete cart item */}
-                        <button onClick={()=>removeFromCart(item.id)} className='bg-[var(--bg)] text-white hover:bg-[var(--sbg)]'><MdClose /></button>
+                        <h3 className='font-bold text-base text_hl'>{item.product.exact_price}$</h3>
+                        {/* delete wishlist item */}
+                        <button
+                          onClick={() => remove_item_from_wishlist(item.product.id)}
+                          className='bg-[var(--bg)] text-lg text-white hover:bg-[var(--sbg)]'>
+                          <MdClose />
+                        </button>
                       </div>
-                      <h3 className='py-1'>{item.name}</h3>
-                      <div className='flex items-center'>
-                        <button onClick={()=>handle_quantity(item.id, item.quantity - 1)} className='p-1 bg-[var(--bg)]'><FaMinus /></button>
-                        <p className='px-2 '>{item.quantity}</p>
-                        <button onClick={()=>handle_quantity(item.id, item.quantity + 1)} className='p-1 bg-[var(--bg)]'><FaPlus /></button>
-                      </div>
+                      <h3 className='py-1'>{item.product.name}</h3>
                     </div>
                   </div>
                 ))
               }
             </div>
             <div className='px-5 py-1'>
-              <div className='text-sm flex justify-between items-center'>
-                <h2 className=''>Items Count</h2>
-                <h2>{cartCount}</h2>
-              </div>
-              <div className='text-lg flex justify-between items-center'>
-                <h2 className=''>Total amount</h2>
-                <h2>{cartTotal}$</h2>
-              </div>
-              <button className='btn w-full my-3'>Procced To Checkout</button>
+              <Link to='/profile/wishlist/' className='block text-lg btn w-full my-3'>View All Wishlist</Link>
             </div>
-          </div> : <h3 className='p-3 text-gray-500'>Cart is empty</h3>
+          </div> : <h3 className='p-3 text-gray-500'>wishlist is empty</h3>
         }
       </div>
     </main>

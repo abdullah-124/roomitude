@@ -11,12 +11,12 @@ export default function Profile() {
         <header className='md:col-span-4 relative '>
           <img src={product_header} alt="" className='object-cover absolute w-full h-full -z-10' />
           <div className=' text-center z-10 py-10 bg-[#0000009c] text-white rounded-lg'>
-            <h2 className='text-2xl font-bold'>Shop</h2>
-            <p className='py-1'>Home/Shop</p>
+            <h2 className='text-2xl font-bold'>Account</h2>
+            <p className='py-1'>account/name</p>
           </div>
         </header>
-        <aside className="md:col-span-1 h-full sticky top-3 z-[100] border border-gray-200 rounded-lg"><Sidebar /></aside>
-        <aside className="md:col-span-3 border border-gray-200 rounded-lg p-4"><Outlet /></aside>
+        <aside className="md:col-span-1 h-full sticky top-0 z-[50] border border-gray-200 rounded-lg"><Sidebar /></aside>
+        <aside className="md:col-span-3 border border-gray-200 rounded-lg p-4 min-h-[50vh]"><Outlet /></aside>
       </section>
     </main >
   );

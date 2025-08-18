@@ -4,7 +4,7 @@ import { CiShoppingCart } from "react-icons/ci";
 import Product_card_badge from './Product_card_badge';
 import ProductQuickViewModal from '../Modal/ProductQuickViewModal';
 
-function ProductCard({ item }) {
+function ProductCard({ item, listed=false }) {
   const { id, name, image, price, exact_price, discount, is_featured } = item;
   const product = {id,name,image, exact_price, discount, is_featured}
   const [modal, setModal] = useState(false)
@@ -24,7 +24,7 @@ function ProductCard({ item }) {
     <article className='card pb-3'>
       <div className='flex flex-col justify-between h-full '>
         <div className='relative overflow-hidden shadow aspect-[4/4]'>
-          <Product_card_badge setModal={setModal} product={product} />
+          <Product_card_badge setModal={setModal} product={product} listed={listed} />
           <img
             className='object-cover w-full h-full hover:scale-110 transition-all duration-500'
             src={item?.image ? image : blank_image}

@@ -33,7 +33,7 @@ const Register = ({ setMode, setError }) => {
                 updateMessage(result)
                 navigate('/verify_email')
             } else {
-                setError(result.detail || 'Registration failed.');
+                setError(result.message || result.error || 'Registration failed.');
             }
         } catch (error) {
             console.error(error);

@@ -1,15 +1,12 @@
 import React from 'react'
 import paymentImg from '/images/payment.png'
-import { GiRockingChair } from "react-icons/gi";
+import LOGO from '../Navbar/LOGO'
 function Footer() {
   return (
     <footer className='bg-[var(--bg)] container'>
       <section className='py-5 grid md:grid-cols-3 grid-cols-1 gap-2'>
         <article>
-          <div className='flex items-center gap-2 text-3xl font-bold'>
-            <GiRockingChair className='text_hl' />
-            <h2>Roomitude</h2>
-          </div>
+          <LOGO />
           <p className='my-3'>Roomitude brings comfort and style to your space with expertly crafted chairs. Designed for every room, made for everyday living.</p>
         </article>
 

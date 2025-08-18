@@ -44,9 +44,10 @@ export function AppProvider({ children }) {
             setProducts(data.products.products)
             setFeaturedProducts(data.products.featured_products)
             if (data?.user?.username) {
-                updateUser(data.user)
+                updateUser(data?.user)
                 setCarts(data.cart)
                 setWishlist(data.wishlist)
+                console.log('wiwi',wishlist)
             }
         } else {
             const er = await res.json()

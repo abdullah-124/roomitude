@@ -49,7 +49,7 @@ function Navbar() {
                     </ul>
                     {
                         // mobile nav 
-                        show && <ul className='expand bg-white absolute z-100 top-[100%] left-0 p-2 py-5 w-full  flex flex-col md:hidden'>
+                        show && <ul className='expand bg-white absolute z-[50] top-[100%] left-0 p-2 py-5 w-full  flex flex-col md:hidden'>
                             <li><NavLink to='' className='navLink'>Home</NavLink></li>
                             <li><NavLink to='/products/' className={({ isActive }) => isActive ? "active" : "navLink"
                             }>Products</NavLink></li>

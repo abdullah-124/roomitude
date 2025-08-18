@@ -5,12 +5,14 @@ import UserMenuBar from './UserMenuBar';
 import CartMenu from './CartMenu';
 import { useCart } from '../../context/CartProvider';
 import WishListMenu from './WishlistMenu';
+import useWishlist from '../../context/WishlistContext';
 
 
 function UserInfo({ user }) {
     const [userMenu, setUserMenu] = useState(false)
     const [cartMenu, setCartMenu] = useState(false)
     const [wishListMenu, setWishlistMemu] = useState(false)
+    const {items_count_in_wishlist} = useWishlist()
     const location = useLocation()
     const {cartCount} = useCart()
     useEffect(() => {
@@ -30,14 +32,16 @@ function UserInfo({ user }) {
                 </div>
                 {
                     user ? <>
-                        <div onClick={()=> setWishlistMemu(!wishListMenu)} className={`flex items-center gap-1 bg-white px-2 p-1 rounded hover`}>
+                        <div onClick={()=> setWishlistMemu(!wishListMenu)} className={`${wishListMenu && 'text_hl'} flex items-center gap-1 bg-white  p-1 rounded hover`}>
                             <RiHeartLine />
-                            <p className='text-sm'>2</p>
+                            {
+                               items_count_in_wishlist>0 && <p className='text-sm'>{items_count_in_wishlist}</p>
+                            }
                         </div>
                         <div onClick={() => setUserMenu(!userMenu)} className='bg-white p-[2px]  border  border-[var(--sbg)] rounded-full w-10 h-10 flex justify-center items-center cursor-pointer text_hl'>
                             {
-                                user.profile_image ? <img className='rounded-full' src={user.profile_image} />
-                                    : <p className='font-medium text-2xl'>{user.username.slice(0, 2)}</p>
+                                user?.profile_image ? <img className='rounded-full' src={user?.profile_image} />
+                                    : <p className='font-medium text-2xl'>{user?.username.slice(0, 2)}</p>
                             }
                         </div>
                         <>
