@@ -56,7 +56,7 @@ const PriceRangeInputSlider = ({
       {/* Track */}
       <div 
         ref={sliderRef}
-        className="relative h-2 bg-gray-200 rounded-full cursor-pointer"
+        className="relative h-2 bg-[var(--bg)] rounded-full cursor-pointer"
       >
         {/* Active Range */}
         <div
@@ -75,7 +75,7 @@ const PriceRangeInputSlider = ({
           style={{ left: `${minPercentage}%` }}
           onMouseDown={handleMouseDown('min')}
         >
-          <div className="w-2 h-2 bg-orange-500 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+          <div className="w-2 h-2 bg-[var(--sbg)] rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
         </div>
         
         {/* Max Thumb */}

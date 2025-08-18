@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import PriceRangeInputSlider from "./PriceRangeInputSlider";
 
-export default function PriceRangeSlider({ updateUrl }) {
-    const [maxValue, setMaxValue] = useState(100)
+export default function PriceRangeSlider({ url, setUrl }) {
+    const [maxValue, setMaxValue] = useState(300)
     const [minValue, setMinValue] = useState(0)
     const handleRangeChange = (min, max) => {
         setMinValue(min);
         setMaxValue(max);
-        updateUrl({
-            'price_max': maxValue,
-            'price_min': minValue
-        })
+        const newUrl = new URLSearchParams(url.toString())
+        newUrl.set('price_max',maxValue)
+        newUrl.set('price_min', minValue)
+        setUrl(newUrl)
     };
     return (
         <div className="p-2 w-full shadow rounded border border-gray-200">

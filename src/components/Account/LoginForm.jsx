@@ -3,12 +3,12 @@ import { AppContext } from '../../context/AppContext';
 import { useLocation, useNavigate } from 'react-router';
 import { useMessage } from '../../context/MessageProvider';
 
-export default function Signin_Form({ setMode, setError }) {
+export default function LoginForm({ setMode, setError }) {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || "/";
-    const { updateUser } = useContext(AppContext)
+    const { updateUser, setCarts, setWishlist } = useContext(AppContext)
     const {updateMessage} = useMessage()
     const [formData, setFormData] = useState({ username: "", password: "" });
     const handleChange = (e) => {
@@ -43,7 +43,9 @@ export default function Signin_Form({ setMode, setError }) {
             // Save tokens in localStorage
             localStorage.setItem("accessToken", data.access);
             localStorage.setItem("refreshToken", data.refresh);
-            updateUser(data.user)
+            updateUser(data.user);
+            setCarts(data.cart);
+            setWishlist(data.wishlist)
             // Redirect to original page or home
             navigate(from, { replace: true });
             // show message

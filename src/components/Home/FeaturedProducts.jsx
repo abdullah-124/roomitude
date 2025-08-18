@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { LiaBedSolid } from "react-icons/lia";
 import ProductCard from "../Cards/ProductCard";
+import { AppContext } from "../../context/AppContext";
 
 
 const dummy_products = [
@@ -57,39 +59,24 @@ const FeaturedProducts = () => {
       },
     ],
   };
-  // load products featured product form database
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // load products from appcontext 
+  const {featuredProducts} = useContext(AppContext)
 
-  const loadProducts = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch('http://127.0.0.1:8000/api/products/?featured=true');
-      const data = await response.json();
-      // console.log(data.results)
-      setProducts(data.results);
-    } catch (error) {
-      console.error('Error loading products:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  useEffect(() => {
-    loadProducts();
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="relative max-w-7xl mx-auto px-4 py-10">
-      <h2 className="text-xl font-semibold mb-4">Featured Products</h2>
+    <main className="relative container py-10 padding">
+      <div className="flex flex-col items-center text-center mx-auto w-full md:w-1/2 pb-10">
+        <LiaBedSolid className="text-8xl text_hl"/>
+        <h3 className="text-3xl font-bold">Featured Products</h3>
+        <p className="text-sm leading-5">Discover our handpicked selection of standout products. Elevate your lifestyle with our top picks that combine quality, style, and innovation.</p>
+      </div>
       <Slider {...settings}>
-        {products.map((item) => (
+        {featuredProducts.map((item) => (
           <div className="p-2" key={item.id} ><ProductCard item={item} /></div>
         ))}
       </Slider>
-    </div>
+    </main>
   );
 };
 

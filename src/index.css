@@ -2,7 +2,8 @@
 
 :root {
     --text: #172430;
-    --sbg: #FF7A30;
+    /* --sbg: #FF7A30; */
+    --sbg : rgb(179, 124, 62);
     --bg: #cccccc;
 }
 
@@ -35,7 +36,7 @@ body {
 }
 
 .profile_navlink {
-    @apply px-2 py-2 transition-all rounded-r font-medium text-sm flex gap-2 items-center
+    @apply px-2 py-2 transition-all rounded font-medium text-sm flex gap-2 items-center
 }
 
 .profile_navlink svg {
@@ -65,7 +66,12 @@ body {
 .btn_disable {
     @apply pointer-events-none p-1 px-3 bg-[var(--sbg)]/70 border border-[var(--sbg)]/70 text-center font-medium rounded-lg text-[var(--bg)]
 }
-
+.btn_icon{
+    @apply flex justify-center items-center gap-x-2
+}
+.btn_icon svg{
+    @apply text-xl
+}
 .input {
     @apply w-full outline-none px-2 p-1;
 }
@@ -91,28 +97,7 @@ body {
 input{
     accent-color: var(--sbg);
 }
-/* input range */
-.custom_range {
-  -webkit-appearance: none;
-  width: 100%;
-  /* height: 25px; */
-  background: var(--bg);
-  outline: none;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-  accent-color: var(--sbg);
-}
 
-.custom_range::-webkit-custom_range-thumb {
-  -webkit-appearance: none;
-  /* appearance: none; */
-   background: var(--bg);
-  cursor: pointer;
-}
-
-.custom_range::-moz-range-thumb {
-  cursor: pointer;
-}
 .badge_icon{
     @apply text-sm flex px-2 items-center font-medium gap-1 rounded-lg border cursor-default
 }

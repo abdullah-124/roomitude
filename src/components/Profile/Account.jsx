@@ -11,7 +11,7 @@ function Account() {
   const [formData, setFormData] = useState(user)
   // track if has any change
   const [isChange, setIsChange] = useState(false)
-  const [preview, setPreview] = useState(formData.profile_image_url || null);
+  const [preview, setPreview] = useState(formData.profile_image || null);
   useEffect(() => {
     setIsChange(JSON.stringify(formData) !== JSON.stringify(user));
   }, [formData, user]);

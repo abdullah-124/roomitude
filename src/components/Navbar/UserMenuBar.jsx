@@ -23,7 +23,7 @@ function UserMenuBar({ user, setUserMenu }) {
                     <div className='font-normal text-center bg-gray-200 p-2 rounded-lg '>
                         <div className='border border-[var(--sbg)] rounded-full flex justify-center items-center w-15 h-15 mx-auto'>
                             {
-                                user.profile_image_url ? <img className='rounded-full' src={user.profile_image_url} alt="user image" /> :
+                                user.profile_image ? <img className='rounded-full' src={user.profile_image} alt="user image" /> :
                                     <p className='bg-[var(--sbg)] pt-2 w-full h-full rounded-full text-5xl uppercase text-white'>{user.username.slice(0, 1)}</p>
                             }
                         </div>

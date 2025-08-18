@@ -8,7 +8,7 @@ const CartContext = createContext();
 
 
 export const CartProvider = ({ children }) => {
-  const { setCarts,carts, user } = useContext(AppContext)
+  const { setCarts, carts, user } = useContext(AppContext)
   const latestQuantities = useRef(new Map());
   const { setToast } = useMessage()
   const [state, dispatch] = useReducer(cartReducer, {
@@ -20,19 +20,20 @@ export const CartProvider = ({ children }) => {
   // FIXED: Save to localStorage whenever items change (for non-logged users)
   useEffect(() => {
     if (!isLoggedIn && state.items.length > 0) {
-      console.log('Saving to localStorage:', state.items);
+      // console.log('Saving to localStorage:', state.items);
       localStorage.setItem('cart', JSON.stringify(state.items));
     }
   }, [state.items, isLoggedIn]);
   // Load cart on mount
   useEffect(() => {
+    // console.log('Cart Provider', carts)
     mergeGuestCart()
     loadCart();
   }, [isLoggedIn, carts]);
 
   const loadCart = async () => {
     if (isLoggedIn) {
-      console.log('this is carts', carts)
+      // console.log('this is carts', carts)
       dispatch({ type: 'SET_CART', payload: carts });
     } else {
       loadLocalCart();
@@ -58,14 +59,14 @@ export const CartProvider = ({ children }) => {
         body: JSON.stringify({ quantity })
       });
       const data = await res.json()
-      console.log(data)
+      // console.log(data)
     } catch (error) {
       console.error('Failed to update cart:', error);
     }
   };
 
   const addToCart = async (product, quantity = 1) => {
-    console.log('Adding to cart:', product, quantity);
+    // console.log('Adding to cart:', product, quantity);
     dispatch({ type: 'SET_LOADING', payload: true });
 
     // Create new item with guaranteed unique ID
@@ -111,7 +112,7 @@ export const CartProvider = ({ children }) => {
 
 
   const reset_cart_state = () => {
-    console.log('after logout reset cart state')
+    // console.log('after logout reset cart state')
     dispatch({ type: 'RESET_CART_STATE' })
   }
   //  UPDATE QUANTITY
@@ -145,8 +146,9 @@ export const CartProvider = ({ children }) => {
             'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
           }
         });
-        console.log(res)
-        setToast('REMOVED FROM CART', 'error', 2000)
+        const data = await res.json()
+        console.log(data)
+        setToast('REMOVED FROM CART', 'error', 1000)
       } catch (error) {
         console.error('Failed to remove item:', error);
       }
@@ -176,7 +178,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const mergeGuestCart = async () => {
-    console.log('this is guest cart')
+    // console.log('this is guest cart')
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     if (cart.length <= 0 || !isLoggedIn) return;
 

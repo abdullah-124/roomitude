@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
-import Signin_Form from './Signin_Form'
 import RegisterForm from './RegisterForm'
 import { AppContext } from '../../context/AppContext'
 import NotFound from '../Notfound/NotFound'
 import { IoMdClose } from "react-icons/io";
+import LoginForm from './LoginForm';
 
 function Signup() {
     const { user } = useContext(AppContext)
@@ -23,7 +23,7 @@ function Signup() {
                 </div>
             }
                 {
-                    mode == 'signin' ? <Signin_Form setError={setError} setMode={setMode} />
+                    mode == 'signin' ? <LoginForm setError={setError} setMode={setMode} />
                         : <RegisterForm setError={setError} setMode={setMode} />
                 }
             </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SortBy({ updateUrl, params, setParams }) {
+function SortBy({ url, setUrl }) {
     const options = [
         { 'value': 'price_asc', 'label': 'Highest Price' },
         { 'value': 'price_desc', 'label': 'Lowest Price' },
@@ -10,11 +10,9 @@ function SortBy({ updateUrl, params, setParams }) {
         { 'value': 'rating', 'label': 'Rating' },
     ]
     const add_sort_by_to_params = (e) => {
-        // setParams((prev => ({
-        //     ...prev, 
-        //     sortBy: e.target.value
-        // })))
-        updateUrl({'sortBy': e.target.value})
+        const newUrl = new URLSearchParams(url.toString())
+        newUrl.set('sortBy', e.target.value)
+        setUrl(newUrl);
     }
     return (
         <div className='p-2 w-full shadow rounded border border-gray-200'>

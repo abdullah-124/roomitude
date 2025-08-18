@@ -36,8 +36,8 @@ function UserInfo({ user }) {
                         </div>
                         <div onClick={() => setUserMenu(!userMenu)} className='bg-white p-[2px]  border  border-[var(--sbg)] rounded-full w-10 h-10 flex justify-center items-center cursor-pointer text_hl'>
                             {
-                                user.profile_image_url ? <img className='rounded-full' src={user.profile_image_url} />
-                                    : <p className='font-medium pt-1 text-2xl'>{user.username.slice(0, 2)}</p>
+                                user.profile_image ? <img className='rounded-full' src={user.profile_image} />
+                                    : <p className='font-medium text-2xl'>{user.username.slice(0, 2)}</p>
                             }
                         </div>
                         <>

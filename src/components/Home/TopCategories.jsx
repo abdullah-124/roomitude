@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Slider from "react-slick";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { PiArmchairThin } from "react-icons/pi";
 import CategoryCard from "../Cards/CategoryCard";
 import { AppContext } from "../../context/AppContext";
 
@@ -56,7 +57,11 @@ const TopCategories = () => {
 
   return (
     <div className="container relative mx-auto px-4 py-10">
-      <h2 className="text-xl font-semibold mb-6">Top Categories</h2>
+      <div className="flex flex-col items-center text-center mx-auto w-full md:w-1/2 pb-10">
+              <PiArmchairThin className="text-8xl text_hl"/>
+              <h3 className="text-3xl font-bold">Product Category</h3>
+              <p className="text-sm leading-5">Explore our curated selection of premium products, tailored to suit every need and taste. From essentials to indulgences, find your perfect fit..</p>
+            </div>
       <Slider {...settings}>
         {categories.map((category) => (
           <CategoryCard key={category.id} category={category} />

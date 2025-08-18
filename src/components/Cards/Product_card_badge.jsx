@@ -10,8 +10,8 @@ function Product_card_badge({ setModal, product }) {
     return (
         <div className='absolute border w-full h-full z-10 p-3 text-sm text-white'>
             {
-                discount ? <button className='p-1 px-3 bg-red-500 rounded-full'>{discount}% off </button> : 
-                is_featured ? <button className='p-1 px-3 bg-green-500 rounded-full'>featured </button> : null
+                is_featured ? <button className='p-1 px-3 bg-green-500 rounded-full'>featured </button> : 
+                discount ? <button className='p-1 px-3 bg-red-500 rounded-full'>{discount}% off </button> : null
             }
             <div className='badge'>
             <div className='icon'>

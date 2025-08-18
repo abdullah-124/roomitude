@@ -7,7 +7,7 @@ import { NavLink } from 'react-router'
 
 function Sidebar() {
     return (
-        <aside className="md:w-64 w-full bg-gray-200">
+        <aside className="w-full sm:p-2 md:p-4 sticky top-1 z-[1000] bg-white">
             <nav className="flex md:flex-col flex-row justify-between">
                 <NavLink
                     to="account"

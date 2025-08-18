@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../../context/AppContext';
 
-function FilterByCategory({ updateUrl,setParams }) {
+function FilterByCategory({ selected, setSelected, url, setUrl }) {
     const { categories } = useContext(AppContext)
     // We'll keep selected categories in an array
-    const [selected, setSelected] = useState([]);
+    
     const handleCheckboxChange = (category) => {
         let updatedCategories;
         if (selected.includes(category)) {
@@ -16,12 +16,10 @@ function FilterByCategory({ updateUrl,setParams }) {
         }
 
         setSelected(updatedCategories);
+        const newUrl = new URLSearchParams(url.toString());
+        newUrl.set('categories', updatedCategories)
+        setUrl(newUrl)
 
-        // setParams((prev) => ({
-        //     ...prev,
-        //     categories: updatedCategories
-        // }));
-        updateUrl({'categories': updatedCategories})
     };
     return (
         <div className='w-full text-sm border border-gray-200 rounded shadow p-2'>
