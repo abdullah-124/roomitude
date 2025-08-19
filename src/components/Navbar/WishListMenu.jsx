@@ -14,7 +14,7 @@ function WishListMenu({ setWishListMenu }) {
             <div className='px-5 flex flex-col max-h-[300px] overflow-y-scroll shadow'>
               {
                 items_in_wishlist.map((item, idx) => (
-                  <div key={idx} className='py-2 grid grid-cols-3 border-b border-gray-200 cursor-pointer gap-x-2 items-center'>
+                  <div key={idx} className='py-2 grid grid-cols-3 border-b border-[var(--bg)] cursor-pointer gap-x-2 items-center'>
                     <img src={item.product.image} alt="" />
                     <div className='col-span-2 '>
                       <div className='flex justify-between items-center'>

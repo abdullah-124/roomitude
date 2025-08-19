@@ -47,7 +47,7 @@ export function AppProvider({ children }) {
                 updateUser(data?.user)
                 setCarts(data.cart)
                 setWishlist(data.wishlist)
-                console.log('wiwi',wishlist)
+                console.log('wiwi',data.wishlist)
             }
         } else {
             const er = await res.json()
@@ -96,15 +96,17 @@ export function AppProvider({ children }) {
 
     return (
         <AppContext.Provider
-            value={{ user, updateUser, loading, setLoading,products,featuredProducts, categories, carts, setCarts,wishlist,setWishlist, logout, }}
+            value={{ user, updateUser,products,featuredProducts, categories, carts, setCarts,wishlist,setWishlist, logout, }}
         >
-            <MessageProvider>
+           {
+            !loading && <MessageProvider>
                 <CartProvider>
                     <WishlistProvider>
                         {children}
                     </WishlistProvider>
                 </CartProvider>
             </MessageProvider>
+           }
         </AppContext.Provider>
     );
 }

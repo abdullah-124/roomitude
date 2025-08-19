@@ -20,7 +20,7 @@ function UserMenuBar({ user, setUserMenu }) {
             <section onClick={(e)=>e.stopPropagation()} className='inline-block bg-white p-4 text-end z-50 shadow rounded border border-[var(--sbg)]/50 me-2'>
                 <ul className='text-sm flex font-medium flex-col gap-1'>
                     {/* basic info about user */}
-                    <div className='font-normal text-center bg-gray-200 p-2 rounded-lg '>
+                    <div className='font-normal text-center bg-[var(--bg)] p-2 rounded-lg '>
                         <div className='border border-[var(--sbg)] rounded-full flex justify-center items-center w-15 h-15 mx-auto'>
                             {
                                 user?.profile_image ? <img className='rounded-full' src={user?.profile_image} alt="user image" /> :

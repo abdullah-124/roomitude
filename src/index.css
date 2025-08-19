@@ -4,7 +4,7 @@
     --text: #172430;
     /* --sbg: #FF7A30; */
     --sbg : rgb(179, 124, 62);
-    --bg: #cccccc;
+    --bg: #E5E7EB;
 }
 
 body {
@@ -26,7 +26,9 @@ body {
     color: var(--sbg);
     cursor: pointer;
 }
-
+.border_bg{
+    @apply border border-[var(--bg)]
+}
 .container {
     @apply max-w-[1400px] mx-auto lg:px-15 md:px-10 sm:px-8 px-5;
 }
@@ -60,7 +62,7 @@ body {
 }
 
 .btn {
-    @apply p-1 px-3 bg-[var(--sbg)] border border-[var(--sbg)] text-center font-medium rounded-lg text-[var(--bg)] transition-all duration-500 hover:bg-transparent hover:text-[var(--sbg)]
+    @apply p-1 px-3  text-center font-medium rounded-lg text-[var(--bg)] transition-all duration-500 bg-[var(--sbg)]/85 hover:bg-[var(--sbg)]
 }
 
 .btn_disable {
@@ -77,7 +79,7 @@ body {
 }
 
 .input_bg {
-    @apply w-full bg-gray-200 p-2 px-3 rounded outline-[var(--sbg)] outline-0 focus:outline-1
+    @apply w-full bg-[var(--bg)] p-2 px-3 rounded outline-[var(--sbg)] outline-0 focus:outline-1
 }
 
 .input_label {

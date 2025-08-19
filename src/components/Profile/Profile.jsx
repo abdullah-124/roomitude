@@ -15,8 +15,8 @@ export default function Profile() {
             <p className='py-1'>account/name</p>
           </div>
         </header>
-        <aside className="md:col-span-1 h-full sticky top-0 z-[50] border border-gray-200 rounded-lg"><Sidebar /></aside>
-        <aside className="md:col-span-3 border border-gray-200 rounded-lg p-4 min-h-[50vh]"><Outlet /></aside>
+        <aside className="md:col-span-1 h-full sticky top-0 z-[50] border border-[var(--bg)] rounded-lg"><Sidebar /></aside>
+        <aside className="md:col-span-3 min-h-[50vh]"><Outlet /></aside>
       </section>
     </main >
   );

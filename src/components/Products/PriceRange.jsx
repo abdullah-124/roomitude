@@ -13,7 +13,7 @@ export default function PriceRangeSlider({ url, setUrl }) {
         setUrl(newUrl)
     };
     return (
-        <div className="p-2 w-full shadow rounded border border-gray-200">
+        <div className="p-2 w-full shadow rounded border border-[var(--bg)]">
             <h2 className="text-lg font-medium">Price Range :</h2>
             <div className="py-3 ">
                 <PriceRangeInputSlider

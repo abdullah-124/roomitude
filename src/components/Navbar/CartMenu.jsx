@@ -2,6 +2,7 @@ import React from 'react'
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { useCart } from '../../context/CartProvider';
+import { Link } from 'react-router';
 
 
 function CartMenu({ setCartMenu }) {
@@ -18,7 +19,8 @@ function CartMenu({ setCartMenu }) {
             <div className='px-5 flex flex-col max-h-[300px] overflow-y-scroll shadow'>
               {
                 items.map((item, idx) => (
-                  <div key={idx} className='py-2 grid grid-cols-3 border-b border-gray-200 cursor-pointer gap-x-2'>
+                  // card
+                  <div key={idx} className='py-2 grid grid-cols-3 border-b border-[var(--bg)] cursor-pointer gap-x-2'>
                     <img src={item.image} alt="" />
                     <div className='col-span-2 '>
                       <div className='flex justify-between items-center'>
@@ -46,7 +48,7 @@ function CartMenu({ setCartMenu }) {
                 <h2 className=''>Total amount</h2>
                 <h2>{cartTotal}$</h2>
               </div>
-              <button className='btn w-full my-3'>Procced To Checkout</button>
+              <Link to='/profile/cart/' className='block btn w-full my-3'>Procced To Checkout</Link>
             </div>
           </div> : <h3 className='p-3 text-gray-500'>Cart is empty</h3>
         }

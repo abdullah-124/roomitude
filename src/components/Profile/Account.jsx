@@ -58,8 +58,8 @@ function Account() {
     }
   }
   return (
-    <div>
-      <form onSubmit={handleSubmit} className='w-full py-5 grid lg:grid-cols-3 grid-cols-1 gap-5'>
+    <div className='border p-4 border-[var(--bg)] rounded-lg'>
+      <form onSubmit={handleSubmit} className='w-full py-2 grid lg:grid-cols-3 grid-cols-1 gap-5'>
         <div className='lg:order-2 w-full flex justify-center items-center'>
           <div className='border-2 border-[var(--sbg)] p-1 rounded-full relative'>
             <img

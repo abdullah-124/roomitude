@@ -23,7 +23,6 @@ function UserInfo({ user }) {
         <div className='relative'>
             {cartMenu && <CartMenu setCartMenu={setCartMenu}/>}
             <div className='flex justify-end items-center gap-2'>
-
                 <div onClick={() => setCartMenu(!cartMenu)} className={`${cartMenu && 'text_hl'} flex items-center gap-1 bg-white  p-1 rounded hover`}>
                     <RiShoppingBag2Line />
                     {

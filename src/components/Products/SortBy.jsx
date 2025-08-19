@@ -15,7 +15,7 @@ function SortBy({ url, setUrl }) {
         setUrl(newUrl);
     }
     return (
-        <div className='p-2 w-full shadow rounded border border-gray-200'>
+        <div className='p-2 w-full shadow rounded border border-[var(--bg)]'>
             <h3 className='text-lg font-medium'>Sort By :</h3>
             {
                 options.map((option, idx) => (

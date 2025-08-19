@@ -30,7 +30,7 @@ export default function HeroSlider() {
 
     return (
         <section className=" container">
-            <div className="w-full rounded-lg bg-gray-200  pb-20">
+            <div className="w-full rounded-lg bg-[var(--bg)]  pb-20">
                 <Slider {...settings}>
                     {items.map(item => (
                         <div className="padding">

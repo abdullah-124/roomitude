@@ -46,13 +46,14 @@ export default function LoginForm({ setMode, setError }) {
             updateUser(data.user);
             setCarts(data.cart);
             setWishlist(data.wishlist)
+            console.log('after login your data is ',data)
             // Redirect to original page or home
-            navigate(from, { replace: true });
             // show message
             updateMessage({ 'text': 'Login successful', 'status': 'success' })
             setTimeout(()=>{
                 updateMessage(null)
             }, 2000)
+            navigate(from, { replace: true });
             // Clear input fields
             setFormData({ username: "", password: "" })
         } catch (err) {

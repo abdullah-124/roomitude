@@ -27,20 +27,13 @@ function wishlistReducer(state, action) {
 
 export const WishlistProvider = ({ children }) => {
   const { setToast } = useMessage();
-  const { wishlist, setWishlist } = useContext(AppContext);
+  const { wishlist } = useContext(AppContext);
   const [state, dispatch] = useReducer(wishlistReducer, initialState);
 
   // Initialize state from AppContext once on mount
   useEffect(() => {
-    if (wishlist && wishlist.length > 0) {
       dispatch({ type: "SET_WISHLIST", payload: wishlist });
-    }
-  }, []);
-
-  // Sync back to AppContext whenever state.items changes
-  useEffect(() => {
-    setWishlist(state.items);
-  }, [state.items, setWishlist]);
+  }, [wishlist]);
 
   const add_item_in_wishlist = async (product_id) => {
     const item = state.items.find(item => item.product.id === product_id);

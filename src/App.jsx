@@ -12,11 +12,11 @@ import Profile from './components/Profile/Profile';
 import Navbar from './components/Navbar/Navbar';
 import ProtectedRoute from './utils/ProtectedRoute/ProtectedRoute';
 import MyOrder from './components/Profile/MyOrder';
-import Cart from './components/Profile/Cart';
 import Wishlist from './components/Profile/Wishlist';
 import UpdatePassword from './components/Profile/UpdatePassword';
 import Account from './components/Profile/Account';
 import Message from './components/Navbar/Message';
+import Cart from './components/Profile/Cart/Cart';
 
 function App() {
   return (

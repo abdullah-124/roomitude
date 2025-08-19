@@ -9,7 +9,7 @@ import { AppContext } from "../../context/AppContext";
 const CustomPrevArrow = ({ onClick }) => (
   <div
     onClick={onClick}
-    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow cursor-pointer hover:bg-gray-200"
+    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow cursor-pointer hover:bg-[var(--bg)]"
   >
     <FaChevronLeft />
   </div>
@@ -18,7 +18,7 @@ const CustomPrevArrow = ({ onClick }) => (
 const CustomNextArrow = ({ onClick }) => (
   <div
     onClick={onClick}
-    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow cursor-pointer hover:bg-gray-200"
+    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow cursor-pointer hover:bg-[var(--bg)]"
   >
     <FaChevronRight />
   </div>

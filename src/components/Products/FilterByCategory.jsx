@@ -22,7 +22,7 @@ function FilterByCategory({ selected, setSelected, url, setUrl }) {
 
     };
     return (
-        <div className='w-full text-sm border border-gray-200 rounded shadow p-2'>
+        <div className='w-full text-sm border border-[var(--bg)] rounded shadow p-2'>
             <h3 className='text-lg font-medium'>Categories</h3>
             {
                 categories.map((c, idx) => (
