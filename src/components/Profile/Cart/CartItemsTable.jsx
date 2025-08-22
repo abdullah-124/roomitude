@@ -1,66 +1,66 @@
 import React from 'react'
-import { AiOutlineClose } from 'react-icons/ai'
-import { FaMinus, FaPlus } from 'react-icons/fa'
+import { IoIosCheckbox, IoMdAdd, IoMdRemove, IoMdTrash } from "react-icons/io";
 
-export default function CartItemsTable({ cartItems }) {
+export default function CartItemsTable({ items, handle_quantity, removeFromCart }) {
     return (
-        <div className="overflow-x-auto h-full">
-            <table className="min-w-full">
-                <thead className='sticky top-0'>
-                    <tr className="bg-gray-100 text-left font-semibold text-gray-600  ">
-                        <th className="px-2 pb-4">Product Info</th>
-                        <th className="px-2 pb-4">Price</th>
-                        <th className="px-2 pb-4">Quantity</th>
-                        <th className="px-2 pb-4">Total</th>
-                        <th className="px-2 pb-4">Remove</th>
+        <section className="relative overflow-x-auto ">
+            <h2 className='p-2 font-bold text_hl'>Total {items?.length || 0} items in cart </h2>
+            <table className="w-full text-sm text-center rtl:text-right  dark:text-gray-400">
+                <thead className="sticky top-0 text-xs uppercase bg-[var(--bg)]">
+                    <tr>
+                        <th scope="col" className="px-2 py-3">
+                            Sl
+                        </th>
+                        <th scope="col" className="text-left px-2 py-3 min-w-[180px]">
+                            Product info
+                        </th>
+                        <th scope="col" className="px-2 py-3">
+                            Price
+                        </th>
+                        <th scope="col" className="px-2 py-3">
+                            Total Price
+                        </th>
+                        <th scope="col" className="px-2 py-3 text-end">
+                            Action
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {cartItems.map((item) => (
-                        <tr
-                            key={item.id}
-                            className="border-t overflow-hidden border-[var(--bg)]  hover:bg-[var(--bg)] transition-all duration-500 "
-                        >
-                            {/* Product Info */}
-                            <td className="p-4 flex items-center gap-4">
-                                <img
-                                    src={item.image}
-                                    alt={item.name}
-                                    className="w-16 h-16 object-cover"
-                                />
-                                <div>
-                                    <p className="text-xs text-gray-500">{item.category}</p>
-                                    <p className="font-medium">{item.name}</p>
-                                </div>
-                            </td>
-
-                            {/* Price */}
-                            <td className="p-4 font-semibold">${item.exact_price}</td>
-
-                            {/* Quantity */}
-                            <td className="p-4">
-                                <div className='flex items-center'>
-                                    <button className='p-1 bg-[var(--bg)]'><FaMinus /></button>
-                                    <p className='px-2 '>{item.quantity}</p>
-                                    <button className='p-1 bg-[var(--bg)]'><FaPlus /></button>
-                                </div>
-                            </td>
-
-                            {/* Total */}
-                            <td className="p-4 font-semibold">
-                                ${item.total_price}
-                            </td>
-
-                            {/* Remove */}
-                            <td className="p-4">
-                                <button className="text-red-500 hover:text-red-700 text-xl">
-                                    <AiOutlineClose />
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
+                    {
+                        items.map((item, idx) => (
+                            <tr key={idx} className="bg-white border-t border-[var(--bg)] hover:bg-[var(--bg)]/50">
+                                <td className='px-2'>
+                                    {idx + 1}
+                                </td>
+                                <td scope="row" className="p-2 text-left">
+                                    <div className="flex items-center gap-2 max-w-[200px]">
+                                        <img
+                                            src={item.image}
+                                            alt={item.name}
+                                            className="w-12 h-12 object-cover rounded flex-shrink-0"
+                                        />
+                                        <span className="truncate">{item.name}</span>
+                                    </div>
+                                </td>
+                                <td className="p-2">
+                                    <p>${item.exact_price}</p>
+                                    <div className='text-base flex items-center justify-center'>
+                                        <button onClick={() => handle_quantity(item.id, item.quantity - 1)} className='p-1 bg-[var(--bg)]'><IoMdRemove /></button>
+                                        <p className='px-2 border_bg'>{item.quantity}</p>
+                                        <button onClick={() => handle_quantity(item.id, item.quantity + 1)} className='p-1 bg-[var(--bg)]'><IoMdAdd /></button>
+                                    </div>
+                                </td>
+                                <td className="p-2 text-lg font-semibold">
+                                    ${(item.exact_price * item.quantity).toFixed(2)}
+                                </td>
+                                <td className="p-2 text-end text-xl">
+                                    <button onClick={() => removeFromCart(item.id)} className='text-red-500/80 hover:text-red-500'><IoMdTrash /></button>
+                                </td>
+                            </tr>
+                        ))
+                    }
                 </tbody>
             </table>
-        </div>
+        </section>
     )
 }

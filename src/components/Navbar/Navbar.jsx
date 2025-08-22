@@ -40,7 +40,7 @@ function Navbar() {
                         }
                     </div>
                     {/* large device  */}
-                    <ul className='md:flex items-center hidden'>
+                    <ul className='md:flex items-center hidden gap-x-5'>
                         <li><NavLink to='' className='navLink'>Home</NavLink></li>
                         <li><NavLink to='/products/' className={({ isActive }) => isActive ? "active" : "navLink"
                         }>Products</NavLink></li>

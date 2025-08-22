@@ -17,6 +17,7 @@ import UpdatePassword from './components/Profile/UpdatePassword';
 import Account from './components/Profile/Account';
 import Message from './components/Navbar/Message';
 import Cart from './components/Profile/Cart/Cart';
+import Checkout from './components/Profile/Order/Checkout';
 
 function App() {
   return (
@@ -25,23 +26,26 @@ function App() {
       <Navbar />
       <main className='min-h-[80vh]'>
         <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/products' element={<Products />} />
-        <Route path='/products/:category' element={<Products />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/account' element={<Signup />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path="/profile" element={<Profile />}>
-            <Route path="account" element={<Account />} />
-            <Route path="orders" element={<MyOrder />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="wishlist" element={<Wishlist />} />
-            <Route path="update_password" element={<UpdatePassword />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/products' element={<Products />} />
+          <Route path='/products/:category' element={<Products />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/account' element={<Signup />} />
+          <Route path='/account/register' element={<Signup />} />
+          <Route path='/account/login' element={<Signup form='signin' />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path='/checkout' element={<Checkout />} />
+            <Route path="/profile" element={<Profile />}>
+              <Route path="account" element={<Account />} />
+              <Route path="orders" element={<MyOrder />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="wishlist" element={<Wishlist />} />
+              <Route path="update_password" element={<UpdatePassword />} />
+            </Route>
           </Route>
-        </Route>
-        <Route path='/verify_email' element={<Verify_email />} />
-        <Route path='/*' element={<NotFound />} />
-      </Routes>
+          <Route path='/verify_email' element={<Verify_email />} />
+          <Route path='/*' element={<NotFound />} />
+        </Routes>
       </main>
       <Footer />
     </main>

@@ -7,8 +7,8 @@ import { NavLink } from 'react-router'
 
 function Sidebar() {
     return (
-        <aside className="w-full p-2 md:p-4 sticky top-0 z-[50] bg-white">
-            <nav className="flex md:flex-col flex-row justify-between">
+        <aside className="w-full p-2 lg:p-4 sticky top-0 z-[50]">
+            <nav className="flex sm:flex-col flex-row justify-between">
                 <NavLink
                     to="account"
                     className={({ isActive }) =>

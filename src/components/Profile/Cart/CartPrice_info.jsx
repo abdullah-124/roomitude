@@ -1,7 +1,15 @@
 import React from 'react'
 import PromoCode from './PromoCode'
+import { Link, useNavigate } from 'react-router'
+import useOrder from '../../../context/OrderContext'
 
 export default function CartPrice_info() {
+    const navigate = useNavigate();
+    const { info, total, shippingMethods, update_shipping_method } = useOrder()
+
+    const goToCheckout = () => {
+        navigate("/checkout", { state: { fromCart: true } });
+    };
     return (
         <div>
             <PromoCode />
@@ -9,49 +17,39 @@ export default function CartPrice_info() {
                 <div className='flex flex-col gap-1 border-b border-[var(--bg)] pb-2'>
                     <div className='flex justify-between items-center'>
                         <p>Sub Total:</p>
-                        <p>$870</p>
+                        <p>${info.sub_total}</p>
                     </div>
                     <div className='flex justify-between items-center'>
                         <p>Cupon Discount:</p>
-                        <p>$22</p>
-                    </div>
-                    <div className='flex justify-between items-center'>
-                        <p>VAT:</p>
-                        <p>$2</p>
+                        <p>{info.discount}%</p>
                     </div>
                 </div>
                 {/* shipping type */}
-                <from className="flex flex-col gap-1 py-3 border-b border-[var(--bg)]">
-                    <div className='flex justify-between items-center'>
-                        <div className='flex gap-2'>
-                            <input type="radio" name="shipping_type" id="shipping_type" />
-                            Home Delevery
-                        </div>
-                        <p>$10</p>
-                    </div>
-                    <div className='flex justify-between items-center'>
-                        <div className='flex gap-2'>
-                            <input type="radio" name="shipping_type" id="shipping_type" />
-                            Fast Shipping
-                        </div>
-                        <p>$10</p>
-                    </div>
-                    <div className='flex justify-between items-center'>
-                        <div className='flex gap-2'>
-                            <input type="radio" name="shipping_type" id="shipping_type" />
-                            Cash On Delevery
-                        </div>
-                        <p>$10</p>
-                    </div>
-                </from>
+                <div className="flex flex-col gap-1 py-3 border-b border-[var(--bg)]">
+                    {
+                        shippingMethods.map((i, idx) => (
+                            <div key={idx} className='flex justify-between items-center'>
+                                <div className='flex gap-2 text-xs'>
+                                    <input
+                                        onChange={() => update_shipping_method(i.id)}
+                                        checked={i.id == info.shipping}
+                                        type="radio" name="shipping_type" id="shipping_type" />
+                                    {i.label}
+                                </div>
+                                <p>${i.price}</p>
+                            </div>
+                        ))
+                    }
+
+                </div>
                 <div className='text-xl font-bold pt-3 flex justify-between items-center'>
                     <p>Total:</p>
-                    <p>$233</p>
+                    <p>${total}</p>
                 </div>
             </div>
             <div className="flex flex-col gap-2">
-                <button className='btn'>Checkout</button>
-                <button className='btn'>Continue Shopping</button>
+                <button onClick={goToCheckout} className='btn'>Checkout</button>
+                <Link to='/products/' className='btn'>Continue Shopping</Link>
             </div>
         </div>
     )

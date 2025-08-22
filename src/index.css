@@ -34,7 +34,7 @@ body {
 }
 
 .navLink {
-    @apply px-3 py-2 transition-all hover:text-[var(--sbg)] cursor-default capitalize;
+    @apply transition-all hover:text-[var(--sbg)] cursor-default capitalize;
 }
 
 .profile_navlink {
@@ -64,7 +64,10 @@ body {
 .btn {
     @apply p-1 px-3  text-center font-medium rounded-lg text-[var(--bg)] transition-all duration-500 bg-[var(--sbg)]/85 hover:bg-[var(--sbg)]
 }
-
+.btn_outline{
+    @apply p-1 px-3 text-center font-medium rounded-lg transition-all duration-500 border border-[var(--sbg)]
+    text-[var(--sbg)] hover:text-white hover:bg-[var(--sbg)]
+}
 .btn_disable {
     @apply pointer-events-none p-1 px-3 bg-[var(--sbg)]/70 border border-[var(--sbg)]/70 text-center font-medium rounded-lg text-[var(--bg)]
 }

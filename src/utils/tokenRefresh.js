@@ -1,6 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 
 export async function tokenRefresh() {
+    console.log('token')
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 
@@ -14,6 +15,7 @@ export async function tokenRefresh() {
         const now = Date.now() / 1000;
 
         if (decoded.exp < now + BUFFER_TIME) {
+            console.log('refresh token ...')
             const res = await fetch("http://127.0.0.1:8000/api/account/token/refresh/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -22,7 +24,7 @@ export async function tokenRefresh() {
 
             if (res.ok) {
                 const data = await res.json();
-                console.log('Token refreshed')
+                console.log('✅sToken refreshed')
                 localStorage.setItem("accessToken", data.access);
 
                 // Update refresh token if provided

@@ -5,9 +5,9 @@ import NotFound from '../Notfound/NotFound'
 import { IoMdClose } from "react-icons/io";
 import LoginForm from './LoginForm';
 
-function Signup() {
+function Signup({form='signup'}) {
     const { user } = useContext(AppContext)
-    const [mode, setMode] = useState('signup')
+    const [mode, setMode] = useState(form)
     const [error, setError] = useState('')
     if (user) {
         return <NotFound />
