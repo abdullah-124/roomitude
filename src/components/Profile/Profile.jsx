@@ -16,9 +16,9 @@ export default function Profile() {
             <p className='py-1'>{pathname}</p>
           </div>
         </header>
-        <main className="flex sm:flex-row flex-col gap-5">
-          <aside className="sm:w-[300px] w-full border border-[var(--bg)] rounded-lg sm:bg-white bg-[var(--bg)]"><Sidebar /></aside>
-          <aside className="w-full min-h-[50vh] "><Outlet /></aside>
+        <main className="grid sm:grid-cols-4 grid-cols-1 gap-5">
+          <aside className="sticky top-0 z-[50] w-full border border-[var(--bg)] rounded-lg sm:bg-white bg-[var(--bg)]"><Sidebar /></aside>
+          <aside className="sm:col-span-3 w-full min-h-[50vh] "><Outlet /></aside>
         </main>
       </section>
     </main >

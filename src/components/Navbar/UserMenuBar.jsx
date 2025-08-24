@@ -34,7 +34,7 @@ function UserMenuBar({ user, setUserMenu }) {
                         </div>
                     </div>
                     <Link to='/profile/account' className={style}>Profile<FaRegUser /></Link>
-                    <Link to="profile/my_order/" className={style}>My Orders <BsCartCheck /></Link>
+                    <Link to="profile/orders/" className={style}>My Orders <BsCartCheck /></Link>
                     <Link to="profile/update_password" className={style}>Update Password <BsPencilSquare /></Link>
                     <button onClick={() => handleLogout()} className='btn my-2'>Logout</button>
                 </ul>

@@ -25,7 +25,7 @@ function ProductsHeader({ setQuery, setTitle }) {
       <div className=' text-center z-10 py-10 bg-[#0000009c] text-white rounded-lg'>
         <h2 className='text-2xl font-bold'>Shop</h2>
         <p className='py-1'>Home/Shop</p>
-        <ul className='flex justify-center items-center flex-wrap my-3 text-sm'>
+        <ul className='flex gap-3 justify-center items-center flex-wrap my-3 text-sm'>
           <li onClick={()=>handleAll()}><p className='navLink'>All</p></li>
           {
             options.map((option, idx) => (

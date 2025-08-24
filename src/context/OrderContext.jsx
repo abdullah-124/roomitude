@@ -14,7 +14,7 @@ export function OrderProvider({ children }) {
     ];
     const { cartTotal } = useCart()
     const [info, setInfo] = useState({
-        discount: 0, shipping: 'standard', payment_method: 'card'
+        discount: 0, shipping: 'standard', 'shipping_cost': 10, payment_method: 'card'
     })
     // PROMO CODE FUNCTION
     async function apply_promo_code(cupon) {
@@ -25,12 +25,14 @@ export function OrderProvider({ children }) {
             promo_code: cupon
         }))
     }
-    function update_shipping_method(method_id) {
-        console.log('update shipping method ', method_id)
+    function update_shipping_method(shipping_id) {
+        const shipping = get_shipping(shipping_id)
         setInfo(prev => ({
             ...prev,
-            shipping: method_id
+            shipping: shipping_id,
+            shipping_cost: shipping?.price
         }))
+        console.log(info)
     }
     function update_info(option, value) {
         setInfo(prev => ({
@@ -46,9 +48,8 @@ export function OrderProvider({ children }) {
     // calculate total
     function calculate_total(sub_total = cartTotal) {
         // If subTotal is passed from backend → prefer that, else fallback to cartTotal
-        const shipping_cost = get_shipping(info?.shipping)?.price || 10
         const discounted = (sub_total * (info?.discount || 0)) / 100
-        const result = sub_total + shipping_cost - discounted
+        const result = sub_total + info.shipping_cost - discounted
         return Number(result.toFixed(2));
     }
     const total = useMemo(() => calculate_total(), [cartTotal, info])
@@ -56,11 +57,7 @@ export function OrderProvider({ children }) {
     const [order, setOrder] = useState({ items: [], summery: {} })
     // load products
     useEffect(() => {
-        const payload = {
-            ...info,
-            shipping: get_shipping(info.shipping)
-        }
-        console.log(JSON.stringify(payload))
+        // console.log(JSON.stringify(info))
         async function load_order_info() {
             try {
                 const res = await fetch('http://127.0.0.1:8000/api/order/checkout/', {
@@ -69,7 +66,7 @@ export function OrderProvider({ children }) {
                         'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(payload)  // ✅ no "data:" wrapper
+                    body: JSON.stringify(info)  // ✅ no "data:" wrapper
                 });
 
                 if (!res.ok) {
@@ -89,6 +86,16 @@ export function OrderProvider({ children }) {
 
     //  PLACE ORDER AFTER CHECKOUT
     const place_order = async () => {
+        if(!info.billing_information){
+            setToast('Add billing information to place order', 'error', 3000)
+            return
+        }
+        const payload = {
+            ...order,
+            billing_information : info.billing_information
+        }
+        console.log(payload);
+        // return
         try {
             const res = await fetch('http://127.0.0.1:8000/api/order/place_order/', {
                 method: 'POST',
@@ -96,10 +103,11 @@ export function OrderProvider({ children }) {
                     "Content-Type": "application/json",
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 },
-                body: JSON.stringify({order})
+                body: JSON.stringify({'order': payload})
             })
             const data = await res.json()
             console.log(data)
+            return data
         } catch (err) {
             setToast(err.message || 'SOMETHINGS WENT WRONG', 'error')
         }

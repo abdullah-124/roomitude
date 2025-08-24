@@ -1,9 +1,6 @@
 import React from 'react'
-import { PiShoppingCartSimpleThin } from "react-icons/pi";
-import { CiUser, CiHeart } from "react-icons/ci";
-import { RiShoppingBag2Line } from "react-icons/ri";
-import { PiKeyThin } from "react-icons/pi";
 import { NavLink } from 'react-router'
+import { CiUser, CiHeart,CiMedicalClipboard , CiUnlock , CiShoppingCart } from "react-icons/ci"; 
 
 function Sidebar() {
     return (
@@ -14,7 +11,7 @@ function Sidebar() {
                     className={({ isActive }) =>
                         `profile_navlink ${isActive ? "active_bg" : "hover:bg-[var(--sbg)]/10"}`
                     } >
-                    <CiUser />
+                    < CiUser/>
                     <span>Account</span>
                 </NavLink>
                 <NavLink
@@ -22,7 +19,7 @@ function Sidebar() {
                     className={({ isActive }) =>
                         `profile_navlink ${isActive ? "active_bg" : "hover:bg-[var(--sbg)]/10"}`
                     }
-                ><PiShoppingCartSimpleThin />
+                ><CiMedicalClipboard  />
                     <span>My Orders</span>
                 </NavLink>
                 <NavLink
@@ -30,7 +27,7 @@ function Sidebar() {
                     className={({ isActive }) =>
                         `profile_navlink ${isActive ? "active_bg" : "hover:bg-[var(--sbg)]/10"}`
                     }
-                ><RiShoppingBag2Line />
+                ><CiShoppingCart />
                     <span>My Cart</span>
                 </NavLink>
                 <NavLink
@@ -46,7 +43,7 @@ function Sidebar() {
                     className={({ isActive }) =>
                         `profile_navlink ${isActive ? "active_bg" : "hover:bg-[var(--sbg)]/10"}`
                     } >
-                    <PiKeyThin />
+                    <CiUnlock />
                     <span>Update Password</span>
                 </NavLink>
             </nav>

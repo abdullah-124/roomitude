@@ -2,10 +2,12 @@ import React from 'react'
 import PromoCode from './PromoCode'
 import { Link, useNavigate } from 'react-router'
 import useOrder from '../../../context/OrderContext'
+import { useCart } from '../../../context/CartProvider';
 
 export default function CartPrice_info() {
     const navigate = useNavigate();
     const { info, total, shippingMethods, update_shipping_method } = useOrder()
+    const {cartTotal} = useCart()
 
     const goToCheckout = () => {
         navigate("/checkout", { state: { fromCart: true } });
@@ -17,7 +19,7 @@ export default function CartPrice_info() {
                 <div className='flex flex-col gap-1 border-b border-[var(--bg)] pb-2'>
                     <div className='flex justify-between items-center'>
                         <p>Sub Total:</p>
-                        <p>${info.sub_total}</p>
+                        <p>${cartTotal}</p>
                     </div>
                     <div className='flex justify-between items-center'>
                         <p>Cupon Discount:</p>

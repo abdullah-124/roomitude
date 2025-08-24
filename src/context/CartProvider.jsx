@@ -68,20 +68,6 @@ export const CartProvider = ({ children }) => {
   const addToCart = async (product, quantity = 1) => {
     // console.log('Adding to cart:', product, quantity);
     dispatch({ type: 'SET_LOADING', payload: true });
-
-    // Create new item with guaranteed unique ID
-    const newItem = {
-      id: Date.now() + Math.random(),
-      product_id: product.id,
-      quantity,
-      name: product.name,
-      exact_price: product.exact_price,
-      image: product.image
-    };
-
-    // Optimistic update
-    dispatch({ type: 'ADD_ITEM', payload: newItem });
-
     if (isLoggedIn) {
       try {
         const res = await fetch('http://127.0.0.1:8000/api/cart/add_item/', {
@@ -96,6 +82,7 @@ export const CartProvider = ({ children }) => {
           })
         });
         const data = await res.json();
+        dispatch({ type: 'ADD_ITEM', payload: data });
         const msg = `${data?.name} has been added to cart`;
         setToast(msg, 'success', 5000);
       } catch (error) {
@@ -103,7 +90,15 @@ export const CartProvider = ({ children }) => {
         setToast('Failed to add item to cart', 'error', 3000);
       }
     } else {
-      // For guest users, the useEffect will automatically save to localStorage
+      const newItem = {
+        id: Date.now() + Math.random(),
+        product_id: product.id,
+        quantity,
+        name: product.name,
+        exact_price: product.exact_price,
+        image: product.image
+      };
+      dispatch({ type: 'ADD_ITEM', payload: newItem });
       setToast(`${product.name} has been added to cart`, 'success', 3000);
     }
 
@@ -127,9 +122,11 @@ export const CartProvider = ({ children }) => {
 
 
     } else {
-      const updatedItems = state.items.map(item =>
+      // Update local state for guest users
+      const updated_items = state.items.map(item =>
         item.id === itemId ? { ...item, quantity } : item
       );
+      dispatch({ type: 'SET_CART_ITEMS', payload: updated_items });
 
     }
   };
@@ -154,7 +151,7 @@ export const CartProvider = ({ children }) => {
       }
     } else {
       const updatedItems = state.items.filter(item => item.id !== itemId);
-
+      dispatch({ type: 'SET_CART_ITEMS', payload: updatedItems });
     }
   };
 

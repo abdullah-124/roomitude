@@ -29,6 +29,9 @@ body {
 .border_bg{
     @apply border border-[var(--bg)]
 }
+.bg{
+    background-color: var(--bg);
+}
 .container {
     @apply max-w-[1400px] mx-auto lg:px-15 md:px-10 sm:px-8 px-5;
 }
@@ -46,7 +49,7 @@ body {
 }
 
 .profile_navlink span {
-    @apply hidden sm:inline-block md:text-base sm:text-xs
+    @apply hidden sm:inline-block lg:text-base sm:text-xs
 }
 
 .active {
@@ -62,14 +65,14 @@ body {
 }
 
 .btn {
-    @apply p-1 px-3  text-center font-medium rounded-lg text-[var(--bg)] transition-all duration-500 bg-[var(--sbg)]/85 hover:bg-[var(--sbg)]
+    @apply p-1 px-3  text-center font-medium rounded-lg text-[var(--bg)] transition-all duration-500 bg-[var(--sbg)]/85 hover:bg-[var(--sbg)] disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-[var(--sbg)]/50
 }
 .btn_outline{
     @apply p-1 px-3 text-center font-medium rounded-lg transition-all duration-500 border border-[var(--sbg)]
     text-[var(--sbg)] hover:text-white hover:bg-[var(--sbg)]
 }
 .btn_disable {
-    @apply pointer-events-none p-1 px-3 bg-[var(--sbg)]/70 border border-[var(--sbg)]/70 text-center font-medium rounded-lg text-[var(--bg)]
+    @apply pointer-events-none cursor-not-allowed p-1 px-3 bg-[var(--sbg)]/50 text-center font-medium rounded-lg text-[var(--bg)]
 }
 .btn_icon{
     @apply flex justify-center items-center gap-x-2

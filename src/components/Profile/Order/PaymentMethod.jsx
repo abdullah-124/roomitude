@@ -1,12 +1,27 @@
 import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router'
 import useOrder from '../../../context/OrderContext'
-import { Link } from 'react-router'
+import { useMessage } from '../../../context/MessageProvider'
+import { useCart } from '../../../context/CartProvider'
 
-export default function PaymentMethod() {
+export default function PaymentMethod({is_valid}) {
+    const navigate = useNavigate()
     const [agree, setAgree] = useState(true)
     const { info, update_info, place_order } = useOrder()
+    const {setToast} = useMessage()
+    const {reset_cart_state} = useCart()
     function update_payment_method(value) {
         update_info('payment_method', value)
+    }
+    async function handle_place_order() {
+        const order = await place_order()
+        if(order) {
+            setToast('Order placed successfully', 'success')
+            reset_cart_state()
+        }
+        if(info.payment_method=='card'){
+            navigate(`/payment/stripe/${order.id}`, { replace: true });
+        }
     }
     return (
         <section className='sticky top-2 border_bg p-5 rounded-lg'>
@@ -34,7 +49,7 @@ export default function PaymentMethod() {
             </div>
             <div className='flex gap-2 mt-5'>
                 <Link to='/profile/cart' className='btn_outline text-lg'>Back to cart</Link>
-                <button onClick={place_order} className={`${agree ? 'btn' : 'btn_disable'} text-lg`}>Place order</button>
+                <button disabled={!agree || !is_valid} onClick={handle_place_order} className='btn text-lg'>Place order</button>
             </div>
         </section>
     )
