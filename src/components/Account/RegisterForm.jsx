@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { useMessage } from '../../context/MessageProvider';
 
 const Register = ({ setMode, setError }) => {
+    const apiUrl = import.meta.env.VITE_API_URL;
     const { updateMessage } = useMessage()
     const navigate = useNavigate();
     const {
@@ -20,7 +21,7 @@ const Register = ({ setMode, setError }) => {
         const { confirm_password, ...payload } = data;
         setLoading(true)
         try {
-            const res = await fetch('http://127.0.0.1:8000/api/account/register/', {
+            const res = await fetch(`${apiUrl}/api/account/register/`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),

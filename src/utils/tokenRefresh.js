@@ -1,6 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 
 export async function tokenRefresh() {
+    const apiUrl = import.meta.env.VITE_API_URL;
     console.log('token')
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
@@ -16,7 +17,7 @@ export async function tokenRefresh() {
 
         if (decoded.exp < now + BUFFER_TIME) {
             console.log('refresh token ...')
-            const res = await fetch("http://127.0.0.1:8000/api/account/token/refresh/", {
+            const res = await fetch(`${apiUrl}/api/account/token/refresh/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ refresh: refreshToken }),

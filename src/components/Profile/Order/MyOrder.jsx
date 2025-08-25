@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 
 function MyOrder() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate()
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(true)
   async function load_orders() {
     setLoading(true)
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/order/', {
+      const res = await fetch(`${apiUrl}/api/order/`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
         }

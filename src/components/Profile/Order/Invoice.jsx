@@ -6,6 +6,7 @@ import NotFound from '../../Notfound/NotFound'
 import LOGO from '../../Navbar/LOGO'
 
 function Invoice() {
+    const apiUrl = import.meta.env.VITE_API_URL;
     const navigate = useNavigate()
     const [order, setOrder] = useState({})
     const invoiceRef = useRef()
@@ -16,7 +17,7 @@ function Invoice() {
         window.scrollTo({ top: 250, behavior: 'smooth' });
     }, [])
     async function load_order_by_id(id) {
-        const res = await fetch(`http://127.0.0.1:8000/api/order/${id}/`, {
+        const res = await fetch(`${apiUrl}/api/order/${id}/`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
             }

@@ -8,6 +8,7 @@ import ProductLoaderSkaleton from './ProductLoaderSkaleton';
 
 // main funciton
 function Products({ pagination = true }) {
+  const apiUrl = import.meta.env.VITE_API_URL;
   // state vairable 
   const [count, setCount] = useState(0);
   const [title, setTitle] = useState(null)
@@ -17,13 +18,13 @@ function Products({ pagination = true }) {
   const [query, setQuery] = useState(new URLSearchParams())
   const { category } = useParams();
 
-  let url = `http://127.0.0.1:8000/api/products/?page=${currentPage}&`
+  let url = `${apiUrl}/api/products/?page=${currentPage}&`
 
   useEffect(() => {
     if (category) {
       url += `categories=${category}&`
     }
-    else url = `http://127.0.0.1:8000/api/products/?page=${currentPage}&`
+    else url = `${apiUrl}/api/products/?page=${currentPage}&`
     if (query) {
       url += query.toString()
       console.log(url)

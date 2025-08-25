@@ -8,6 +8,7 @@ import { OrderProvider } from "./OrderContext";
 export const AppContext = createContext();
 
 export function AppProvider({ children }) {
+    const apiUrl = import.meta.env.VITE_API_URL;
     //loading state 
     const [loading, setLoading] = useState(true)
     // User state
@@ -35,7 +36,7 @@ export function AppProvider({ children }) {
                 ...(token && { Authorization: `Bearer ${token}` })
             }
         }
-        const res = await fetch('http://127.0.0.1:8000/data/', config)
+        const res = await fetch(`${apiUrl}/data/`, config)
         if (res.ok) {
             const data = await res.json()
             // console.log(data)
@@ -70,7 +71,7 @@ export function AppProvider({ children }) {
         const accessToken = localStorage.getItem("accessToken");
         const refreshToken = localStorage.getItem("refreshToken");
 
-        const response = await fetch("http://127.0.0.1:8000/api/account/logout/", {
+        const response = await fetch(`${apiUrl}/api/account/logout/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -6,6 +6,7 @@ import { PiNotePencilThin } from "react-icons/pi";
 import { useMessage } from '../../context/MessageProvider';
 
 function Account() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const { user, updateUser } = useContext(AppContext)
   const { updateMessage } = useMessage()
   const [formData, setFormData] = useState(user)
@@ -36,7 +37,7 @@ function Account() {
       formDataToSend.append(key, formData[key] ?? "");
     }
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/account/update/", {
+      const res = await fetch(`${apiUrl}/api/account/update/`, {
         method: "PUT", // or POST
         body: formDataToSend,
         headers: {

@@ -5,6 +5,7 @@ import { AppContext } from '../../context/AppContext';
 import { useMessage } from '../../context/MessageProvider';
 
 const VerifyEmail = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const {updateUser} = useContext(AppContext)
   const {updateMessage} = useMessage()
   const location = useLocation();
@@ -24,7 +25,7 @@ const VerifyEmail = () => {
 
       try {
         // this will make an request to my backend 
-        const res = await fetch(`http://127.0.0.1:8000/api/account/verify-email/?uid=${uid}&token=${token}`);
+        const res = await fetch(`${apiUrl}/api/account/verify-email/?uid=${uid}&token=${token}`);
         const data = await res.json();
 
         if (res.ok) {

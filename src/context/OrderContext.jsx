@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 const OrderContext = createContext()
 
 export function OrderProvider({ children }) {
+    const apiUrl = import.meta.env.VITE_API_URL;
     const [order, setOrder] = useState({ items: [], summery: {} })
     const { setToast } = useMessage()
     const shippingMethods = [
@@ -61,7 +62,7 @@ export function OrderProvider({ children }) {
         // console.log(JSON.stringify(info))
         async function load_order_info() {
             try {
-                const res = await fetch('http://127.0.0.1:8000/api/order/checkout/', {
+                const res = await fetch(`${apiUrl}/api/order/checkout/`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
@@ -98,7 +99,7 @@ export function OrderProvider({ children }) {
         console.log(payload);
         // return
         try {
-            const res = await fetch('http://127.0.0.1:8000/api/order/place_order/', {
+            const res = await fetch(`${apiUrl}/api/order/place_order/`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -116,7 +117,7 @@ export function OrderProvider({ children }) {
     // confirm payment to update order status 
     async function confirm_payment(order_id, payment_id) {
         try {
-            const res = await fetch(`http://127.0.0.1:8000/api/payment/stripe/confirm-payment/`, {
+            const res = await fetch(`${apiUrl}/api/payment/stripe/confirm-payment/`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",

@@ -8,6 +8,7 @@ const CartContext = createContext();
 
 
 export const CartProvider = ({ children }) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const { setCarts, carts, user } = useContext(AppContext)
   const latestQuantities = useRef(new Map());
   const { setToast } = useMessage()
@@ -50,7 +51,7 @@ export const CartProvider = ({ children }) => {
     if (!isLoggedIn) return;
     if (quantity <= 0) return;
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/cart/${itemId}/update_quantity/`, {
+      const res = await fetch(`${apiUrl}/api/cart/${itemId}/update_quantity/`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +71,7 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: 'SET_LOADING', payload: true });
     if (isLoggedIn) {
       try {
-        const res = await fetch('http://127.0.0.1:8000/api/cart/add_item/', {
+        const res = await fetch(`${apiUrl}/api/cart/add_item/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -137,7 +138,7 @@ export const CartProvider = ({ children }) => {
 
     if (isLoggedIn) {
       try {
-        const res = await fetch(`http://127.0.0.1:8000/api/cart/${itemId}/remove_cart_item/`, {
+        const res = await fetch(`${apiUrl}/api/cart/${itemId}/remove_cart_item/`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -183,7 +184,7 @@ export const CartProvider = ({ children }) => {
       'quantity': item?.quantity || 1
     }))
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/cart/merge/', {
+      const res = await fetch(`${apiUrl}/api/cart/merge/`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

@@ -6,6 +6,7 @@ import { useCart } from '../../context/CartProvider';
 import ProductCard from '../Cards/ProductCard';
 
 function ProductDetails() {
+    const apiUrl = import.meta.env.VITE_API_URL;
     const { add_item_in_wishlist } = useWishlist()
     const { addToCart } = useCart()
     const [details, setDetails] = React.useState(null);
@@ -21,7 +22,7 @@ function ProductDetails() {
     React.useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/products/${product_id}`);
+                const response = await fetch(`${apiUrl}/api/products/${product_id}`);
                 const data = await response.json();
                 setDetails(data);
             } catch (error) {

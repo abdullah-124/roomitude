@@ -10,6 +10,7 @@ const initialState = {
 const WishlistContext = createContext();
 
 function wishlistReducer(state, action) {
+  
   switch (action.type) {
     case 'ADD_TO_WISHLIST':
       return { ...state, items: [...state.items, action.payload] };
@@ -26,6 +27,7 @@ function wishlistReducer(state, action) {
 }
 
 export const WishlistProvider = ({ children }) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const { setToast } = useMessage();
   const { wishlist } = useContext(AppContext);
   const [state, dispatch] = useReducer(wishlistReducer, initialState);
@@ -43,7 +45,7 @@ export const WishlistProvider = ({ children }) => {
     }
     try {
       const data = await request_to_api(
-        'http://127.0.0.1:8000/api/wishlist/',
+        `${apiUrl}/api/wishlist/`,
         'POST',
         { product_id },
         localStorage.getItem('accessToken')
@@ -58,7 +60,7 @@ export const WishlistProvider = ({ children }) => {
   const remove_item_from_wishlist = async (id) => {
     try {
       const data = await request_to_api(
-        `http://127.0.0.1:8000/api/wishlist/${id}/`,
+        `${apiUrl}/api/wishlist/${id}/`,
         'DELETE',
         null,
         localStorage.getItem('accessToken')

@@ -9,6 +9,7 @@ import useOrder from "../../context/OrderContext";
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const StripePaymentForm = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const location = useLocation()
   const stripe = useStripe();
@@ -26,7 +27,7 @@ const StripePaymentForm = () => {
     async function load_client_secret() {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/payment/stripe/create-payment-intent/",
+          `${apiUrl}/api/payment/stripe/create-payment-intent/`,
           {
             method: "POST",
             headers: {

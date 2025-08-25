@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router';
 import { useMessage } from '../../context/MessageProvider';
 
 export default function LoginForm({ setMode, setError }) {
+    const apiUrl = import.meta.env.VITE_API_URL;
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const location = useLocation()
@@ -24,7 +25,7 @@ export default function LoginForm({ setMode, setError }) {
         setError("");
         setLoading(true)
         try {
-            const res = await fetch("http://127.0.0.1:8000/api/account/login/", {
+            const res = await fetch(`${apiUrl}/api/account/login/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

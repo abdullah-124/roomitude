@@ -2,11 +2,12 @@ import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 
 export default async function logout(updateUser, updateMessage) {
+    const apiUrl = import.meta.env.VITE_API_URL;
     console.log('logout btn')
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 
-    const response = await fetch("http://127.0.0.1:8000/api/account/logout/", {
+    const response = await fetch(`${apiUrl}/api/account/logout/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
