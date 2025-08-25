@@ -4,8 +4,8 @@ import { Link, useLocation } from 'react-router';
 import UserMenuBar from './UserMenuBar';
 import CartMenu from './CartMenu';
 import { useCart } from '../../context/CartProvider';
-import WishListMenu from './WishlistMenu';
 import useWishlist from '../../context/WishlistContext';
+import WishListMenu from './WishlistMenu';
 
 
 function UserInfo({ user }) {
