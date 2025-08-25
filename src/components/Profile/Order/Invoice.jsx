@@ -1,17 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link, useParams } from 'react-router'
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+import { Link, useNavigate, useParams } from 'react-router'
+import { toPng } from 'html-to-image';
 import { useReactToPrint } from "react-to-print";
 import NotFound from '../../Notfound/NotFound'
 import LOGO from '../../Navbar/LOGO'
 
 function Invoice() {
+    const navigate = useNavigate()
     const [order, setOrder] = useState({})
     const invoiceRef = useRef()
     let { id } = useParams()
     id = parseInt(id)
     if (!id) return <NotFound />
+    useEffect(() => {
+        window.scrollTo({ top: 250, behavior: 'smooth' });
+    }, [])
     async function load_order_by_id(id) {
         const res = await fetch(`http://127.0.0.1:8000/api/order/${id}/`, {
             headers: {
@@ -23,30 +26,34 @@ function Invoice() {
     }
     useEffect(() => { load_order_by_id(id) }, [])
     const handleDownload = async () => {
-        const element = invoiceRef.current;
-        const canvas = await html2canvas(element);
-        const data = canvas.toDataURL("image/png");
-
-        const pdf = new jsPDF("p", "mm", "a4");
-        const imgProps = pdf.getImageProperties(data);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-        pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
-        pdf.save(`invoice_${order.id}.pdf`);
+        const node = document.getElementById('invoice');
+        node.style.fontFamily = "Arial, sans-serif";
+        const dataUrl = await toPng(node, { cacheBust: true, skipFonts: true });
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = 'invoice.png';
+        link.click();
     };
 
     const handlePrint = useReactToPrint({
         contentRef: invoiceRef,
         documentTitle: `invoice_${order.id}`,
     });
+    function navigate_to_payment(id) {
+        navigate(`/payment/stripe/${id}`, { state: { fromOrderPage: true } })
+    }
     return (
         <main>
-            <div className='mb-10 flex gap-3 justify-center items-center'>
-                <button onClick={handleDownload} className='btn_outline text-sm'>Download as pdf</button>
+            <div className='mb-10 flex gap-3 justify-between items-center'>
+                <div className='flex gap-3'>
+                    <button onClick={handleDownload} className='btn_outline text-sm'>Download Invoice</button>
                 <button onClick={handlePrint} className='btn_outline text-sm'>Print</button>
+                </div>
+                {
+                    order.is_paid? <span className='text-green-500 font-bold'>Payment: Paid</span> : <button onClick={() => navigate_to_payment(order.id)} className='print:hidden block ms-auto btn'>Pay Now</button>
+                }
             </div>
-            <section ref={invoiceRef} className='max-w-[500px] print:max-w-none border_bg text-xs mx-auto shadow-lg print:shadow-none rounded-xl overflow-hidden print:bg-[#fff] print:text-[#000] print:text-base print:flex print:flex-col print:justify-between print:h-full'>
+            <section id='invoice' ref={invoiceRef} className='bg-white border_bg rounded-lg overflow-hidden print:flex print:flex-col print:h-[297mm] print:justify-between'>
                 <header className='bg flex justify-between items-center padding py-5'>
                     <LOGO />
                     <aside className='uppercase text-end '>
@@ -55,7 +62,7 @@ function Invoice() {
                         <p className='font-bold'>Status: {order.status}</p>
                     </aside>
                 </header>
-                <main className=''>
+                <main className='h-full'>
                     <header className='padding py-3 border-b border-[var(--bg)]'>
                         <section className='leading-4 flex justify-between items-start'>
                             <aside>
@@ -84,25 +91,16 @@ function Invoice() {
                                 <h5 className='font-bold'>Pyment status</h5>
                                 <p className='text-white font-bold'>
                                     {
-                                        order.is_paid ? <span className='bg-[#008000] px-2 p-1 rounded'>Paid</span> : <>
-                                            <span className='text-[#FF0000] '>Not Paid</span>
-                                            <Link to={`/payment/stripe/${order.id}`} className='block btn'>Pay Now</Link>
-                                        </>
+                                        order.is_paid ? <span className='bg-[#008000] px-2 p-1 rounded'>Paid</span> : <span className='text-[#FF0000] '>Not Paid</span>
                                     }
                                 </p>
-                                {
-                                    order.is_paid && <>
-                                        <h5 className='font-bold'>Pyment status</h5>
-                                        <p>{order.is_paid ? "Paid" : "Unpaid"}</p>
-                                    </>
-                                }
                             </div>
                         </section>
                     </header>
                     <section className='padding py-5'>
                         <table className='text-center w-full'>
                             <thead className=''>
-                                <tr className=' bg'>
+                                <tr className='border-b border-[var(--bg)] '>
                                     <th className='py-1'>#</th>
                                     <th className='text-start'>Item Name</th>
                                     <th>Unit Price</th>
@@ -122,14 +120,21 @@ function Invoice() {
                                         </tr>
                                     ))
                                 }
-                                <tr className='text-end border-b border-[var(--bg)]'>
-                                    <td className="py-1 font-bold" colSpan={5}>Sub Total : ${order.sub_total}</td>
+                                <tr className='text-end border-b border-[var(--bg)]  font-bold text-sm whitespace-nowrap'>
+                                    <td className="py-1" colSpan={4}>Sub Total : </td>
+                                    <td>${order.sub_total}</td>
                                 </tr>
-                                <tr className='text-end border-b border-[var(--bg)]'>
-                                    <td className="py-1 font-bold" colSpan={5}>Shipping ({order.shipping_method}): ${order.shipping_cost}</td>
+                                <tr className='text-end border-b border-[var(--bg)] font-bold text-sm'>
+                                    <td className="py-1" colSpan={4}>Discount: </td>
+                                    <td>{order.discount}%</td>
                                 </tr>
-                                <tr className='text-end border-b border-[var(--bg)]'>
-                                    <td className="py-1 font-bold" colSpan={5}>Grand Total : ${order.total}</td>
+                                <tr className='text-end border-b border-[var(--bg)] font-bold text-sm'>
+                                    <td className="py-1" colSpan={4}>Shipping ({order.shipping_method}): </td>
+                                    <td>${order.shipping_cost}</td>
+                                </tr>
+                                <tr className='text-end border-b border-[var(--bg)] font-bold text-sm'>
+                                    <td className="py-1" colSpan={4}>Grand Total : </td>
+                                    <td>${order.total}</td>
                                 </tr>
                             </tbody>
                         </table>

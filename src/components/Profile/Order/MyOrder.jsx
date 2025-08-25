@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 
 function MyOrder() {
+  const navigate = useNavigate()
   const [orders, setOrders] = useState([])
-  const [laoding, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
   async function load_orders() {
     setLoading(true)
     try {
@@ -18,17 +19,18 @@ function MyOrder() {
       throw new Error(err.message, 'Something went wrong')
     }
     finally {
-      setTimeout(() => {
-        setLoading(false)
-      }, 3000);
+      setLoading(false)
     }
   }
   // calling the function by use effect
   useEffect(() => {
     load_orders()
   }, [])
-
-  if (laoding) return <p className='p-5 text-lg animate-pulse'>Loading</p>
+  // function navigate to payment 
+  function navigate_to_payment(id) {
+    navigate(`/payment/stripe/${id}`, { state: { fromOrderPage: true } })
+  }
+  if (loading) return <p className='p-5 text-lg animate-pulse'>Loading</p>
   if (!orders?.length) return <h3 className='p-4 text-xl'>You have no order yet</h3>
   return (
     <main className=''>
@@ -66,9 +68,9 @@ function MyOrder() {
                     }
                   </td>
                   <td className="px-6 py-4  text-sm font-medium text-gray-900">${order.total} for {order?.items.length} item</td>
-                  <td className="px-6 py-4  text-sm flex items-center gap-1 flex-wrap">
+                  <td className="px-6 py-4  text-sm flex justify-center items-center gap-1 flex-wrap">
                     <Link to={`${order.id}/`} className="text-blue-600 hover:text-blue-900 font-medium">View</Link>
-                    {!order.is_paid && <Link to={`/payment/stripe/${order.id}`} className='block btn'>Pay Now</Link>}
+                    {!order.is_paid && <button onClick={() => navigate_to_payment(order.id)} className='block btn whitespace-nowrap'>Pay Now</button>}
                   </td>
                 </tr>
               ))

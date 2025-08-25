@@ -1,32 +1,64 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
+import OrderInfo from "./OrderInfo";
+import { useMessage } from "../../context/MessageProvider";
+import useOrder from "../../context/OrderContext";
 
-const stripePromise = loadStripe("YOUR_PUBLIC_KEY");
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const StripePaymentForm = () => {
+  const navigate = useNavigate();
+  const location = useLocation()
   const stripe = useStripe();
+  const { setToast } = useMessage()
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState("");
-  const {order_id} = useParams()
+  const { order_id } = useParams()
+  const { confirm_payment } = useOrder()
+  const [order, setOrder] = useState({})
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    // Call backend to create PaymentIntent
-    fetch("http://127.0.0.1:8000/api/payment/stripe/create-payment-intent/", {
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-      }, 
-      body: JSON.stringify({ order_id: order_id }), // amount in cents
-    })
-    .then(res => res.json())
-    .then(data => {
-      setClientSecret(data.clientSecret);
-    });
+    if(location.state?.fromOrderPage!==true){
+      navigate('/profile/orders')
+    }
+    async function load_client_secret() {
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/payment/stripe/create-payment-intent/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            body: JSON.stringify({ order_id }),
+          }
+        );
+
+        if (!response.ok) {
+          // Catch HTTP errors (400, 403, 500, etc.)
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to create payment intent");
+        }
+        const data = await response.json();
+        if (data.clientSecret) {
+          setClientSecret(data.clientSecret);
+        }
+        if (data.order) {
+          setOrder(data.order);
+        }
+      } catch (error) {
+        setToast(error.message || "Failed to create payment intent", "error", 3000);
+      }
+    }
+    load_client_secret();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     if (!stripe || !elements) return;
 
     const card = elements.getElement(CardElement);
@@ -37,20 +69,36 @@ const StripePaymentForm = () => {
     });
 
     if (error) {
-      console.error("Payment failed:", error.message);
+      setToast(`Payment failed: ${error.message}`, 'error', 3000);
     } else if (paymentIntent.status === "succeeded") {
-      console.log("✅ Payment successful:", paymentIntent);
-      // You can call your backend to create an Order now
+      // confirm_payment will change order status
+      const data = await confirm_payment(order.id, paymentIntent.id);
+      if (data?.status === "success") {
+        setToast("Payment successful!", "success", 3000);
+        navigate(`/profile/orders/${order.id}`);
+      } else {
+        setToast(data?.message || "Payment confirmation failed.", "error", 3000);
+      }
     }
+    setLoading(false);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement className="border p-2" />
-      <button type="submit" disabled={!stripe || !clientSecret} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded">
-        Pay Now
-      </button>
-    </form>
+    <section className="container padding grid md:grid-cols-2 grid-cols-1 items-start gap-5">
+      <aside className="md:order-1 order-2">
+        <OrderInfo order={order} />
+      </aside>
+      <form onSubmit={handleSubmit} className="sticky top-0 md:order-2 order-1 w-full max-w-[300px] border_bg  mx-auto p-5 py-10 bg rounded-lg shadow-2xl">
+        <CardElement className="form_input border p-2 rounded w-full" />
+        <button
+          type="submit"
+          disabled={!stripe || !clientSecret || loading}
+          className='btn mt-5 '
+        >
+          {loading ? "Processing..." : "Pay Now"}
+        </button>
+      </form>
+    </section>
   );
 };
 

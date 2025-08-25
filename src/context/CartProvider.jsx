@@ -151,7 +151,6 @@ export const CartProvider = ({ children }) => {
       }
     } else {
       const updatedItems = state.items.filter(item => item.id !== itemId);
-      dispatch({ type: 'SET_CART_ITEMS', payload: updatedItems });
     }
   };
 

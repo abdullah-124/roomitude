@@ -25,7 +25,7 @@ function ProductInformation() {
                                     </div>
                                 </div>
                                 <div className='flex flex-col items-end justify-between '>
-                                    <button><IoCloseSharp /></button>
+                                    <button onClick={() => removeFromCart(item.id)}><IoCloseSharp /></button>
                                     <h5 className='text-base font-semibold'>${item.total_price}</h5>
                                 </div>
                             </div>

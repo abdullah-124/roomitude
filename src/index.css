@@ -3,7 +3,7 @@
 :root {
     --text: #172430;
     /* --sbg: #FF7A30; */
-    --sbg : rgb(179, 124, 62);
+    --sbg : #b37c3e;
     --bg: #E5E7EB;
 }
 
@@ -107,5 +107,5 @@ input{
 }
 
 .badge_icon{
-    @apply text-sm flex px-2 items-center font-medium gap-1 rounded-lg border cursor-default
+    @apply text-sm flex px-2 items-center font-medium gap-1 rounded border cursor-default
 }

@@ -3,6 +3,7 @@ import blank_image from '/images/blank_image.png'
 import { CiShoppingCart } from "react-icons/ci";
 import Product_card_badge from './Product_card_badge';
 import ProductQuickViewModal from '../Modal/ProductQuickViewModal';
+import { Link } from 'react-router';
 
 function ProductCard({ item, listed=false }) {
   const { id, name, image, price, exact_price, discount, is_featured } = item;
@@ -31,7 +32,7 @@ function ProductCard({ item, listed=false }) {
             alt="Product" />
         </div>
         <div>
-          <h2 className='title text-base font-medium pt-1'>{name}</h2>
+          <Link to={`/products/info/${id}`} className='block title text-base font-medium pt-1'>{name}</Link>
           <div className='flex items-center gap-1'>
             <p className='text-xl text_hl font-bold'>{exact_price}$</p>
             {

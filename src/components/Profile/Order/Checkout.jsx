@@ -7,8 +7,6 @@ import BillingInformaion from './BillingInformaion';
 import NotFound from '../../Notfound/NotFound';
 
 function Checkout() {
-    const {cartCount} = useCart()
-    if(cartCount<=0) return <NotFound />
     const location = useLocation();
     const navigate = useNavigate();
     const [is_valid, setIs_valid] = useState(false)
@@ -23,7 +21,6 @@ function Checkout() {
             behavior: "smooth"
         });
     }, [location, navigate]);
-
     return (
         <main className='container padding pb-10'>
             <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 min-h-[50vh]'>
@@ -34,7 +31,7 @@ function Checkout() {
                     <ProductInformation />
                 </aside>
                 <aside className='lg:col-span-1 md:col-span-2 '>
-                    <PaymentMethod is_valid={is_valid}/>
+                    <PaymentMethod is_valid={is_valid} />
                 </aside>
             </section>
         </main>

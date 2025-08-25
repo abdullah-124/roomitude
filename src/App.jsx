@@ -20,6 +20,7 @@ import Checkout from './components/Profile/Order/Checkout';
 import MyOrder from './components/Profile/Order/MyOrder';
 import Invoice from './components/Profile/Order/Invoice';
 import StripePayment from './components/Payment/StripePayment';
+import ProductDetails from './components/ProductDetails/ProductDetails';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/products' element={<Products />} />
           <Route path='/products/:category' element={<Products />} />
+          <Route path='/products/info/:product_id' element={<ProductDetails />} />
           <Route path='/about' element={<About />} />
           <Route path='/account' element={<Signup />} />
           <Route path='/account/register' element={<Signup />} />

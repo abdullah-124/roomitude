@@ -5,7 +5,7 @@ export default function CartItemsTable({ items, handle_quantity, removeFromCart 
     return (
         <section className="relative overflow-x-auto ">
             <h2 className='p-2 font-bold text_hl'>Total {items?.length || 0} items in cart </h2>
-            <table className="w-full text-sm text-center rtl:text-right  dark:text-gray-400">
+            <table className="w-full text-sm text-center rtl:text-righ">
                 <thead className="sticky top-0 text-xs uppercase bg-[var(--bg)]">
                     <tr>
                         <th scope="col" className="px-2 py-3">

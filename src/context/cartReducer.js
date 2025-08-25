@@ -19,7 +19,7 @@ const cartReducer = (state, action) => {
                 // Update existing item
                 newItems = state.items.map((item, index) =>
                     index === existingItemIndex
-                        ? { ...item, quantity: item.quantity + action.payload.quantity }
+                        ? { ...item, quantity: item.quantity + 1 }
                         : item
                 );
             } else {

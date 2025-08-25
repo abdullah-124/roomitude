@@ -1,18 +1,20 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useCart } from "./CartProvider";
 import { useMessage } from "./MessageProvider";
+import { useNavigate } from "react-router";
 
 
 const OrderContext = createContext()
 
 export function OrderProvider({ children }) {
+    const [order, setOrder] = useState({ items: [], summery: {} })
     const { setToast } = useMessage()
     const shippingMethods = [
-        { id: "standard", label: "Standard (3–5 days)", price: 10 },
-        { id: "express", label: "Express (1–2 days)", price: 20 },
-        { id: "pickup", label: "In-Store Pickup", price: 0 },
+        { id: "standard", label: `Standard (3 to 5 days)`, price: 10 },
+        { id: "express", label: `Express (1 to 2 days)`, price: 20 },
+        { id: "pickup", label: `In-Store Pickup`, price: 0 },
     ];
-    const { cartTotal } = useCart()
+    const { cartTotal, reset_cart_state } = useCart()
     const [info, setInfo] = useState({
         discount: 0, shipping: 'standard', 'shipping_cost': 10, payment_method: 'card'
     })
@@ -54,7 +56,6 @@ export function OrderProvider({ children }) {
     }
     const total = useMemo(() => calculate_total(), [cartTotal, info])
 
-    const [order, setOrder] = useState({ items: [], summery: {} })
     // load products
     useEffect(() => {
         // console.log(JSON.stringify(info))
@@ -86,13 +87,13 @@ export function OrderProvider({ children }) {
 
     //  PLACE ORDER AFTER CHECKOUT
     const place_order = async () => {
-        if(!info.billing_information){
+        if (!info.billing_information) {
             setToast('Add billing information to place order', 'error', 3000)
             return
         }
         const payload = {
             ...order,
-            billing_information : info.billing_information
+            billing_information: info.billing_information
         }
         console.log(payload);
         // return
@@ -103,17 +104,35 @@ export function OrderProvider({ children }) {
                     "Content-Type": "application/json",
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 },
-                body: JSON.stringify({'order': payload})
+                body: JSON.stringify({ 'order': payload })
             })
             const data = await res.json()
-            console.log(data)
-            return data
+            return data;
         } catch (err) {
             setToast(err.message || 'SOMETHINGS WENT WRONG', 'error')
         }
     }
-    //  RETURNING ALL VALUE 
-    return <OrderContext.Provider value={{ info, apply_promo_code, total, shippingMethods, update_shipping_method, update_info, order, place_order }}>
+
+    // confirm payment to update order status 
+    async function confirm_payment(order_id, payment_id) {
+        try {
+            const res = await fetch(`http://127.0.0.1:8000/api/payment/stripe/confirm-payment/`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: JSON.stringify({ order_id, payment_id })
+            });
+            const data = await res.json();
+            console.log(data);
+            return data;
+        } catch (err) {
+            setToast(err.message || 'SOMETHINGS WENT WRONG', 'error');
+        }
+    }
+
+    return <OrderContext.Provider value={{ info, apply_promo_code, total, shippingMethods, update_shipping_method, update_info, order, place_order, confirm_payment }}>
         {children}
     </OrderContext.Provider>
 }
