@@ -5,7 +5,8 @@ import UserMenuBar from './UserMenuBar';
 import CartMenu from './CartMenu';
 import { useCart } from '../../context/CartProvider';
 import useWishlist from '../../context/WishlistContext';
-import WishListMenu from './WishlistMenu';
+import WishListMenuBar from './WishListMenuBar';
+
 
 
 function UserInfo({ user }) {
@@ -45,7 +46,7 @@ function UserInfo({ user }) {
                         </div>
                         <>
                             {userMenu && <UserMenuBar user={user} setUserMenu={setUserMenu} />}
-                            {wishListMenu && <WishListMenu setWishListMenu={setWishlistMemu} />}
+                            {wishListMenu && <WishListMenuBar setWishListMenu={setWishlistMemu} />}
                         </>
                     </> :
                         <>

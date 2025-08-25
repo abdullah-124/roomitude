@@ -1,9 +1,10 @@
+import React from 'react'
 import { MdClose } from "react-icons/md";
 import useWishlist from '../../context/WishlistContext';
 import { Link } from 'react-router';
 
 
-function WishListMenu({ setWishListMenu }) {
+export default function WishListMenuBar({setWishListMenu}) {
   const { items_in_wishlist, items_count_in_wishlist, remove_item_from_wishlist } = useWishlist()
   return (
     <main onClick={() => setWishListMenu(false)} className='fixed w-full right-0 top-0 h-full pt-14 z-100'>
@@ -41,5 +42,3 @@ function WishListMenu({ setWishListMenu }) {
     </main>
   )
 }
-
-export default WishListMenu
