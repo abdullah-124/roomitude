@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useCart } from "./CartProvider";
 import { useMessage } from "./MessageProvider";
 import { useNavigate } from "react-router";
+import { AppContext } from "./AppContext";
 
 
 const OrderContext = createContext()
@@ -9,6 +10,7 @@ const OrderContext = createContext()
 export function OrderProvider({ children }) {
     const apiUrl = import.meta.env.VITE_API_URL;
     const [order, setOrder] = useState({ items: [], summery: {} })
+    const { user } = useContext(AppContext)
     const { setToast } = useMessage()
     const shippingMethods = [
         { id: "standard", label: `Standard (3 to 5 days)`, price: 10 },
@@ -55,7 +57,10 @@ export function OrderProvider({ children }) {
         const result = sub_total + info.shipping_cost - discounted
         return Number(result.toFixed(2));
     }
-    const total = useMemo(() => calculate_total(), [cartTotal, info])
+    const total = useMemo(() => {
+        if (!user) return 0
+        return calculate_total()
+    }, [cartTotal, info])
 
     // load products
     useEffect(() => {
@@ -83,7 +88,8 @@ export function OrderProvider({ children }) {
                 console.error("Checkout error:", err.message);
             }
         }
-        load_order_info()
+        if (user) load_order_info()
+    
     }, [info, cartTotal])
 
     //  PLACE ORDER AFTER CHECKOUT

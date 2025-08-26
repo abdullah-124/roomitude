@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { RiShoppingBag2Line, RiHeartLine } from "react-icons/ri";
 import { Link, useLocation } from 'react-router';
 import UserMenuBar from './UserMenuBar';
@@ -6,19 +6,22 @@ import CartMenu from './CartMenu';
 import { useCart } from '../../context/CartProvider';
 import useWishlist from '../../context/WishlistContext';
 import WishListMenuBar from './WishListMenuBar';
+import { AppContext } from '../../context/AppContext';
 
 
 
-function UserInfo({ user }) {
+function UserInfo() {
     const [userMenu, setUserMenu] = useState(false)
     const [cartMenu, setCartMenu] = useState(false)
     const [wishListMenu, setWishlistMemu] = useState(false)
     const {items_count_in_wishlist} = useWishlist()
     const location = useLocation()
     const {cartCount} = useCart()
+    const {user} = useContext(AppContext)
     useEffect(() => {
         setUserMenu(false)
         setCartMenu(false)
+        console.log(user)
     }, [location])
     return (
         <div className='relative'>
@@ -50,7 +53,8 @@ function UserInfo({ user }) {
                         </>
                     </> :
                         <>
-                            <Link to={'/account'} className='btn text-sm'>Sign up</Link>
+                            <Link to={'/account/register'} className='hidden lg:block btn text-sm'>Sign up</Link>
+                            <Link to={'/account/login'} className='btn text-sm'>Login</Link>
                         </>
                 }
             </div>

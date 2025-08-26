@@ -1,13 +1,17 @@
 // src/pages/Register.js
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useMessage } from '../../context/MessageProvider';
+import { AppContext } from '../../context/AppContext';
+import NotFound from '../Notfound/NotFound';
 
-const Register = ({ setMode, setError }) => {
+const Register = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
+    const [error, setError] = useState('')
     const { updateMessage } = useMessage()
     const navigate = useNavigate();
+    const {user} = useContext(AppContext)
     const {
         register,
         handleSubmit,
@@ -45,120 +49,131 @@ const Register = ({ setMode, setError }) => {
         }
     };
 
-
+    if(user) return <NotFound />
     return (
-        <div className="rounded-lg">
-            <h2 className='text-xl pb-5 font-bold text-center'>Create an account</h2>
-
-            <form onSubmit={handleSubmit(onSubmit)} className="space">
-                {/* First Name */}
-                <div className='flex gap-2'>
-                    <div className='w-full'>
-                        <input
-                            type="text"
-                            placeholder="First Name"
-                            className='form_input'
-                            {...register('first_name', { required: 'First name is required' })}
-                        />
-                        {errors.first_name && <p className="text-red-500 text-xs pb-2">{errors.first_name.message}</p>}
-                    </div>
-                    {/* Last Name */}
-                    <div className='w-full'>
-                        <input
-                        type="text"
-                        placeholder="Last Name"
-                        className='form_input'
-                        {...register('last_name', { required: 'Last name is required' })}
-                    />
-                    {errors.last_name && <p className="text-red-500 text-xs pb-2">{errors.last_name.message}</p>}
-                    </div>
-                </div>
-
-
-
-                {/* Username */}
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        className='form_input'
-                        {...register('username', { required: 'Username is required' })}
-                    />
-                    {errors.username && <p className="text-red-500 text-xs pb-2">{errors.username.message}</p>}
-                </div>
-
-                {/* Email */}
-                <div>
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        className='form_input'
-                        {...register('email', {
-                            required: 'Email is required',
-                            pattern: {
-                                value: /^\S+@\S+$/i,
-                                message: 'Invalid email format',
-                            },
-                        })}
-                    />
-                    {errors.email && <p className="text-red-500 text-xs pb-2">{errors.email.message}</p>}
-                </div>
-
-                {/* Phone Number */}
-                <div>
-                    <input
-                        type="tel"
-                        placeholder="Phone Number"
-                        className='form_input'
-                        {...register('phone_number', { required: 'Phone number is required' })}
-                    />
-                    {errors.phone_number && <p className="text-red-500 text-xs pb-2">{errors.phone_number.message}</p>}
-                </div>
-
-                {/* Password */}
-                <div>
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        className='form_input'
-                        {...register('password', {
-                            required: 'Password is required',
-                            minLength: {
-                                value: 8,
-                                message: 'Password must be at least 8 characters',
-                            },
-                        })}
-                    />
-                    {errors.password && <p className="text-red-500 text-xs pb-2">{errors.password.message}</p>}
-                </div>
-
-                {/* Confirm Password */}
-                <div>
-                    <input
-                        type="password"
-                        placeholder="Confirm Password"
-                        className='form_input'
-                        {...register('confirm_password', {
-                            required: 'Confirm password is required',
-                            validate: value => value === password || 'Passwords do not match',
-                        })}
-                    />
-                    {errors.confirm_password && <p className="text-red-500 text-xs pb-2">{errors.confirm_password.message}</p>}
-                </div>
-
-                {/* Submit */}
+        <section className='container'>
+            <div className='pt-10  sm:w-2/3 md:w/1/2 lg:w-1/3 mx-auto p-5 shadow-2xl rounded-lg mb-10'>
                 {
-                    loading ? <p className='btn block w-full mt-5'>Submiting...</p> :
-                        <button
-                            type="submit"
-                            className="btn block w-full mt-5"
-                        >
-                            Register
-                        </button>
+                    // error message 
+                    error && <div className='mb-2 px-2 rounded flex items-center justify-between p-1 bg-red-300 text-red-600'>
+                        <p>{error}</p>
+                        <IoMdClose onClick={() => setError('')} className='text-2xl hover:border hover:border-red-400 rounded' />
+                    </div>
                 }
-            </form>
-            <h5 className='py-3 text-center'>Already have an account? <span className='cursor-default font-bold text_hl' onClick={() => setMode('signin')}>sign in</span></h5>
-        </div>
+                <div className="rounded-lg">
+                    <h2 className='text-xl pb-5 font-bold text-center'>Create an account</h2>
+
+                    <form onSubmit={handleSubmit(onSubmit)} className="space">
+                        {/* First Name */}
+                        <div className='flex gap-2'>
+                            <div className='w-full'>
+                                <input
+                                    type="text"
+                                    placeholder="First Name"
+                                    className='form_input'
+                                    {...register('first_name', { required: 'First name is required' })}
+                                />
+                                {errors.first_name && <p className="text-red-500 text-xs pb-2">{errors.first_name.message}</p>}
+                            </div>
+                            {/* Last Name */}
+                            <div className='w-full'>
+                                <input
+                                    type="text"
+                                    placeholder="Last Name"
+                                    className='form_input'
+                                    {...register('last_name', { required: 'Last name is required' })}
+                                />
+                                {errors.last_name && <p className="text-red-500 text-xs pb-2">{errors.last_name.message}</p>}
+                            </div>
+                        </div>
+
+
+
+                        {/* Username */}
+                        <div>
+                            <input
+                                type="text"
+                                placeholder="Username"
+                                className='form_input'
+                                {...register('username', { required: 'Username is required' })}
+                            />
+                            {errors.username && <p className="text-red-500 text-xs pb-2">{errors.username.message}</p>}
+                        </div>
+
+                        {/* Email */}
+                        <div>
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                className='form_input'
+                                {...register('email', {
+                                    required: 'Email is required',
+                                    pattern: {
+                                        value: /^\S+@\S+$/i,
+                                        message: 'Invalid email format',
+                                    },
+                                })}
+                            />
+                            {errors.email && <p className="text-red-500 text-xs pb-2">{errors.email.message}</p>}
+                        </div>
+
+                        {/* Phone Number */}
+                        <div>
+                            <input
+                                type="tel"
+                                placeholder="Phone Number"
+                                className='form_input'
+                                {...register('phone_number', { required: 'Phone number is required' })}
+                            />
+                            {errors.phone_number && <p className="text-red-500 text-xs pb-2">{errors.phone_number.message}</p>}
+                        </div>
+
+                        {/* Password */}
+                        <div>
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                className='form_input'
+                                {...register('password', {
+                                    required: 'Password is required',
+                                    minLength: {
+                                        value: 8,
+                                        message: 'Password must be at least 8 characters',
+                                    },
+                                })}
+                            />
+                            {errors.password && <p className="text-red-500 text-xs pb-2">{errors.password.message}</p>}
+                        </div>
+
+                        {/* Confirm Password */}
+                        <div>
+                            <input
+                                type="password"
+                                placeholder="Confirm Password"
+                                className='form_input'
+                                {...register('confirm_password', {
+                                    required: 'Confirm password is required',
+                                    validate: value => value === password || 'Passwords do not match',
+                                })}
+                            />
+                            {errors.confirm_password && <p className="text-red-500 text-xs pb-2">{errors.confirm_password.message}</p>}
+                        </div>
+
+                        {/* Submit */}
+                        {
+                            loading ? <p className='btn block w-full mt-5'>Submiting...</p> :
+                                <button
+                                    type="submit"
+                                    className="btn block w-full mt-5"
+                                >
+                                    Register
+                                </button>
+                        }
+                    </form>
+                    <h5 className='py-3 text-center'>Already have an account? <Link to='/account/login' className='cursor-default font-bold text_hl'>sign in</Link></h5>
+                </div>
+            </div>
+        </section>
     );
 };
 

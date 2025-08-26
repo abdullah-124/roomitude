@@ -29,7 +29,7 @@ function wishlistReducer(state, action) {
 export const WishlistProvider = ({ children }) => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const { setToast } = useMessage();
-  const { wishlist } = useContext(AppContext);
+  const { wishlist, user } = useContext(AppContext);
   const [state, dispatch] = useReducer(wishlistReducer, initialState);
 
   // Initialize state from AppContext once on mount
@@ -38,6 +38,10 @@ export const WishlistProvider = ({ children }) => {
   }, [wishlist]);
 
   const add_item_in_wishlist = async (product_id) => {
+    if (!user) {
+      setToast('You need to login first', 'error');
+      return;
+    }
     const item = state.items.find(item => item.product.id === product_id);
     if (item) {
       setToast(`${item.product.name} already in the list`);

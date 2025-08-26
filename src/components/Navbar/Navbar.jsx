@@ -1,17 +1,21 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CiSearch, CiMenuBurger } from "react-icons/ci";
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { MdClose } from 'react-icons/md';
 import UserInfo from './UserInfo';
 import { AppContext } from '../../context/AppContext';
 import LOGO from './LOGO';
 
 function Navbar() {
+    const navigation = useNavigate()
     const [show, setShow] = useState(false)
     const { user } = useContext(AppContext)
+    useEffect(() => {
+        setShow(false)
+    }, [navigation])
     return (
         <>
-            <nav className='bg-[var(--bg)]  py-2'>
+            <nav className='bg-[var(--bg)] md:py-1 pb-3'>
                 <div className='container  grid md:grid-cols-4 grid-cols-2 items-center text-lg md:gap-y-0 gap-y-3'>
                     {/* logo */}
                     <div className="order-1 ">
@@ -27,7 +31,7 @@ function Navbar() {
                     </div>
                     {/* user info */}
                     <div className='md:order-3 order-2'>
-                        <UserInfo user={user} />
+                        <UserInfo />
                     </div>
                 </div>
             </nav>

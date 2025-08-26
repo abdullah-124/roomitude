@@ -13,7 +13,7 @@ function HighlitedProducts() {
                 <h3 className='text-3xl font-bold'>Exclusive Products</h3>
                 <p className='leading-5'> Discover our handpicked exclusive products, crafted with quality and style to make your space truly unique.</p>
             </div>
-            <section className='grid grid-cols-4 gap-5'>
+            <section className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 sm:gap-5 gap-3 '>
                 {
                     products.map((item, idx) => (
                         <ProductCard key={idx} item={item} />
