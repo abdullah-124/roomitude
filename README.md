@@ -3,7 +3,7 @@
 Roomitude is a full-stack **furniture e-commerce application** built with **React + Django REST Framework**.  
 It provides a seamless shopping experience with **product filtering, wishlist, cart (guest & user), checkout, Stripe payment, coupons, delivery charge calculation, and invoice download**.  
 
-🔗 **Live Demo:** [https://roomitude-njm6.vercel.app/](https://roomitude-njm6.vercel.app/)  
+🔗 **Live Demo:** [https://roomitude.vercel.app/](https://roomitude.vercel.app/)  
 📦 **Backend REST API:** [Roomitude DRF Repo](https://github.com/abdullah-124/roomitude_drf)  
 
 ---
