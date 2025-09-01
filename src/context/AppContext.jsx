@@ -4,6 +4,7 @@ import { CartProvider } from "./CartProvider";
 import { tokenRefresh } from "../utils/tokenRefresh";
 import { WishlistProvider } from "./WishlistContext";
 import { OrderProvider } from "./OrderContext";
+import CustomLoading from "../components/Loader/CustomLoading";
 
 export const AppContext = createContext();
 
@@ -36,10 +37,10 @@ export function AppProvider({ children }) {
                 ...(token && { Authorization: `Bearer ${token}` })
             }
         }
-        const res = await fetch(`${apiUrl}/data/`, config)
-        if (res.ok) {
+        try {
+            const res = await fetch(`${apiUrl}/data/`, config)
             const data = await res.json()
-            // console.log(data)
+            console.log(data)
             //  SET ITEM FOR HOME PAGE AND INTIALIZE USER
             setCategories(data.categories)
             setProducts(data.products.products)
@@ -48,14 +49,17 @@ export function AppProvider({ children }) {
                 updateUser(data?.user)
                 setCarts(data.cart)
                 setWishlist(data.wishlist)
-                console.log('wiwi', data.wishlist)
+                // console.log('wiwi', data.wishlist)
             }
-        } else {
+        } catch (err) {
             const er = await res.json()
             console.error(er)
+        } finally {
+            setLoading(false)
         }
-        setLoading(false)
     }
+
+
     // Functions to update and sync with localStorage
     const updateUser = (newUser) => {
         if (newUser) {
@@ -100,7 +104,7 @@ export function AppProvider({ children }) {
             value={{ user, updateUser, products, featuredProducts, categories, carts, setCarts, wishlist, setWishlist, logout, }}
         >
             {
-                !loading && <MessageProvider>
+                loading ? <CustomLoading /> : <MessageProvider>
                     <CartProvider>
                         <WishlistProvider>
                             <OrderProvider>

@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router';
 import { useMessage } from '../../context/MessageProvider';
 import { AppContext } from '../../context/AppContext';
 import NotFound from '../Notfound/NotFound';
+import { IoMdClose } from "react-icons/io";
 
 const Register = () => {
     const apiUrl = import.meta.env.VITE_API_URL;

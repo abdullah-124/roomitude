@@ -72,7 +72,9 @@
     @apply flex flex-col gap-2 justify-center items-end;
     animation: slideY .5s forwards;
 }
-
+.card:hover img{
+    transform: scale(1.05);
+}
 .card .badge .icon {
     @apply p-3 bg-white text-black rounded-full inline-flex items-center justify-end gap-2 cursor-pointer
 }

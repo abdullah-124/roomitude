@@ -37,12 +37,12 @@ function ProductDetails() {
 
     return loading ? <h2>Loading...</h2> : (
         <main className='container padding pb-10'>
-            <section className='grid grid-cols-1 lg:grid-cols-5 gap-5'>
+            <section className='grid grid-cols-1 lg:grid-cols-5 lg:gap-5 gap-y-5'>
                 <div className='col-span-3 border_bg rounded'>
                     <ProductDetailsCard product={details.product} />
                 </div>
-                <div className='col-span-2 '>
-                    <div className='flex flex-col gap-2 border_bg rounded p-4'>
+                <div className='lg:col-span-2 '>
+                    <div className='flex w-full flex-col gap-y-2 border_bg rounded p-4'>
                         <button onClick={() => addToCart(details.product)} className='btn_outline'>ADD TO CART</button>
                         <button onClick={() => add_item_in_wishlist(details.product.id)} className='btn'>ADD TO WISHLIST</button>
                     </div>

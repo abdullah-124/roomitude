@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { AppContext } from '../../context/AppContext';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { useMessage } from '../../context/MessageProvider';
+import { IoMdClose } from "react-icons/io";
 import NotFound from '../Notfound/NotFound';
 
 export default function LoginForm() {

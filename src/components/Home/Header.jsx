@@ -29,11 +29,11 @@ export default function HeroSlider() {
     };
 
     return (
-        <section className=" container">
-            <div className="w-full rounded-lg bg-[var(--bg)]  pb-20">
+        <section className=" pb-15 bg-[var(--bg)] container">
+            <div className="">
                 <Slider {...settings}>
                     {items.map(item => (
-                        <div className="padding">
+                        <div className="padding bg-[var(--bg)] rounded-lg overflow-hidden">
                             <section className='grid md:grid-cols-2 grid-cols-1 md:gap-2 gap-5 items-center'>
                                 <div className='md:order-1 order-2 md:text-start text-center'>
                                     <p className='uppercase pb-2'>{item.description}</p>
