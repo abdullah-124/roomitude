@@ -14,10 +14,13 @@ export default function HeroSlider() {
     const settings = {
         dots: true,
         infinite: true,
-        speed: 500,
+        speed: 1000,
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: false, // hide arrows if you only want dots
+        autoplay: true,
+        autoplaySpeed: 3000,
+        puseOnHover: false,
         appendDots: dots => (
             <div>
                 <ul className=" flex justify-center gap-2">{dots}</ul>

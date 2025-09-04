@@ -65,8 +65,8 @@ function Invoice() {
                 </header>
                 <main className='h-full'>
                     <header className='padding py-3 border-b border-[var(--bg)]'>
-                        <section className='leading-4 flex justify-between items-start'>
-                            <aside>
+                        <section className='leading-4 flex gap-2 justify-between sm:flex-row flex-col items-start border-b border-[var(--bg)] pb-3'>
+                            <aside className='w-full'>
                                 <h5 className='font-bold'>Invoice To</h5>
                                 <p>{order.full_name}</p>
                                 <p>{order.phone_number}</p>
@@ -75,7 +75,7 @@ function Invoice() {
                                 <p>Postal Code : {order.postal_code}, City: {order.city}</p>
                                 <p></p>
                             </aside>
-                            <aside className='text-end'>
+                            <aside className='text-end w-full'>
                                 <h5 className='font-bold'>Bill To</h5>
                                 <p>Roomitude</p>
                                 <p>roomitude@gmail.com</p>

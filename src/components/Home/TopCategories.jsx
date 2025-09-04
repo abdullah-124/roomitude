@@ -28,10 +28,13 @@ const TopCategories = () => {
   const settings = {
     slidesToShow: 5,
     slidesToScroll: 1,
+    speed: 1000,
     arrows: true,
-    infinite: false,
+    infinite: true,
     swipeToSlide: true,
     draggable: true,
+    autoplay: true,
+    autoplaySpeed: 1000,
     nextArrow: <CustomNextArrow />,
     prevArrow: <CustomPrevArrow />,
     responsive: [

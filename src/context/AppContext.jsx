@@ -40,7 +40,7 @@ export function AppProvider({ children }) {
         try {
             const res = await fetch(`${apiUrl}/data/`, config)
             const data = await res.json()
-            console.log(data)
+            // console.log(data)
             //  SET ITEM FOR HOME PAGE AND INTIALIZE USER
             setCategories(data.categories)
             setProducts(data.products.products)

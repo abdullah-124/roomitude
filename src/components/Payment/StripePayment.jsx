@@ -5,6 +5,7 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import OrderInfo from "./OrderInfo";
 import { useMessage } from "../../context/MessageProvider";
 import useOrder from "../../context/OrderContext";
+import { set } from "react-hook-form";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
@@ -26,6 +27,8 @@ const StripePaymentForm = () => {
     }
     async function load_client_secret() {
       try {
+        setLoading(true);
+        // Create PaymentIntent as soon as the page loads
         const response = await fetch(
           `${apiUrl}/api/payment/stripe/create-payment-intent/`,
           {
@@ -52,6 +55,8 @@ const StripePaymentForm = () => {
         }
       } catch (error) {
         setToast(error.message || "Failed to create payment intent", "error", 3000);
+      } finally {
+        setLoading(false);
       }
     }
     load_client_secret();
@@ -87,9 +92,11 @@ const StripePaymentForm = () => {
   return (
     <section className="container padding grid md:grid-cols-2 grid-cols-1 items-start gap-5">
       <aside className="md:order-1 order-2">
-        <OrderInfo order={order} />
+        {
+          loading ? <p className="text-center mt-10">Loading...</p> : <OrderInfo order={order} />
+        }
       </aside>
-      <form onSubmit={handleSubmit} className="sticky top-0 md:order-2 order-1 w-full max-w-[300px] border_bg  mx-auto p-5 py-10 bg rounded-lg shadow-2xl">
+      <form onSubmit={handleSubmit} className="md:sticky top-0 md:order-2 order-1 w-full max-w-[300px] border_bg  mx-auto p-5 py-10 bg rounded-lg shadow-2xl">
         <CardElement className="form_input border p-2 rounded w-full" />
         <button
           type="submit"

@@ -27,7 +27,7 @@ function Products({ pagination = true }) {
     else url = `${apiUrl}/api/products/?page=${currentPage}&`
     if (query) {
       url += query.toString()
-      console.log(url)
+      // console.log(url)
     }
     window.scrollTo({
       left: 0,

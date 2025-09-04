@@ -21,7 +21,7 @@ function UserInfo() {
     useEffect(() => {
         setUserMenu(false)
         setCartMenu(false)
-        console.log(user)
+        // console.log(user)
     }, [location])
     return (
         <div className='relative'>

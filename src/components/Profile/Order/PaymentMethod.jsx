@@ -21,6 +21,9 @@ export default function PaymentMethod({ is_valid }) {
             if (info.payment_method == 'card') {
                 navigate(`/payment/stripe/${order.id}`, { state: { fromOrderPage: true } })
             }
+            else{
+                navigate(`profile/orders/${order.id}`, { state: { fromOrderPage: true } })
+            }
         }
     }
     return (

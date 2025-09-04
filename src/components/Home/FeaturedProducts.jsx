@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import  { useContext } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -38,7 +38,10 @@ const FeaturedProducts = () => {
   const settings = {
     slidesToShow: 4,
     slidesToScroll: 1,       // 🔥 Only 1 item scrolls at a time
-    infinite: false,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 1000,
+    speed: 1000,
     arrows: true,
     swipeToSlide: true,      // ✅ Drag with mouse or touch
     draggable: true,

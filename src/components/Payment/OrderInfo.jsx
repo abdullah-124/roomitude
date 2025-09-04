@@ -15,14 +15,14 @@ function OrderInfo({ order }) {
         </aside>
       </header>
       <section className='border_bg rounded-md p-5'>
-        <table className='text-center w-full'>
+        <table className='text-center w-full text-sm'>
           <thead className=''>
             <tr className='bg'>
               <th className='py-1'>#</th>
               <th className='text-start'>Item Name</th>
-              <th>Unit Price</th>
+              <th className='whitespace-nowrap px-1'>Unit Price</th>
               <th>Quantity</th>
-              <th className='text-end pe-1'>Amount</th>
+              <th className='text-end px-1'>Amount</th>
             </tr>
           </thead>
           <tbody >

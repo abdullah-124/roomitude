@@ -82,7 +82,7 @@ export function OrderProvider({ children }) {
                     throw new Error(errorData.error || "Request failed");
                 }
                 const data = await res.json();
-                console.log("Response:", data);
+                // console.log("Response:", data);
                 setOrder(data);
             } catch (err) {
                 console.error("Checkout error:", err.message);
