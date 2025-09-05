@@ -52,8 +52,7 @@ export function AppProvider({ children }) {
                 // console.log('wiwi', data.wishlist)
             }
         } catch (err) {
-            const er = await res.json()
-            console.error(er)
+            console.error(err)
         } finally {
             setLoading(false)
         }

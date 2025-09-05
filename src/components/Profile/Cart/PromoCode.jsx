@@ -5,15 +5,18 @@ export default function PromoCode() {
   const { apply_promo_code } = useOrder()
   const [cupon, setCupon] = useState('')
   const [btn, setBtn] = useState(false)
-  useEffect(()=>{
-    if(!btn && cupon)setBtn(true)
+  useEffect(() => {
+    if (!btn && cupon) setBtn(true)
   })
   const handle_submit = () => {
     apply_promo_code(cupon)
   }
   return (
     <section className=''>
-      <p className='py-2 block font-semibold text_hl'>Promo Code</p>
+      <div className='py-2 flex justify-between items-center'>
+        <p className='block font-semibold text_hl'>Promo Code</p>
+        <p className='text-gray-500 text-xs'>Type anything</p>
+      </div>
       <div className='flex md:flex-col flex-row gap-2'>
         <input
           onChange={(e) => setCupon(e.target.value)}
